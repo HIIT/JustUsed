@@ -679,13 +679,13 @@
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" rowSizeStyle="automatic" headerView="tOi-Oc-W8U" viewBased="YES" id="IFW-8E-cia">
-                                            <rect key="frame" x="0.0" y="0.0" width="584" height="0.0"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="675" height="0.0"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <size key="intercellSpacing" width="3" height="2"/>
                                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                             <tableColumns>
-                                                <tableColumn width="116" minWidth="40" maxWidth="1000" id="15y-uQ-S5x">
+                                                <tableColumn width="269" minWidth="40" maxWidth="1000" id="15y-uQ-S5x">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left">
                                                         <font key="font" metaFont="smallSystem"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -698,8 +698,8 @@
                                                     </textFieldCell>
                                                     <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                     <connections>
-                                                        <binding destination="XfG-lQ-9wD" name="headerTitle" keyPath="kLastUsedDateTitle" id="Ffu-4h-wM3"/>
                                                         <binding destination="VaW-Jr-7AX" name="value" keyPath="arrangedObjects.kMDItemLastUsedDate" id="LaP-4H-o5y"/>
+                                                        <binding destination="XfG-lQ-9wD" name="headerTitle" keyPath="kLastUsedDateTitle" id="Ffu-4h-wM3"/>
                                                     </connections>
                                                 </tableColumn>
                                                 <tableColumn width="553" minWidth="40" maxWidth="1000" id="wPO-mO-jNv">
@@ -715,8 +715,8 @@
                                                     </textFieldCell>
                                                     <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                     <connections>
-                                                        <binding destination="XfG-lQ-9wD" name="headerTitle" keyPath="kPathTitle" id="SQJ-4m-7T5"/>
                                                         <binding destination="VaW-Jr-7AX" name="value" keyPath="arrangedObjects.kMDItemPath" id="lCt-rO-eNz"/>
+                                                        <binding destination="XfG-lQ-9wD" name="headerTitle" keyPath="kPathTitle" id="SQJ-4m-7T5"/>
                                                     </connections>
                                                 </tableColumn>
                                             </tableColumns>
@@ -727,7 +727,7 @@
                                 <constraints>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="342" id="Cra-7v-6av"/>
                                 </constraints>
-                                <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="Eg5-qg-ia6">
+                                <scroller key="horizontalScroller" verticalHuggingPriority="750" horizontal="YES" id="Eg5-qg-ia6">
                                     <rect key="frame" x="1" y="119" width="223" height="15"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
@@ -755,13 +755,13 @@
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" rowSizeStyle="automatic" headerView="L8r-Qc-W8z" viewBased="YES" id="I6U-o7-KeD">
-                                            <rect key="frame" x="0.0" y="0.0" width="584" height="0.0"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="809" height="0.0"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <size key="intercellSpacing" width="3" height="2"/>
                                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                             <tableColumns>
-                                                <tableColumn identifier="Last Used Date" width="116" minWidth="40" maxWidth="1000" id="Rbz-PI-YqF">
+                                                <tableColumn identifier="Last Used Date" width="262" minWidth="40" maxWidth="1000" id="Rbz-PI-YqF">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left">
                                                         <font key="font" metaFont="smallSystem"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -777,7 +777,7 @@
                                                         <binding destination="XfG-lQ-9wD" name="headerTitle" keyPath="kLastUsedDateTitle" id="qer-Lr-hri"/>
                                                     </connections>
                                                 </tableColumn>
-                                                <tableColumn identifier="File Path" width="553" minWidth="40" maxWidth="1000" id="ciO-j5-oKT">
+                                                <tableColumn identifier="File Path" width="360" minWidth="40" maxWidth="1000" id="ciO-j5-oKT">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left">
                                                         <font key="font" metaFont="smallSystem"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
