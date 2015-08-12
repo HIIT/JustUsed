@@ -14,7 +14,8 @@ class ViewController: NSViewController, NSTableViewDataSource {
     dynamic let kLastUsedDateTitle = "Last Used Date"
     dynamic let kPathTitle = "File Path"
     dynamic let kIndexTitle = "Index Int"
-    dynamic let kBoolPointTitle = "Bool point"
+    dynamic let kBoolPointTitle = "f_Stopped"
+    dynamic let kLocTitle = "Location description"
     
     /// Won't re-add a last used items if it was already used within the last x seconds
     let kMinSeconds = 300.0
@@ -26,11 +27,15 @@ class ViewController: NSViewController, NSTableViewDataSource {
     var lutimes = [String]()
     var lupaths = [String]()
     var integers = [String]()
+    var locations = [String]()
     var booleans = [String]()
     var dates = [NSDate]()
     
+    var initalLocation = ""
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.initalLocation = LocationSingleton.getLocationString()
 
         query = NSMetadataQuery()
         staticTable.setDataSource(self)
@@ -63,6 +68,7 @@ class ViewController: NSViewController, NSTableViewDataSource {
             dates.append(NSDate())
             lupaths.append(inputVal.valueForKey(kMDItemPath as! String)!.description)
             integers.append(index.description)
+            locations.append(LocationSingleton.getLocationString())
             if boolPoint.memory {
                 booleans.append("true")
             } else {
@@ -76,6 +82,7 @@ class ViewController: NSViewController, NSTableViewDataSource {
                 lutimes.append(NSDate().description)
                 lupaths.append(inputVal.valueForKey(kMDItemPath as! String)!.description)
                 integers.append(index.description)
+                locations.append(LocationSingleton.getLocationString())
                 dates[index] = NSDate()  // update first opening time when re-adding
             }
             if boolPoint.memory {
@@ -99,6 +106,8 @@ class ViewController: NSViewController, NSTableViewDataSource {
             return lupaths[row]
         } else if tableColumn!.identifier == kIndexTitle {
             return integers[row]
+        } else if tableColumn!.identifier == kLocTitle {
+            return locations[row]
         } else {
             return booleans[row]
         }
