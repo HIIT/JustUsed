@@ -183,10 +183,12 @@ class SafariHistoryFetcher {
                 }
                 
                 // Copy database
-                if fileManager.copyItemAtPath(filename, toPath: tempDataFile, error: &err) {
-                    println("file created")
-                } else {
-                    println(err?.description)
+                if fileManager.fileExistsAtPath(filename) {
+                    if fileManager.copyItemAtPath(filename, toPath: tempDataFile, error: &err) {
+                        println("file created")
+                    } else {
+                        println(err?.description)
+                    }
                 }
             }
             
@@ -197,7 +199,7 @@ class SafariHistoryFetcher {
         func getDBPaths() ->  [String] {
             let safariLib = NSHomeDirectory().stringByAppendingPathComponent("Library/Safari")
             
-            let filenames: [String] = ["History.db", "History.db-wal"]
+            let filenames: [String] = ["History.db", "History.db-wal", "History.db-shm"]
             
             var retVal = [String]()
             for filename in filenames {
