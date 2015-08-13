@@ -7,11 +7,20 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A913AA7D1B7C9CE700B9EFD1 /* SafariHistoryFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = A913AA7C1B7C9CE700B9EFD1 /* SafariHistoryFetcher.swift */; };
+		A913AA7F1B7CB75800B9EFD1 /* SpotlightTrackerSingleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A913AA7E1B7CB75800B9EFD1 /* SpotlightTrackerSingleton.swift */; };
+		A913AA831B7CB89A00B9EFD1 /* JustUsedConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A913AA821B7CB89A00B9EFD1 /* JustUsedConstants.swift */; };
 		A9438DD51B7A3F0400F1A54B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9438DD41B7A3F0400F1A54B /* AppDelegate.swift */; };
 		A9438DD71B7A3F0400F1A54B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9438DD61B7A3F0400F1A54B /* ViewController.swift */; };
 		A9438DD91B7A3F0400F1A54B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A9438DD81B7A3F0400F1A54B /* Images.xcassets */; };
 		A9438DDC1B7A3F0400F1A54B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A9438DDA1B7A3F0400F1A54B /* Main.storyboard */; };
 		A9438DE81B7A3F0400F1A54B /* JustUsedTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9438DE71B7A3F0400F1A54B /* JustUsedTests.swift */; };
+		A9D4A2D51B7B9B3400EC1D68 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A9D4A2D41B7B9B3400EC1D68 /* libsqlite3.dylib */; };
+		A9D4A2E31B7B9C5B00EC1D68 /* FMDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = A9D4A2D91B7B9C5B00EC1D68 /* FMDatabase.m */; };
+		A9D4A2E41B7B9C5B00EC1D68 /* FMDatabaseAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = A9D4A2DB1B7B9C5B00EC1D68 /* FMDatabaseAdditions.m */; };
+		A9D4A2E51B7B9C5B00EC1D68 /* FMDatabasePool.m in Sources */ = {isa = PBXBuildFile; fileRef = A9D4A2DD1B7B9C5B00EC1D68 /* FMDatabasePool.m */; };
+		A9D4A2E61B7B9C5B00EC1D68 /* FMDatabaseQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = A9D4A2DF1B7B9C5B00EC1D68 /* FMDatabaseQueue.m */; };
+		A9D4A2E71B7B9C5B00EC1D68 /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = A9D4A2E21B7B9C5B00EC1D68 /* FMResultSet.m */; };
 		A9FD30B81B7B2E8E0010514C /* LocationSingleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9FD30B71B7B2E8E0010514C /* LocationSingleton.swift */; };
 /* End PBXBuildFile section */
 
@@ -26,6 +35,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		A913AA7C1B7C9CE700B9EFD1 /* SafariHistoryFetcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SafariHistoryFetcher.swift; sourceTree = "<group>"; };
+		A913AA7E1B7CB75800B9EFD1 /* SpotlightTrackerSingleton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpotlightTrackerSingleton.swift; sourceTree = "<group>"; };
+		A913AA821B7CB89A00B9EFD1 /* JustUsedConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JustUsedConstants.swift; sourceTree = "<group>"; };
 		A9438DCF1B7A3F0400F1A54B /* JustUsed.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JustUsed.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A9438DD31B7A3F0400F1A54B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A9438DD41B7A3F0400F1A54B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -35,6 +47,19 @@
 		A9438DE11B7A3F0400F1A54B /* JustUsedTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = JustUsedTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A9438DE61B7A3F0400F1A54B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A9438DE71B7A3F0400F1A54B /* JustUsedTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JustUsedTests.swift; sourceTree = "<group>"; };
+		A9D4A2D41B7B9B3400EC1D68 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
+		A9D4A2D61B7B9C4F00EC1D68 /* JustUsed-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "JustUsed-Bridging-Header.h"; path = "JustUsed/JustUsed-Bridging-Header.h"; sourceTree = "<group>"; };
+		A9D4A2D81B7B9C5B00EC1D68 /* FMDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabase.h; sourceTree = "<group>"; };
+		A9D4A2D91B7B9C5B00EC1D68 /* FMDatabase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabase.m; sourceTree = "<group>"; };
+		A9D4A2DA1B7B9C5B00EC1D68 /* FMDatabaseAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabaseAdditions.h; sourceTree = "<group>"; };
+		A9D4A2DB1B7B9C5B00EC1D68 /* FMDatabaseAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabaseAdditions.m; sourceTree = "<group>"; };
+		A9D4A2DC1B7B9C5B00EC1D68 /* FMDatabasePool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabasePool.h; sourceTree = "<group>"; };
+		A9D4A2DD1B7B9C5B00EC1D68 /* FMDatabasePool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabasePool.m; sourceTree = "<group>"; };
+		A9D4A2DE1B7B9C5B00EC1D68 /* FMDatabaseQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabaseQueue.h; sourceTree = "<group>"; };
+		A9D4A2DF1B7B9C5B00EC1D68 /* FMDatabaseQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabaseQueue.m; sourceTree = "<group>"; };
+		A9D4A2E01B7B9C5B00EC1D68 /* FMDB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDB.h; sourceTree = "<group>"; };
+		A9D4A2E11B7B9C5B00EC1D68 /* FMResultSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMResultSet.h; sourceTree = "<group>"; };
+		A9D4A2E21B7B9C5B00EC1D68 /* FMResultSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMResultSet.m; sourceTree = "<group>"; };
 		A9FD30B71B7B2E8E0010514C /* LocationSingleton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationSingleton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -43,6 +68,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A9D4A2D51B7B9B3400EC1D68 /* libsqlite3.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -59,6 +85,9 @@
 		A9438DC61B7A3F0300F1A54B = {
 			isa = PBXGroup;
 			children = (
+				A9D4A2D71B7B9C5B00EC1D68 /* fmdb */,
+				A9D4A2D61B7B9C4F00EC1D68 /* JustUsed-Bridging-Header.h */,
+				A9D4A2D41B7B9B3400EC1D68 /* libsqlite3.dylib */,
 				A9438DD11B7A3F0400F1A54B /* JustUsed */,
 				A9438DE41B7A3F0400F1A54B /* JustUsedTests */,
 				A9438DD01B7A3F0400F1A54B /* Products */,
@@ -77,11 +106,14 @@
 		A9438DD11B7A3F0400F1A54B /* JustUsed */ = {
 			isa = PBXGroup;
 			children = (
+				A9438DDA1B7A3F0400F1A54B /* Main.storyboard */,
 				A9438DD41B7A3F0400F1A54B /* AppDelegate.swift */,
 				A9438DD61B7A3F0400F1A54B /* ViewController.swift */,
+				A913AA821B7CB89A00B9EFD1 /* JustUsedConstants.swift */,
+				A913AA7C1B7C9CE700B9EFD1 /* SafariHistoryFetcher.swift */,
 				A9FD30B71B7B2E8E0010514C /* LocationSingleton.swift */,
+				A913AA7E1B7CB75800B9EFD1 /* SpotlightTrackerSingleton.swift */,
 				A9438DD81B7A3F0400F1A54B /* Images.xcassets */,
-				A9438DDA1B7A3F0400F1A54B /* Main.storyboard */,
 				A9438DD21B7A3F0400F1A54B /* Supporting Files */,
 			);
 			path = JustUsed;
@@ -110,6 +142,25 @@
 				A9438DE61B7A3F0400F1A54B /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		A9D4A2D71B7B9C5B00EC1D68 /* fmdb */ = {
+			isa = PBXGroup;
+			children = (
+				A9D4A2D81B7B9C5B00EC1D68 /* FMDatabase.h */,
+				A9D4A2D91B7B9C5B00EC1D68 /* FMDatabase.m */,
+				A9D4A2DA1B7B9C5B00EC1D68 /* FMDatabaseAdditions.h */,
+				A9D4A2DB1B7B9C5B00EC1D68 /* FMDatabaseAdditions.m */,
+				A9D4A2DC1B7B9C5B00EC1D68 /* FMDatabasePool.h */,
+				A9D4A2DD1B7B9C5B00EC1D68 /* FMDatabasePool.m */,
+				A9D4A2DE1B7B9C5B00EC1D68 /* FMDatabaseQueue.h */,
+				A9D4A2DF1B7B9C5B00EC1D68 /* FMDatabaseQueue.m */,
+				A9D4A2E01B7B9C5B00EC1D68 /* FMDB.h */,
+				A9D4A2E11B7B9C5B00EC1D68 /* FMResultSet.h */,
+				A9D4A2E21B7B9C5B00EC1D68 /* FMResultSet.m */,
+			);
+			name = fmdb;
+			path = JustUsed/fmdb;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -212,8 +263,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				A9438DD71B7A3F0400F1A54B /* ViewController.swift in Sources */,
+				A9D4A2E51B7B9C5B00EC1D68 /* FMDatabasePool.m in Sources */,
+				A913AA831B7CB89A00B9EFD1 /* JustUsedConstants.swift in Sources */,
+				A913AA7D1B7C9CE700B9EFD1 /* SafariHistoryFetcher.swift in Sources */,
+				A913AA7F1B7CB75800B9EFD1 /* SpotlightTrackerSingleton.swift in Sources */,
 				A9FD30B81B7B2E8E0010514C /* LocationSingleton.swift in Sources */,
+				A9D4A2E61B7B9C5B00EC1D68 /* FMDatabaseQueue.m in Sources */,
 				A9438DD51B7A3F0400F1A54B /* AppDelegate.swift in Sources */,
+				A9D4A2E31B7B9C5B00EC1D68 /* FMDatabase.m in Sources */,
+				A9D4A2E71B7B9C5B00EC1D68 /* FMResultSet.m in Sources */,
+				A9D4A2E41B7B9C5B00EC1D68 /* FMDatabaseAdditions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -335,6 +394,7 @@
 				INFOPLIST_FILE = JustUsed/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "JustUsed/JustUsed-Bridging-Header.h";
 			};
 			name = Debug;
 		};
@@ -346,6 +406,7 @@
 				INFOPLIST_FILE = JustUsed/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "JustUsed/JustUsed-Bridging-Header.h";
 			};
 			name = Release;
 		};
