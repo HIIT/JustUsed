@@ -10,6 +10,8 @@
 		A913AA7D1B7C9CE700B9EFD1 /* SafariHistoryFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = A913AA7C1B7C9CE700B9EFD1 /* SafariHistoryFetcher.swift */; };
 		A913AA7F1B7CB75800B9EFD1 /* SpotlightTrackerSingleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A913AA7E1B7CB75800B9EFD1 /* SpotlightTrackerSingleton.swift */; };
 		A913AA831B7CB89A00B9EFD1 /* JustUsedConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A913AA821B7CB89A00B9EFD1 /* JustUsedConstants.swift */; };
+		A913AA851B7CFF9100B9EFD1 /* XCGLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = A913AA841B7CFF9100B9EFD1 /* XCGLogger.swift */; };
+		A913AA871B7D019C00B9EFD1 /* AppSingleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A913AA861B7D019C00B9EFD1 /* AppSingleton.swift */; };
 		A9438DD51B7A3F0400F1A54B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9438DD41B7A3F0400F1A54B /* AppDelegate.swift */; };
 		A9438DD71B7A3F0400F1A54B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9438DD61B7A3F0400F1A54B /* ViewController.swift */; };
 		A9438DD91B7A3F0400F1A54B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A9438DD81B7A3F0400F1A54B /* Images.xcassets */; };
@@ -38,6 +40,8 @@
 		A913AA7C1B7C9CE700B9EFD1 /* SafariHistoryFetcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SafariHistoryFetcher.swift; sourceTree = "<group>"; };
 		A913AA7E1B7CB75800B9EFD1 /* SpotlightTrackerSingleton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpotlightTrackerSingleton.swift; sourceTree = "<group>"; };
 		A913AA821B7CB89A00B9EFD1 /* JustUsedConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JustUsedConstants.swift; sourceTree = "<group>"; };
+		A913AA841B7CFF9100B9EFD1 /* XCGLogger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = XCGLogger.swift; path = JustUsed/XCGLogger.swift; sourceTree = "<group>"; };
+		A913AA861B7D019C00B9EFD1 /* AppSingleton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppSingleton.swift; sourceTree = "<group>"; };
 		A9438DCF1B7A3F0400F1A54B /* JustUsed.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JustUsed.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A9438DD31B7A3F0400F1A54B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A9438DD41B7A3F0400F1A54B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -85,6 +89,7 @@
 		A9438DC61B7A3F0300F1A54B = {
 			isa = PBXGroup;
 			children = (
+				A913AA841B7CFF9100B9EFD1 /* XCGLogger.swift */,
 				A9D4A2D71B7B9C5B00EC1D68 /* fmdb */,
 				A9D4A2D61B7B9C4F00EC1D68 /* JustUsed-Bridging-Header.h */,
 				A9D4A2D41B7B9B3400EC1D68 /* libsqlite3.dylib */,
@@ -108,6 +113,7 @@
 			children = (
 				A9438DDA1B7A3F0400F1A54B /* Main.storyboard */,
 				A9438DD41B7A3F0400F1A54B /* AppDelegate.swift */,
+				A913AA861B7D019C00B9EFD1 /* AppSingleton.swift */,
 				A9438DD61B7A3F0400F1A54B /* ViewController.swift */,
 				A913AA821B7CB89A00B9EFD1 /* JustUsedConstants.swift */,
 				A913AA7C1B7C9CE700B9EFD1 /* SafariHistoryFetcher.swift */,
@@ -264,12 +270,14 @@
 			files = (
 				A9438DD71B7A3F0400F1A54B /* ViewController.swift in Sources */,
 				A9D4A2E51B7B9C5B00EC1D68 /* FMDatabasePool.m in Sources */,
+				A913AA871B7D019C00B9EFD1 /* AppSingleton.swift in Sources */,
 				A913AA831B7CB89A00B9EFD1 /* JustUsedConstants.swift in Sources */,
 				A913AA7D1B7C9CE700B9EFD1 /* SafariHistoryFetcher.swift in Sources */,
 				A913AA7F1B7CB75800B9EFD1 /* SpotlightTrackerSingleton.swift in Sources */,
 				A9FD30B81B7B2E8E0010514C /* LocationSingleton.swift in Sources */,
 				A9D4A2E61B7B9C5B00EC1D68 /* FMDatabaseQueue.m in Sources */,
 				A9438DD51B7A3F0400F1A54B /* AppDelegate.swift in Sources */,
+				A913AA851B7CFF9100B9EFD1 /* XCGLogger.swift in Sources */,
 				A9D4A2E31B7B9C5B00EC1D68 /* FMDatabase.m in Sources */,
 				A9D4A2E71B7B9C5B00EC1D68 /* FMResultSet.m in Sources */,
 				A9D4A2E41B7B9C5B00EC1D68 /* FMDatabaseAdditions.m in Sources */,

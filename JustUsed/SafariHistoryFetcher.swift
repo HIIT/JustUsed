@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Cocoa
 
 /// Implementers of this protocol can receive updates regarding newer history items.
 protocol SafariHistoryUpdateDelegate {
@@ -127,7 +128,7 @@ class SafariHistoryFetcher {
             // Remove temporary files
             for filePath in tempPaths {
                 if fileManager.removeItemAtPath(filePath, error: &err) {
-                    println("succesfully removed")
+                    AppSingleton.log.debug("succesfully removed")
                 }
             }
             
@@ -167,7 +168,7 @@ class SafariHistoryFetcher {
             let tempDirBase = NSTemporaryDirectory().stringByAppendingPathComponent("hiit.JustUsed")
             var err: NSError?
             if fileManager.createDirectoryAtPath(tempDirBase, withIntermediateDirectories: true, attributes: nil, error: &err) {
-                println("directory created succesfully")
+                AppSingleton.log.debug("directory created succesfully")
             }
             
             // Copy files
@@ -176,18 +177,18 @@ class SafariHistoryFetcher {
                 allPaths.append(tempDataFile)
                 
                 if fileManager.fileExistsAtPath(tempDataFile) {
-                    println("file exists already")
+                    AppSingleton.log.debug("file exists already")
                     if fileManager.removeItemAtPath(tempDataFile, error: &err) {
-                        println("succesfully removed")
+                        AppSingleton.log.debug("succesfully removed")
                     }
                 }
                 
                 // Copy database
                 if fileManager.fileExistsAtPath(filename) {
                     if fileManager.copyItemAtPath(filename, toPath: tempDataFile, error: &err) {
-                        println("file created")
+                        AppSingleton.log.debug("file created")
                     } else {
-                        println(err?.description)
+                        AppSingleton.log.debug(err?.description)
                     }
                 }
             }
