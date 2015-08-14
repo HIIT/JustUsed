@@ -12,10 +12,16 @@ class AppSingleton {
     static let log = AppSingleton.createLog()
     
     static func createLog() -> XCGLogger {
+        var error: NSError? = nil
+        var firstLine: String = "Log directory succesfully created / present"
         let tempDirBase = NSTemporaryDirectory().stringByAppendingPathComponent("hiit.JustUsed")
-        let logFilePath = tempDirBase.stringByAppendingPathComponent("test.log")
+            if !NSFileManager.defaultManager().createDirectoryAtPath(tempDirBase, withIntermediateDirectories: true, attributes: nil, error: &error) {
+                firstLine = "Error creating log directory: " + error!.description
+            }
+        let logFilePath = tempDirBase.stringByAppendingPathComponent("XCGLog.log")
         let newLog = XCGLogger.defaultInstance()
         newLog.setup(logLevel: .Debug, showThreadName: true, showLogLevel: true, showFileNames: true, showLineNumbers: true, writeToFile: logFilePath, fileLogLevel: .Debug)
+        newLog.debug(firstLine)
         return newLog
     }
     
