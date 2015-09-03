@@ -38,6 +38,7 @@ class SpotlightTracker: NSObject, NSTableViewDataSource {
     var locations = [String]()
     var booleans = [String]()
     var dates = [NSDate]()
+    var mimes = [String]()
     
     var initalLocation = ""
     
@@ -79,8 +80,21 @@ class SpotlightTracker: NSObject, NSTableViewDataSource {
         if index >= dates.count {
             lutimes.append(NSDate().descriptionWithLocale(NSLocale.currentLocale())!)
             dates.append(NSDate())
-            lupaths.append(inputVal.valueForKey(kMDItemPath as! String)!.description)
+            let path = inputVal.valueForKey(kMDItemPath as! String)!.description
+            lupaths.append(path)
             integers.append(index.description)
+            let UTI = UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension, path.pathExtension, nil)
+            let MIMEType = UTTypeCopyPreferredTagWithClass(UTI.takeRetainedValue(), kUTTagClassMIMEType)
+            var isDir = ObjCBool(false)
+            if let mimet = MIMEType {
+                mimes.append(mimet.takeRetainedValue() as String)
+            } else if NSFileManager.defaultManager().fileExistsAtPath(path, isDirectory: &isDir) {
+                if isDir {
+                    mimes.append("application/x-directory")
+                } else {
+                    mimes.append("application/octet-stream")
+                }
+            }
             locations.append(LocationSingleton.getLocationString())
             if boolPoint.memory {
                 booleans.append("true")
@@ -93,8 +107,21 @@ class SpotlightTracker: NSObject, NSTableViewDataSource {
             let previousDate = dates[index]
             if shiftedDate.compare(previousDate) == NSComparisonResult.OrderedDescending {
                 lutimes.append(NSDate().description)
-                lupaths.append(inputVal.valueForKey(kMDItemPath as! String)!.description)
+                let path = inputVal.valueForKey(kMDItemPath as! String)!.description
+                lupaths.append(path)
                 integers.append(index.description)
+                let UTI = UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension, path.pathExtension, nil)
+                let MIMEType = UTTypeCopyPreferredTagWithClass(UTI.takeRetainedValue(), kUTTagClassMIMEType)
+                var isDir = ObjCBool(false)
+                if let mimet = MIMEType {
+                    mimes.append(mimet.takeRetainedValue() as String)
+                } else if NSFileManager.defaultManager().fileExistsAtPath(path, isDirectory: &isDir) {
+                    if isDir {
+                        mimes.append("application/x-directory")
+                    } else {
+                        mimes.append("application/octet-stream")
+                    }
+                }
                 locations.append(LocationSingleton.getLocationString())
                 dates[index] = NSDate()  // update first opening time when re-adding
             }
@@ -121,6 +148,8 @@ class SpotlightTracker: NSObject, NSTableViewDataSource {
             return integers[row]
         } else if tableColumn!.identifier == JustUsedConstants.kLocTitle {
             return locations[row]
+        } else if tableColumn!.identifier == JustUsedConstants.kMimeType {
+            return mimes[row]
         } else {
             return booleans[row]
         }

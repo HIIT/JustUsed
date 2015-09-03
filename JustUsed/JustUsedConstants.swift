@@ -14,6 +14,7 @@ class JustUsedConstants {
     static let kPathTitle = "File Path"
     static let kIndexTitle = "Index Int"
     static let kBoolPointTitle = "f_Stopped"
+    static let kMimeType = "Mime type"
     static let kLocTitle = "Location description"
     static let kSHistoryDate = "URL Visit time"
     static let kSHistoryURL = "Visited URL"
