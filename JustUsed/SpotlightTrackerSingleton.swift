@@ -92,7 +92,13 @@ class SpotlightTracker: NSObject, NSTableViewDataSource {
                 if isDir {
                     mimes.append("application/x-directory")
                 } else {
-                    mimes.append("application/octet-stream")
+                    // if the file exists but it's not a directory and has no known mime type
+                    var foundEncoding: UInt = 0
+                    if let foundString = NSString(contentsOfURL: NSURL(fileURLWithPath: path)!, usedEncoding: &foundEncoding, error: nil) {
+                        mimes.append("text/plain")
+                    } else {
+                        mimes.append("application/octet-stream")
+                    }
                 }
             }
             locations.append(LocationSingleton.getLocationString())
@@ -119,7 +125,13 @@ class SpotlightTracker: NSObject, NSTableViewDataSource {
                     if isDir {
                         mimes.append("application/x-directory")
                     } else {
-                        mimes.append("application/octet-stream")
+                        // if the file exists but it's not a directory and has no known mime type
+                        var foundEncoding: UInt = 0
+                        if let foundString = NSString(contentsOfURL: NSURL(fileURLWithPath: path)!, usedEncoding: &foundEncoding, error: nil) {
+                            mimes.append("text/plain")
+                        } else {
+                            mimes.append("application/octet-stream")
+                        }
                     }
                 }
                 locations.append(LocationSingleton.getLocationString())
