@@ -47,7 +47,7 @@ class SafariTrackerDataSource: NSObject, NSTableViewDataSource {
     // Insert data avoiding duplicates
     func insterNewData(newURLs: [HistItem]) {
         for newUrl in newURLs {
-            if !contains(allHistory, newUrl) {
+            if !allHistory.contains(newUrl) {
                 allHistory.append(newUrl)
             }
         }
@@ -55,7 +55,7 @@ class SafariTrackerDataSource: NSObject, NSTableViewDataSource {
     
     /// MARK: Table data source
     func numberOfRowsInTableView(aTableView: NSTableView) -> Int {
-        return count(allHistory)
+        return allHistory.count
     }
     
     

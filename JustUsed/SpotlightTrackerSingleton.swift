@@ -60,7 +60,7 @@ class SpotlightTracker: NSObject, NSTableViewDataSource {
         
         // Now, we don't want to include email messages in the result set, so add in an AND that excludes them
         let emailExclusionPredicate = NSPredicate(format: "(kMDItemContentType != 'com.apple.mail.emlx') && (kMDItemContentType != 'public.vcard')", argumentArray: nil)
-        predicateToRun = NSCompoundPredicate.andPredicateWithSubpredicates([predicateToRun, emailExclusionPredicate])
+        predicateToRun = NSCompoundPredicate(andPredicateWithSubpredicates: [predicateToRun, emailExclusionPredicate])
         
         query?.predicate = predicateToRun
         query?.startQuery()
@@ -78,13 +78,14 @@ class SpotlightTracker: NSObject, NSTableViewDataSource {
     func updateBlock(input: AnyObject!, index: Int, boolPoint: UnsafeMutablePointer<ObjCBool>) {
         let inputVal = input as! NSMetadataItem
         if index >= dates.count {
-            lutimes.append(NSDate().descriptionWithLocale(NSLocale.currentLocale())!)
+            lutimes.append(NSDate().descriptionWithLocale(NSLocale.currentLocale()))
             dates.append(NSDate())
-            let path = inputVal.valueForKey(kMDItemPath as! String)!.description
+            let path = inputVal.valueForKey(kMDItemPath as String)!.description
             lupaths.append(path)
             integers.append(index.description)
-            let UTI = UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension, path.pathExtension, nil)
-            let MIMEType = UTTypeCopyPreferredTagWithClass(UTI.takeRetainedValue(), kUTTagClassMIMEType)
+            let pathURL = NSURL(fileURLWithPath: path)
+            let UTI = UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension, pathURL.pathExtension!, nil)
+            let MIMEType = UTTypeCopyPreferredTagWithClass(UTI!.takeRetainedValue(), kUTTagClassMIMEType)
             var isDir = ObjCBool(false)
             if let mimet = MIMEType {
                 mimes.append(mimet.takeRetainedValue() as String)
@@ -94,7 +95,7 @@ class SpotlightTracker: NSObject, NSTableViewDataSource {
                 } else {
                     // if the file exists but it's not a directory and has no known mime type
                     var foundEncoding: UInt = 0
-                    if let foundString = NSString(contentsOfURL: NSURL(fileURLWithPath: path)!, usedEncoding: &foundEncoding, error: nil) {
+                    if let foundString = try? NSString(contentsOfURL: NSURL(fileURLWithPath: path), usedEncoding: &foundEncoding) {
                         mimes.append("text/plain")
                     } else {
                         mimes.append("application/octet-stream")
@@ -113,11 +114,12 @@ class SpotlightTracker: NSObject, NSTableViewDataSource {
             let previousDate = dates[index]
             if shiftedDate.compare(previousDate) == NSComparisonResult.OrderedDescending {
                 lutimes.append(NSDate().description)
-                let path = inputVal.valueForKey(kMDItemPath as! String)!.description
+                let path = inputVal.valueForKey(kMDItemPath as String)!.description
                 lupaths.append(path)
                 integers.append(index.description)
-                let UTI = UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension, path.pathExtension, nil)
-                let MIMEType = UTTypeCopyPreferredTagWithClass(UTI.takeRetainedValue(), kUTTagClassMIMEType)
+                let pathURL = NSURL(fileURLWithPath: path)
+                let UTI = UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension, pathURL.pathExtension!, nil)
+                let MIMEType = UTTypeCopyPreferredTagWithClass(UTI!.takeRetainedValue(), kUTTagClassMIMEType)
                 var isDir = ObjCBool(false)
                 if let mimet = MIMEType {
                     mimes.append(mimet.takeRetainedValue() as String)
@@ -127,7 +129,7 @@ class SpotlightTracker: NSObject, NSTableViewDataSource {
                     } else {
                         // if the file exists but it's not a directory and has no known mime type
                         var foundEncoding: UInt = 0
-                        if let foundString = NSString(contentsOfURL: NSURL(fileURLWithPath: path)!, usedEncoding: &foundEncoding, error: nil) {
+                        if let foundString = try? NSString(contentsOfURL: NSURL(fileURLWithPath: path), usedEncoding: &foundEncoding) {
                             mimes.append("text/plain")
                         } else {
                             mimes.append("application/octet-stream")
@@ -147,7 +149,7 @@ class SpotlightTracker: NSObject, NSTableViewDataSource {
     
     /// MARK: Static table data source
     func numberOfRowsInTableView(aTableView: NSTableView) -> Int {
-        return count(lutimes)
+        return lutimes.count
     }
     
     

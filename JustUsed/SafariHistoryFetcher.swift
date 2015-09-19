@@ -68,7 +68,7 @@ class SafariHistoryFetcher {
         
         required override init() {
             lastUpdateTime = NSDate()
-            lastDBFileUpdate = NSDate.distantPast() as! NSDate  // Initialise to be as early as possible.
+            lastDBFileUpdate = NSDate.distantPast() // Initialise to be as early as possible.
             super.init()
             historyCheck()
         }
@@ -82,7 +82,8 @@ class SafariHistoryFetcher {
         /// Update history. It is called automatically after creation and every kSafariHistoryCheckTime seconds
         /// Copies current database to temporary directory because safari keeps lock on it (maybe fmdb / sqlite3 has a bug and we can't even read without copying).
         func historyCheck() {
-            let oriHistPath = NSHomeDirectory().stringByAppendingPathComponent("Library/Safari/History.db")
+            //let oriHistURL = NSURL(fileURLWithPath: NSHomeDirectory()).URLByAppendingPathComponent("Library/Safari/History.db")
+            //let oriHistPath = oriHistURL.absoluteString
             
             var err: NSError?  // Note: reusing same error here
             
@@ -127,8 +128,11 @@ class SafariHistoryFetcher {
             
             // Remove temporary files
             for filePath in tempPaths {
-                if fileManager.removeItemAtPath(filePath, error: &err) {
+                do {
+                    try fileManager.removeItemAtPath(filePath)
                     AppSingleton.log.debug("succesfully removed")
+                } catch let error as NSError {
+                    err = error
                 }
             }
             
@@ -143,19 +147,22 @@ class SafariHistoryFetcher {
         func latestDBTime() -> NSDate {
             var dates = [NSDate]()
             
-            for filename in getDBPaths() {
+            for fileUrl in getDBPaths() {
                 
-                let fileUrl = NSURL.fileURLWithPath(filename)
                 var inVal: AnyObject?
                 var myError: NSError?
-                fileUrl?.getResourceValue(&inVal, forKey: NSURLContentModificationDateKey, error: &myError)
+                do {
+                    try fileUrl.getResourceValue(&inVal, forKey: NSURLContentModificationDateKey)
+                } catch let error as NSError {
+                    myError = error
+                }
                 if let fileDate = inVal as? NSDate {
                     dates.append(fileDate)
                     
                 }
                 
             }
-            dates.sort({ $0.compare($1) == NSComparisonResult.OrderedDescending })
+            dates.sortInPlace({ $0.compare($1) == NSComparisonResult.OrderedDescending })
             return dates[0]
         }
         
@@ -165,29 +172,40 @@ class SafariHistoryFetcher {
             
             var allPaths = [String]()  // paths will be put here
             // Create temporary directory and delete previous temporary file (if present)
-            let tempDirBase = NSTemporaryDirectory().stringByAppendingPathComponent("hiit.JustUsed")
+            let tempURL = NSURL(fileURLWithPath: NSTemporaryDirectory()).URLByAppendingPathComponent("hiit.JustUsed")
+            let tempDirBase = tempURL.path!
             var err: NSError?
-            if fileManager.createDirectoryAtPath(tempDirBase, withIntermediateDirectories: true, attributes: nil, error: &err) {
+            do {
+                try fileManager.createDirectoryAtURL(tempURL, withIntermediateDirectories: true, attributes: nil)
                 AppSingleton.log.debug("directory created succesfully")
+            } catch let error as NSError {
+                err = error
             }
             
             // Copy files
-            for filename in getDBPaths() {
-                let tempDataFile = tempDirBase.stringByAppendingPathComponent("Safari_copied_") + filename.lastPathComponent
+            for dbPathURL in getDBPaths() {
+                let filenameURL = dbPathURL
+                let tempDataFileURL = tempURL.URLByAppendingPathComponent("Safari_copied_\(filenameURL.lastPathComponent!)")
+                let tempDataFile = tempDataFileURL.path!
                 allPaths.append(tempDataFile)
                 
                 if fileManager.fileExistsAtPath(tempDataFile) {
                     AppSingleton.log.debug("file exists already")
-                    if fileManager.removeItemAtPath(tempDataFile, error: &err) {
+                    do {
+                        try fileManager.removeItemAtURL(tempDataFileURL)
                         AppSingleton.log.debug("succesfully removed")
+                    } catch let error as NSError {
+                        err = error
                     }
                 }
                 
                 // Copy database
-                if fileManager.fileExistsAtPath(filename) {
-                    if fileManager.copyItemAtPath(filename, toPath: tempDataFile, error: &err) {
+                if fileManager.fileExistsAtPath(dbPathURL.path!) {
+                    do {
+                        try fileManager.copyItemAtURL(dbPathURL, toURL: tempDataFileURL)
                         AppSingleton.log.debug("file created")
-                    } else {
+                    } catch let error as NSError {
+                        err = error
                         AppSingleton.log.debug(err?.description)
                     }
                 }
@@ -197,14 +215,14 @@ class SafariHistoryFetcher {
         }
         
         /// Gets path of both .db and .db-wal files, in an array of String
-        func getDBPaths() ->  [String] {
-            let safariLib = NSHomeDirectory().stringByAppendingPathComponent("Library/Safari")
+        func getDBPaths() ->  [NSURL] {
+            let safariLibURL = NSURL(fileURLWithPath: NSHomeDirectory()).URLByAppendingPathComponent("Library/Safari")
             
             let filenames: [String] = ["History.db", "History.db-wal", "History.db-shm"]
             
-            var retVal = [String]()
+            var retVal = [NSURL]()
             for filename in filenames {
-                retVal.append(safariLib.stringByAppendingPathComponent(filename))
+                retVal.append(safariLibURL.URLByAppendingPathComponent(filename))
             }
             return retVal
         }

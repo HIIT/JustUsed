@@ -53,7 +53,7 @@ class LocationController: NSObject, CLLocationManagerDelegate {
         
     }
     
-    func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
+    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [AnyObject]) {
         if let retLoc = locations[0] as? CLLocation {
             geoMan.reverseGeocodeLocation(retLoc) {
             
@@ -61,7 +61,7 @@ class LocationController: NSObject, CLLocationManagerDelegate {
                 if let error = error {
                     self.locString = "Error reversing: \(error.description)"
                 } else {
-                    let placemark = placemarkA[0] as! CLPlacemark
+                    let placemark = placemarkA![0]
                     self.locString = "Country: \(placemark.country), City: \(placemark.locality), Subloc: \(placemark.subLocality), Detail: \(placemark.thoroughfare)"
                 }
                 
