@@ -19,4 +19,4 @@ JustUsed tracks the database
 The following GitHub projects are incorporated into JustUsed (no additional download needed). Both were released under the MIT license.
 
 - [FMDB version 2.5](https://github.com/ccgus/fmdb/releases/tag/v2.5) - to track Safari's SQLite database
-- [XCGLogger version 2.2](https://github.com/DaveWoodCom/XCGLogger/releases/tag/Version_2.2) - To output logs to terminal and files
+- [XCGLogger version 3.0](https://github.com/DaveWoodCom/XCGLogger/releases/tag/Version_3.0) - To output logs to terminal and files
