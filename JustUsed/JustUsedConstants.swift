@@ -21,6 +21,9 @@ class JustUsedConstants {
     static let kSHistoryTitle = "Page title"
     static let kMenuImageName = "DiMeTemplate"
     
+    // Minumum amount of seconds needed to re-adding a spotlight item to history (to prevent many duplicates)
+    static let kSpotlightMinSeconds = 300.0
+    
     /// Date formatter shared in DiMe submissions (uses date format below)
     static let diMeDateFormatter = JustUsedConstants.makeDateFormatter()
     

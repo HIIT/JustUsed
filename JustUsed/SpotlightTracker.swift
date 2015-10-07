@@ -78,10 +78,11 @@ extension NSMetadataItem {
 class SpotlightTracker: NSObject {
     
     /// Won't re-add a last used item if it is already used within the last x seconds
-    let kMinSeconds = 300.0
+    let kMinSeconds = JustUsedConstants.kSpotlightMinSeconds
     
     dynamic var query: NSMetadataQuery?
     
+    /// Stores all items found by spotlight. Items are stored in the same index used by spotlight, so item 0 in this list correponds to the first item found after starting the application
     private var allItems = [SpotlightHistItem]()
     
     private var SpotlightHistoryUpdateDelegates: [SpotlightHistoryUpdateDelegate]?
@@ -125,6 +126,7 @@ class SpotlightTracker: NSObject {
             for delegate in SpotlightHistoryUpdateDelegates! {
                 delegate.newSpotlightData(newHistItem)
             }
+            allItems.append(newHistItem)
         } else {
             // Only re-add items if first time that it was opened was before kMinSeconds from now
             let shiftedDate = NSDate().dateByAddingTimeInterval(-kMinSeconds)
