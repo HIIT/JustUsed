@@ -34,6 +34,11 @@ class ViewController: NSViewController, SpotlightTrackerDelegate, SafariHistoryU
         historyDataSource.insterNewData(newURLs)
         safariTable.reloadData()
     }
+    
+    @IBAction func quitButtonPress(sender: NSButton) {
+        let delegate = NSApplication.sharedApplication().delegate! as! AppDelegate
+        delegate.quit()
+    }
 }
 
 class SafariTrackerDataSource: NSObject, NSTableViewDataSource {

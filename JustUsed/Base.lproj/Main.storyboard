@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14F27" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="15A284" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="7706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="8191"/>
     </dependencies>
     <scenes>
         <!--Application-->
@@ -667,20 +667,21 @@
         <!--View Controller-->
         <scene sceneID="hIz-AP-VOD">
             <objects>
-                <viewController id="XfG-lQ-9wD" customClass="ViewController" customModule="JustUsed" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="View Controller" id="XfG-lQ-9wD" userLabel="View Controller" customClass="ViewController" customModule="JustUsed" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="m2S-Jp-Qdl">
-                        <rect key="frame" x="0.0" y="0.0" width="1654" height="820"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1013" height="741"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <scrollView autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o36-kD-YAP" userLabel="Static table">
-                                <rect key="frame" x="20" y="20" width="796" height="755"/>
+                                <rect key="frame" x="20" y="20" width="476" height="621"/>
                                 <clipView key="contentView" id="fzG-n3-cuo">
-                                    <rect key="frame" x="1" y="17" width="238" height="117"/>
+                                    <rect key="frame" x="1" y="0.0" width="474" height="620"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" rowSizeStyle="automatic" headerView="L8r-Qc-W8z" viewBased="YES" id="I6U-o7-KeD">
-                                            <rect key="frame" x="0.0" y="0.0" width="1229" height="0.0"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="1296" height="597"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <animations/>
                                             <size key="intercellSpacing" width="3" height="2"/>
                                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
@@ -766,30 +767,36 @@
                                             </tableColumns>
                                         </tableView>
                                     </subviews>
+                                    <animations/>
                                     <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </clipView>
-                                <scroller key="horizontalScroller" verticalHuggingPriority="750" horizontal="YES" id="w6A-F4-dVc">
-                                    <rect key="frame" x="1" y="119" width="223" height="15"/>
+                                <animations/>
+                                <scroller key="horizontalScroller" verticalHuggingPriority="750" doubleValue="0.0024330900243309003" horizontal="YES" id="w6A-F4-dVc">
+                                    <rect key="frame" x="1" y="604" width="474" height="16"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <animations/>
                                 </scroller>
                                 <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="hc6-dM-1ER">
                                     <rect key="frame" x="224" y="17" width="15" height="102"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <animations/>
                                 </scroller>
                                 <tableHeaderView key="headerView" id="L8r-Qc-W8z">
-                                    <rect key="frame" x="0.0" y="0.0" width="238" height="17"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="1296" height="23"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <animations/>
                                 </tableHeaderView>
                             </scrollView>
                             <scrollView autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mYd-Je-soU" userLabel="Safari History Table">
-                                <rect key="frame" x="838" y="20" width="796" height="755"/>
+                                <rect key="frame" x="518" y="20" width="475" height="621"/>
                                 <clipView key="contentView" id="irK-8u-pqw">
-                                    <rect key="frame" x="1" y="17" width="238" height="117"/>
+                                    <rect key="frame" x="1" y="0.0" width="473" height="620"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" rowSizeStyle="automatic" headerView="sBH-je-YnF" viewBased="YES" id="Wy3-QN-NTT">
-                                            <rect key="frame" x="0.0" y="0.0" width="793" height="0.0"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="694" height="597"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <animations/>
                                             <size key="intercellSpacing" width="3" height="2"/>
                                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
@@ -833,7 +840,7 @@
                                                     </textFieldCell>
                                                     <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                 </tableColumn>
-                                                <tableColumn identifier="Location description" width="110" minWidth="10" maxWidth="3.4028234663852886e+38" id="hBJ-PF-g0P">
+                                                <tableColumn identifier="Location description" width="10" minWidth="10" maxWidth="3.4028234663852886e+38" id="hBJ-PF-g0P">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Location description">
                                                         <font key="font" metaFont="smallSystem"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -849,23 +856,29 @@
                                             </tableColumns>
                                         </tableView>
                                     </subviews>
+                                    <animations/>
                                     <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </clipView>
-                                <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="Qjw-sg-Q4c">
-                                    <rect key="frame" x="1" y="119" width="223" height="15"/>
+                                <animations/>
+                                <scroller key="horizontalScroller" verticalHuggingPriority="750" horizontal="YES" id="Qjw-sg-Q4c">
+                                    <rect key="frame" x="1" y="604" width="473" height="16"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <animations/>
                                 </scroller>
                                 <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="znY-Za-o1Q">
                                     <rect key="frame" x="224" y="17" width="15" height="102"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <animations/>
                                 </scroller>
                                 <tableHeaderView key="headerView" id="sBH-je-YnF">
-                                    <rect key="frame" x="0.0" y="0.0" width="238" height="17"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="694" height="23"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <animations/>
                                 </tableHeaderView>
                             </scrollView>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Jpc-Gr-L7h">
-                                <rect key="frame" x="836" y="783" width="180" height="17"/>
+                                <rect key="frame" x="516" y="649" width="179" height="17"/>
+                                <animations/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Safari history (note: delayed)" id="47g-53-rVd">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -873,21 +886,44 @@
                                 </textFieldCell>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="wL0-Ce-Lef">
-                                <rect key="frame" x="18" y="783" width="99" height="17"/>
+                                <rect key="frame" x="18" y="649" width="99" height="17"/>
+                                <animations/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Used files table" id="7Wr-UH-0o7">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="SPa-BH-yWy">
+                                <rect key="frame" x="18" y="689" width="102" height="19"/>
+                                <animations/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="DiMe Logger" id="nFh-Mm-Tag">
+                                    <font key="font" metaFont="systemBold" size="16"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="oRs-iK-2HR">
+                                <rect key="frame" x="139" y="680" width="66" height="32"/>
+                                <animations/>
+                                <buttonCell key="cell" type="push" title="Quit" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="dG4-ZA-aSt">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="quitButtonPress:" target="XfG-lQ-9wD" id="enk-pi-Jyv"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <constraints>
                             <constraint firstItem="wL0-Ce-Lef" firstAttribute="leading" secondItem="o36-kD-YAP" secondAttribute="leading" id="3Hh-yz-mrj"/>
+                            <constraint firstItem="SPa-BH-yWy" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="33" id="AkG-x6-fLg"/>
                             <constraint firstItem="o36-kD-YAP" firstAttribute="top" secondItem="wL0-Ce-Lef" secondAttribute="bottom" constant="8" id="Cud-J2-hBQ"/>
-                            <constraint firstItem="Jpc-Gr-L7h" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="20" id="EtB-NO-OVE"/>
                             <constraint firstItem="Jpc-Gr-L7h" firstAttribute="leading" secondItem="mYd-Je-soU" secondAttribute="leading" id="KC4-hr-zMk"/>
                             <constraint firstItem="mYd-Je-soU" firstAttribute="height" secondItem="o36-kD-YAP" secondAttribute="height" id="MLP-V7-O4b"/>
                             <constraint firstItem="mYd-Je-soU" firstAttribute="leading" secondItem="o36-kD-YAP" secondAttribute="trailing" constant="22" id="Mna-mY-gfb"/>
+                            <constraint firstItem="Jpc-Gr-L7h" firstAttribute="top" secondItem="SPa-BH-yWy" secondAttribute="bottom" constant="23" id="QFK-7f-srK"/>
+                            <constraint firstItem="SPa-BH-yWy" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="20" id="Qo0-7v-kCd"/>
                             <constraint firstAttribute="bottom" secondItem="mYd-Je-soU" secondAttribute="bottom" constant="20" id="S8p-cy-k70"/>
                             <constraint firstItem="mYd-Je-soU" firstAttribute="width" secondItem="o36-kD-YAP" secondAttribute="width" id="Waf-wE-S9r"/>
                             <constraint firstItem="o36-kD-YAP" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="20" id="XFy-LD-OLX"/>
@@ -896,8 +932,9 @@
                             <constraint firstItem="wL0-Ce-Lef" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="20" id="hZz-Qc-dhv"/>
                             <constraint firstItem="Jpc-Gr-L7h" firstAttribute="leading" secondItem="o36-kD-YAP" secondAttribute="trailing" constant="22" id="iKb-3z-kiV"/>
                             <constraint firstItem="mYd-Je-soU" firstAttribute="top" secondItem="Jpc-Gr-L7h" secondAttribute="bottom" constant="8" id="qxL-3Q-5zY"/>
-                            <constraint firstItem="wL0-Ce-Lef" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="20" id="ycj-X5-18p"/>
+                            <constraint firstItem="wL0-Ce-Lef" firstAttribute="top" secondItem="SPa-BH-yWy" secondAttribute="bottom" constant="23" id="ypQ-9Q-rOI"/>
                         </constraints>
+                        <animations/>
                     </view>
                     <connections>
                         <outlet property="fileTable" destination="I6U-o7-KeD" id="a33-fG-aAI"/>
@@ -907,7 +944,7 @@
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
                 <userDefaultsController representsSharedInstance="YES" id="mM7-iu-X8s"/>
             </objects>
-            <point key="canvasLocation" x="609" y="956"/>
+            <point key="canvasLocation" x="288.5" y="861.5"/>
         </scene>
     </scenes>
 </document>
