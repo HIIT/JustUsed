@@ -11,17 +11,36 @@ import Cocoa
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
     
+    // View controller that will be displayed after pressing menubaar button
+    var viewController: ViewController?
+    
+    // Trackers
+    let safHistoryFetcher = SafariHistoryFetcher()
+    let spoTracker = SpotlightTracker()
+    
+    // Data sources to display tables in GUI
+    let safHistoryDataSource = SafariTrackerDataSource()
+    let spoHistoryDataSource = SpotlightTrackerDataSource()
+    
+    /// Popover that will be displayed while clicking on menubar button
     let popover = NSPopover() 
     
     let statusItem = NSStatusBar.systemStatusBar().statusItemWithLength(NSSquareStatusItemLength)
 
     func applicationDidFinishLaunching(aNotification: NSNotification) {
         if let button = statusItem.button {
-            button.image = NSImage(named: "DiMeTemplate")
+            button.image = NSImage(named: JustUsedConstants.kMenuImageName)
             button.action = Selector("togglePopover:")
         }
         let storyboard = NSStoryboard(name: "Main", bundle: nil)
-        popover.contentViewController = storyboard.instantiateControllerWithIdentifier("View Controller") as! ViewController
+        popover.behavior = NSPopoverBehavior.Transient
+        
+        // View controller and its delegation
+        self.viewController = (storyboard.instantiateControllerWithIdentifier("View Controller") as! ViewController)
+        viewController!.setSources(spoHistoryDataSource, safariSource: safHistoryDataSource)
+        popover.contentViewController = self.viewController!
+        safHistoryFetcher.addUpdateDelegate(self.viewController!)
+        spoTracker.addSpotlightDataDelegate(self.viewController!)
     }
 
     func applicationWillTerminate(aNotification: NSNotification) {

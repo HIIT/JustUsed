@@ -14,17 +14,17 @@ protocol SafariHistoryUpdateDelegate {
     
     /// Notifies an update to history items
     /// @param items An array of string containing new urls of new items just added to the history
-    func newHistoryItems(newURLs: [HistItem])
+    func newHistoryItems(newURLs: [SafariHistItem])
 }
 
 /// A new safari history item will be returned as this to the delegate
-struct HistItem: Equatable {
+struct SafariHistItem: Equatable {
     let date: NSDate
     let url: String
     let title: String
 }
 
-func ==(lhs: HistItem, rhs: HistItem) -> Bool {
+func ==(lhs: SafariHistItem, rhs: SafariHistItem) -> Bool {
     return lhs.url == rhs.url && lhs.date.compare(rhs.date) == NSComparisonResult.OrderedSame && lhs.title == rhs.title
 }
 
@@ -47,9 +47,9 @@ class SafariHistoryFetcher {
         checkTimer.valid
     }
     
-    /// A delegate uses this method in order to receive updates regarding new history urls
-    func setUpdateDelegate(updateDelegate: SafariHistoryUpdateDelegate) {
-        autoFetcher._updateDelegate = updateDelegate
+    /// A delegate adds itself using this in order to receive updates regarding new history urls
+    func addUpdateDelegate(updateDelegate: SafariHistoryUpdateDelegate) {
+        autoFetcher.addUpdateDelegate(updateDelegate)
     }
     
     /// Nested class to handle timer updates and calls to delegate
@@ -61,7 +61,7 @@ class SafariHistoryFetcher {
         /// Time that last history item has been communicated to delegate. We want to communicate new history items which are > this date.
         var lastUpdateTime: NSDate
         
-        var _updateDelegate: SafariHistoryUpdateDelegate?
+        private var updateDelegates: [SafariHistoryUpdateDelegate]?
         
         /// Ref to filemanager for convenience
         let fileManager = NSFileManager.defaultManager()
@@ -75,6 +75,13 @@ class SafariHistoryFetcher {
         
         @objc func timerFire(timer: NSTimer) {
             historyCheck()
+        }
+        
+        func addUpdateDelegate(newDelegate: SafariHistoryUpdateDelegate) {
+            if updateDelegates == nil {
+                updateDelegates = [SafariHistoryUpdateDelegate]()
+            }
+            updateDelegates!.append(newDelegate)
         }
         
         /// MARK: Main function
@@ -99,7 +106,7 @@ class SafariHistoryFetcher {
             let tempDBpath = tempPaths[0]
             
             // Perform database read
-            var new_urls = [HistItem]()
+            var new_urls = [SafariHistItem]()
             let db = FMDatabase(path: tempDBpath)
             db.open()
             let lastTime = self.lastUpdateTime.timeIntervalSinceReferenceDate as Double
@@ -120,7 +127,7 @@ class SafariHistoryFetcher {
                     while item_result.next() {
                         let item_dict = item_result.resultDictionary()
                         let item_url = item_dict["url"] as! String
-                        new_urls.append(HistItem(date: visit_date, url: item_url, title: visit_title))
+                        new_urls.append(SafariHistItem(date: visit_date, url: item_url, title: visit_title))
                     }
                 }
             }
@@ -133,11 +140,14 @@ class SafariHistoryFetcher {
                     AppSingleton.log.debug("succesfully removed")
                 } catch let error as NSError {
                     err = error
+                    AppSingleton.log.error("Something went wrong while removing old databases: \(err.debugDescription)")
                 }
             }
             
             if new_urls.count > 0 {
-                _updateDelegate?.newHistoryItems(new_urls)
+                for updateDelegate in updateDelegates! {
+                    updateDelegate.newHistoryItems(new_urls)
+                }
             }
         }
         
@@ -156,9 +166,11 @@ class SafariHistoryFetcher {
                 } catch let error as NSError {
                     myError = error
                 }
+                if let error = myError {
+                    AppSingleton.log.error("Something went wrong while reading db files: \(error.debugDescription)")
+                }
                 if let fileDate = inVal as? NSDate {
                     dates.append(fileDate)
-                    
                 }
                 
             }
@@ -173,7 +185,7 @@ class SafariHistoryFetcher {
             var allPaths = [String]()  // paths will be put here
             // Create temporary directory and delete previous temporary file (if present)
             let tempURL = NSURL(fileURLWithPath: NSTemporaryDirectory()).URLByAppendingPathComponent("hiit.JustUsed")
-            let tempDirBase = tempURL.path!
+            _ = tempURL.path!
             var err: NSError?
             do {
                 try fileManager.createDirectoryAtURL(tempURL, withIntermediateDirectories: true, attributes: nil)

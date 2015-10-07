@@ -8,31 +8,37 @@
 
 import Cocoa
 
-class ViewController: NSViewController, SpotlightTrackerDelegate, SafariHistoryUpdateDelegate {
+class ViewController: NSViewController, SpotlightHistoryUpdateDelegate, SafariHistoryUpdateDelegate {
+    
+    weak var spotlightSource: SpotlightTrackerDataSource?
+    weak var safariSource: SafariTrackerDataSource?
     
     @IBOutlet weak var safariTable: NSTableView!
     @IBOutlet weak var fileTable: NSTableView!
     
-    var historyFetcher = SafariHistoryFetcher()
-    var historyDataSource = SafariTrackerDataSource()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        fileTable.setDataSource(SpotlightTrackerSingleton.getFileTracker())
-        SpotlightTrackerSingleton.getFileTracker().setDelegate(self)
-        
-        safariTable.setDataSource(historyDataSource)
-        historyFetcher.setUpdateDelegate(self)
     }
     
-    func newSpotlightData() {
-        fileTable.reloadData()
+    override func viewDidAppear() {
+        fileTable.setDataSource(spotlightSource)
+        safariTable.setDataSource(safariSource)
     }
     
-    func newHistoryItems(newURLs: [HistItem]) {
-        historyDataSource.insterNewData(newURLs)
-        safariTable.reloadData()
+    /// Must call this function to set-up delegates and data sources
+    func setSources(spotlightSource: SpotlightTrackerDataSource, safariSource: SafariTrackerDataSource) {
+        self.spotlightSource = spotlightSource
+        self.safariSource = safariSource
+    }
+    
+    func newSpotlightData(newItem: SpotlightHistItem) {
+        spotlightSource!.addData(newItem)
+        fileTable?.reloadData()
+    }
+    
+    func newHistoryItems(newURLs: [SafariHistItem]) {
+        safariSource!.insertNewData(newURLs)
+        safariTable?.reloadData()
     }
     
     @IBAction func quitButtonPress(sender: NSButton) {
@@ -41,16 +47,12 @@ class ViewController: NSViewController, SpotlightTrackerDelegate, SafariHistoryU
     }
 }
 
-class SafariTrackerDataSource: NSObject, NSTableViewDataSource {
+class SafariTrackerDataSource: NSObject, NSTableViewDataSource  {
     
-    var allHistory = [HistItem]()
-    
-    override init() {
-        super.init()
-    }
+    var allHistory = [SafariHistItem]()
     
     // Insert data avoiding duplicates
-    func insterNewData(newURLs: [HistItem]) {
+    func insertNewData(newURLs: [SafariHistItem]) {
         for newUrl in newURLs {
             if !allHistory.contains(newUrl) {
                 allHistory.append(newUrl)
@@ -58,7 +60,7 @@ class SafariTrackerDataSource: NSObject, NSTableViewDataSource {
         }
     }
     
-    /// MARK: Table data source
+    /// MARK: - Table data source
     func numberOfRowsInTableView(aTableView: NSTableView) -> Int {
         return allHistory.count
     }
@@ -79,3 +81,42 @@ class SafariTrackerDataSource: NSObject, NSTableViewDataSource {
     
 }
 
+class SpotlightTrackerDataSource: NSObject, NSTableViewDataSource {
+    
+    var lutimes = [String]()
+    var lupaths = [String]()
+    var integers = [String]()
+    var locations = [String]()
+    var mimes = [String]()
+    
+    func addData(newItem: SpotlightHistItem) {
+        lutimes.append(newItem.lastAccessDate.description)
+        lupaths.append(newItem.path)
+        integers.append("\(newItem.index)")
+        locations.append(newItem.location)
+        mimes.append(newItem.mime)
+    }
+    
+    
+    /// MARK: Static table data source
+    func numberOfRowsInTableView(aTableView: NSTableView) -> Int {
+        return lutimes.count
+    }
+    
+    func tableView(tableView: NSTableView, objectValueForTableColumn tableColumn: NSTableColumn?, row: Int) -> AnyObject? {
+        if tableColumn!.identifier == JustUsedConstants.kLastUsedDateTitle {
+            return lutimes[row]
+        } else if tableColumn!.identifier == JustUsedConstants.kPathTitle {
+            return lupaths[row]
+        } else if tableColumn!.identifier == JustUsedConstants.kIndexTitle {
+            return integers[row]
+        } else if tableColumn!.identifier == JustUsedConstants.kLocTitle {
+            return locations[row]
+        } else if tableColumn!.identifier == JustUsedConstants.kMimeType {
+            return mimes[row]
+        } else {
+            return nil
+        }
+    }
+
+}

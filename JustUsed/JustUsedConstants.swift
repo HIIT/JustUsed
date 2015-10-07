@@ -19,5 +19,21 @@ class JustUsedConstants {
     static let kSHistoryDate = "URL Visit time"
     static let kSHistoryURL = "Visited URL"
     static let kSHistoryTitle = "Page title"
+    static let kMenuImageName = "DiMeTemplate"
+    
+    /// Date formatter shared in DiMe submissions (uses date format below)
+    static let diMeDateFormatter = JustUsedConstants.makeDateFormatter()
+    
+    /// Date format used for DiMe submission
+    static let diMeDateFormat = "Y'-'MM'-'d'T'HH':'mm':'ssZ"
+    
+    // MARK: - Static functions
+    
+    private static func makeDateFormatter() -> NSDateFormatter {
+        let dateFormatter = NSDateFormatter()
+        dateFormatter.dateFormat = JustUsedConstants.diMeDateFormat
+        return dateFormatter
+    }
+    
 }
     

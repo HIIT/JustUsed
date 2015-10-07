@@ -14,7 +14,7 @@ import CoreLocation
 class LocationSingleton {
     private static let _locationController = LocationController()
     
-    static func getLocationString() -> String {
+    static func getLocationString() -> String? {
         return LocationSingleton._locationController.locString
     }
 }
@@ -26,12 +26,11 @@ class LocationController: NSObject, CLLocationManagerDelegate {
     var authorised: Bool
     
     /// Stores location in string form
-    var locString: String
+    var locString: String?
     
     required override init() {
         locMan = CLLocationManager()
         geoMan = CLGeocoder()
-        locString = "Not retrieved yet"
         
         let authStat = CLLocationManager.authorizationStatus()
         switch authStat {

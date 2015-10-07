@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		A913AA7D1B7C9CE700B9EFD1 /* SafariHistoryFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = A913AA7C1B7C9CE700B9EFD1 /* SafariHistoryFetcher.swift */; };
-		A913AA7F1B7CB75800B9EFD1 /* SpotlightTrackerSingleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A913AA7E1B7CB75800B9EFD1 /* SpotlightTrackerSingleton.swift */; };
+		A913AA7F1B7CB75800B9EFD1 /* SpotlightTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = A913AA7E1B7CB75800B9EFD1 /* SpotlightTracker.swift */; };
 		A913AA831B7CB89A00B9EFD1 /* JustUsedConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A913AA821B7CB89A00B9EFD1 /* JustUsedConstants.swift */; };
 		A913AA851B7CFF9100B9EFD1 /* XCGLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = A913AA841B7CFF9100B9EFD1 /* XCGLogger.swift */; };
 		A913AA871B7D019C00B9EFD1 /* AppSingleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A913AA861B7D019C00B9EFD1 /* AppSingleton.swift */; };
@@ -17,6 +17,7 @@
 		A9438DD91B7A3F0400F1A54B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A9438DD81B7A3F0400F1A54B /* Images.xcassets */; };
 		A9438DDC1B7A3F0400F1A54B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A9438DDA1B7A3F0400F1A54B /* Main.storyboard */; };
 		A9438DE81B7A3F0400F1A54B /* JustUsedTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9438DE71B7A3F0400F1A54B /* JustUsedTests.swift */; };
+		A9BBC5EE1BC5626B00A26D60 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9BBC5ED1BC5626B00A26D60 /* Utils.swift */; settings = {ASSET_TAGS = (); }; };
 		A9D4A2D51B7B9B3400EC1D68 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A9D4A2D41B7B9B3400EC1D68 /* libsqlite3.dylib */; };
 		A9D4A2E31B7B9C5B00EC1D68 /* FMDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = A9D4A2D91B7B9C5B00EC1D68 /* FMDatabase.m */; };
 		A9D4A2E41B7B9C5B00EC1D68 /* FMDatabaseAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = A9D4A2DB1B7B9C5B00EC1D68 /* FMDatabaseAdditions.m */; };
@@ -38,7 +39,7 @@
 
 /* Begin PBXFileReference section */
 		A913AA7C1B7C9CE700B9EFD1 /* SafariHistoryFetcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SafariHistoryFetcher.swift; sourceTree = "<group>"; };
-		A913AA7E1B7CB75800B9EFD1 /* SpotlightTrackerSingleton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpotlightTrackerSingleton.swift; sourceTree = "<group>"; };
+		A913AA7E1B7CB75800B9EFD1 /* SpotlightTracker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpotlightTracker.swift; sourceTree = "<group>"; };
 		A913AA821B7CB89A00B9EFD1 /* JustUsedConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JustUsedConstants.swift; sourceTree = "<group>"; };
 		A913AA841B7CFF9100B9EFD1 /* XCGLogger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = XCGLogger.swift; path = JustUsed/XCGLogger.swift; sourceTree = "<group>"; };
 		A913AA861B7D019C00B9EFD1 /* AppSingleton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppSingleton.swift; sourceTree = "<group>"; };
@@ -51,6 +52,7 @@
 		A9438DE11B7A3F0400F1A54B /* JustUsedTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = JustUsedTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A9438DE61B7A3F0400F1A54B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A9438DE71B7A3F0400F1A54B /* JustUsedTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JustUsedTests.swift; sourceTree = "<group>"; };
+		A9BBC5ED1BC5626B00A26D60 /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		A9D4A2D41B7B9B3400EC1D68 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		A9D4A2D61B7B9C4F00EC1D68 /* JustUsed-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "JustUsed-Bridging-Header.h"; path = "JustUsed/JustUsed-Bridging-Header.h"; sourceTree = "<group>"; };
 		A9D4A2D81B7B9C5B00EC1D68 /* FMDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabase.h; sourceTree = "<group>"; };
@@ -118,9 +120,10 @@
 				A913AA821B7CB89A00B9EFD1 /* JustUsedConstants.swift */,
 				A913AA7C1B7C9CE700B9EFD1 /* SafariHistoryFetcher.swift */,
 				A9FD30B71B7B2E8E0010514C /* LocationSingleton.swift */,
-				A913AA7E1B7CB75800B9EFD1 /* SpotlightTrackerSingleton.swift */,
+				A913AA7E1B7CB75800B9EFD1 /* SpotlightTracker.swift */,
 				A9438DD81B7A3F0400F1A54B /* Images.xcassets */,
 				A9438DD21B7A3F0400F1A54B /* Supporting Files */,
+				A9BBC5ED1BC5626B00A26D60 /* Utils.swift */,
 			);
 			path = JustUsed;
 			sourceTree = "<group>";
@@ -273,9 +276,10 @@
 				A9438DD71B7A3F0400F1A54B /* ViewController.swift in Sources */,
 				A9D4A2E51B7B9C5B00EC1D68 /* FMDatabasePool.m in Sources */,
 				A913AA871B7D019C00B9EFD1 /* AppSingleton.swift in Sources */,
+				A9BBC5EE1BC5626B00A26D60 /* Utils.swift in Sources */,
 				A913AA831B7CB89A00B9EFD1 /* JustUsedConstants.swift in Sources */,
 				A913AA7D1B7C9CE700B9EFD1 /* SafariHistoryFetcher.swift in Sources */,
-				A913AA7F1B7CB75800B9EFD1 /* SpotlightTrackerSingleton.swift in Sources */,
+				A913AA7F1B7CB75800B9EFD1 /* SpotlightTracker.swift in Sources */,
 				A9FD30B81B7B2E8E0010514C /* LocationSingleton.swift in Sources */,
 				A9D4A2E61B7B9C5B00EC1D68 /* FMDatabaseQueue.m in Sources */,
 				A9438DD51B7A3F0400F1A54B /* AppDelegate.swift in Sources */,
