@@ -73,7 +73,7 @@ class SafariTrackerDataSource: NSObject, NSTableViewDataSource  {
         } else if tableColumn!.identifier == JustUsedConstants.kSHistoryTitle {
             return allHistory[row].title
         } else if tableColumn!.identifier == JustUsedConstants.kLocTitle {
-            return LocationSingleton.getLocationString()
+            return allHistory[row].location.locationString
         } else {
             return allHistory[row].url
         }
@@ -93,7 +93,7 @@ class SpotlightTrackerDataSource: NSObject, NSTableViewDataSource {
         lutimes.append(newItem.lastAccessDate.description)
         lupaths.append(newItem.path)
         integers.append("\(newItem.index)")
-        locations.append(newItem.location)
+        locations.append(newItem.location.locationString)
         mimes.append(newItem.mime)
     }
     

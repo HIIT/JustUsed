@@ -28,6 +28,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     let statusItem = NSStatusBar.systemStatusBar().statusItemWithLength(NSSquareStatusItemLength)
 
     func applicationDidFinishLaunching(aNotification: NSNotification) {
+        if let _ = LocationSingleton.getCurrentLocation() {
+            // just fetch nothing to initialise location
+        }
         if let button = statusItem.button {
             button.image = NSImage(named: JustUsedConstants.kMenuImageName)
             button.action = Selector("togglePopover:")

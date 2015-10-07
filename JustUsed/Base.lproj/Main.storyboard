@@ -781,7 +781,7 @@
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" rowSizeStyle="automatic" headerView="sBH-je-YnF" viewBased="YES" id="Wy3-QN-NTT">
-                                            <rect key="frame" x="0.0" y="0.0" width="694" height="597"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="984" height="597"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <animations/>
                                             <size key="intercellSpacing" width="3" height="2"/>
@@ -827,7 +827,7 @@
                                                     </textFieldCell>
                                                     <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                 </tableColumn>
-                                                <tableColumn identifier="Location description" width="10" minWidth="10" maxWidth="3.4028234663852886e+38" id="hBJ-PF-g0P">
+                                                <tableColumn identifier="Location description" width="300" minWidth="10" maxWidth="3.4028234663852886e+38" id="hBJ-PF-g0P">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Location description">
                                                         <font key="font" metaFont="smallSystem"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -858,7 +858,7 @@
                                     <animations/>
                                 </scroller>
                                 <tableHeaderView key="headerView" id="sBH-je-YnF">
-                                    <rect key="frame" x="0.0" y="0.0" width="694" height="23"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="984" height="23"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <animations/>
                                 </tableHeaderView>

@@ -22,8 +22,8 @@ struct SpotlightHistItem: Equatable {
     var lastAccessDate: NSDate
     /// Path of this file on disk
     let path: String
-    /// Location when this file was last opened, in string format
-    var location: String
+    /// Location when this file was last opened
+    var location: MyLocation
     /// Index used by spotlight (an index refers to a specific item in spotlight's history)
     let index: Int
     /// Mime type
@@ -64,14 +64,12 @@ extension NSMetadataItem {
         }
         // end mime type
         
-        var location: String?
-        if let currentLoc = LocationSingleton.getLocationString() {
+        var location = MyLocation.kUnknownLocation
+        if let currentLoc = LocationSingleton.getCurrentLocation() {
             location = currentLoc
-        } else {
-            location = "Unkown"
         }
         
-        return SpotlightHistItem(lastAccessDate: NSDate(), path: path, location: location!, index: index, mime: mime!)
+        return SpotlightHistItem(lastAccessDate: NSDate(), path: path, location: location, index: index, mime: mime!)
     }
 }
 

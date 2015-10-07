@@ -8,6 +8,7 @@
 
 import Foundation
 import Cocoa
+import CoreLocation
 
 /// Implementers of this protocol can receive updates regarding newer history items.
 protocol SafariHistoryUpdateDelegate {
@@ -22,6 +23,7 @@ struct SafariHistItem: Equatable {
     let date: NSDate
     let url: String
     let title: String
+    let location: MyLocation
 }
 
 func ==(lhs: SafariHistItem, rhs: SafariHistItem) -> Bool {
@@ -127,7 +129,11 @@ class SafariHistoryFetcher {
                     while item_result.next() {
                         let item_dict = item_result.resultDictionary()
                         let item_url = item_dict["url"] as! String
-                        new_urls.append(SafariHistItem(date: visit_date, url: item_url, title: visit_title))
+                        var location = MyLocation.kUnknownLocation
+                        if let currentLoc = LocationSingleton.getCurrentLocation() {
+                            location = currentLoc
+                        }
+                        new_urls.append(SafariHistItem(date: visit_date, url: item_url, title: visit_title, location: location))
                     }
                 }
             }
