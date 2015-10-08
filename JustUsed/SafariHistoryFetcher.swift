@@ -23,7 +23,7 @@ struct SafariHistItem: Equatable {
     let date: NSDate
     let url: String
     let title: String
-    let location: MyLocation
+    let location: MyLocation?
 }
 
 func ==(lhs: SafariHistItem, rhs: SafariHistItem) -> Bool {
@@ -129,10 +129,7 @@ class SafariHistoryFetcher {
                     while item_result.next() {
                         let item_dict = item_result.resultDictionary()
                         let item_url = item_dict["url"] as! String
-                        var location = MyLocation.kUnknownLocation
-                        if let currentLoc = LocationSingleton.getCurrentLocation() {
-                            location = currentLoc
-                        }
+                        let location = LocationSingleton.getCurrentLocation()
                         new_urls.append(SafariHistItem(date: visit_date, url: item_url, title: visit_title, location: location))
                     }
                 }
