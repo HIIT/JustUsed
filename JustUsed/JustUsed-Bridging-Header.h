@@ -10,5 +10,6 @@
 #define JustUsed_Bridging_Header_h
 
 #import "FMDB.h"
+#import <CommonCrypto/CommonDigest.h>
 
 #endif

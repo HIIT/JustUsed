@@ -9,6 +9,7 @@
 import Foundation
 
 class JustUsedConstants {
+    // MARK: - Tables
     // Make sure these constants match the column identifiers (also titles)
     static let kLastUsedDateTitle = "Last Used Date"
     static let kPathTitle = "File Path"
@@ -20,6 +21,32 @@ class JustUsedConstants {
     static let kSHistoryURL = "Visited URL"
     static let kSHistoryTitle = "Page title"
     static let kMenuImageName = "DiMeTemplate"
+    
+    // MARK: - Preference identifiers
+    
+    /// URL of the DiMe server (bound in the preferences window)
+    static let prefDiMeServerURL = "dime.serverinfo.url"
+    
+    /// Username of the DiMe server (bound in the preferences window)
+    static let prefDiMeServerUserName = "dime.serverinfo.userName"
+    
+    /// Password of the DiMe server (bound in the preferences window)
+    static let prefDiMeServerPassword = "dime.serverinfo.password"
+    
+    /// Wheter we want to push an event at every window focus event (bound in the preferences window)
+    static let prefSendPlainTexts = "dime.preferences.sendPlainTexts"
+    
+    /// Wheter we send Safari history events to DiMe
+    static let prefSendSafariHistory = "dime.preferences.sendSafariHistory"
+    
+    // MARK: - Notifications
+    
+    /// String notifying that something changed in the dime connection.
+    /// Calls to HistoryManager can verify what is the current status of dime
+    /// using isDimeAvailable().
+    static let diMeConnectionNotification = "hiit.JustUsed.diMeConnectionChange"
+    
+    // MARK: - General constants
     
     // Minumum amount of seconds needed to re-adding a spotlight item to history (to prevent many duplicates)
     static let kSpotlightMinSeconds = 300.0

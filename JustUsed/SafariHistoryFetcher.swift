@@ -22,7 +22,7 @@ protocol SafariHistoryUpdateDelegate {
 struct SafariHistItem: Equatable {
     let date: NSDate
     let url: String
-    let title: String
+    let title: String?
     let location: MyLocation?
 }
 
@@ -118,7 +118,7 @@ class SafariHistoryFetcher {
                 while visits_result.next() {
                     let visits_dict = visits_result.resultDictionary()
                     let visit_id = visits_dict["history_item"] as! NSNumber
-                    var visit_title = ""
+                    var visit_title: String?
                     if let newTitle = visits_dict["title"] as? String {
                         visit_title = newTitle
                     }
@@ -140,7 +140,7 @@ class SafariHistoryFetcher {
             for filePath in tempPaths {
                 do {
                     try fileManager.removeItemAtPath(filePath)
-                    AppSingleton.log.debug("succesfully removed")
+                    //AppSingleton.log.debug("succesfully removed")
                 } catch let error as NSError {
                     err = error
                     AppSingleton.log.error("Something went wrong while removing old databases: \(err.debugDescription)")
@@ -192,7 +192,7 @@ class SafariHistoryFetcher {
             var err: NSError?
             do {
                 try fileManager.createDirectoryAtURL(tempURL, withIntermediateDirectories: true, attributes: nil)
-                AppSingleton.log.debug("directory created succesfully")
+                //AppSingleton.log.debug("directory created succesfully")
             } catch let error as NSError {
                 err = error
             }
@@ -205,10 +205,10 @@ class SafariHistoryFetcher {
                 allPaths.append(tempDataFile)
                 
                 if fileManager.fileExistsAtPath(tempDataFile) {
-                    AppSingleton.log.debug("file exists already")
+                    //AppSingleton.log.debug("file exists already")
                     do {
                         try fileManager.removeItemAtURL(tempDataFileURL)
-                        AppSingleton.log.debug("succesfully removed")
+                        //AppSingleton.log.debug("succesfully removed")
                     } catch let error as NSError {
                         err = error
                     }
@@ -218,10 +218,10 @@ class SafariHistoryFetcher {
                 if fileManager.fileExistsAtPath(dbPathURL.path!) {
                     do {
                         try fileManager.copyItemAtURL(dbPathURL, toURL: tempDataFileURL)
-                        AppSingleton.log.debug("file created")
+                        //AppSingleton.log.debug("file created")
                     } catch let error as NSError {
                         err = error
-                        AppSingleton.log.debug(err?.description)
+                        AppSingleton.log.error(err?.description)
                     }
                 }
             }

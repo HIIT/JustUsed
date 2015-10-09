@@ -10,19 +10,35 @@ import Cocoa
 
 class ViewController: NSViewController, SpotlightHistoryUpdateDelegate, SafariHistoryUpdateDelegate {
     
+    // Whether the button says connect or disconnect (to avoid using strings)
+    let kTagConnect: Int = 1
+    let kTagDisconnect: Int = 2
+    
     weak var spotlightSource: SpotlightTrackerDataSource?
     weak var safariSource: SafariTrackerDataSource?
     
     @IBOutlet weak var safariTable: NSTableView!
     @IBOutlet weak var fileTable: NSTableView!
     
+    // DiMe statuses
+    @IBOutlet weak var statusButton: NSButton!
+    @IBOutlet weak var statusLabel: NSTextField!
+    @IBOutlet weak var statusImage: NSImageView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
     
     override func viewDidAppear() {
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "dimeConnectionChanged:", name: JustUsedConstants.diMeConnectionNotification, object: HistoryManager.sharedManager)
+        updateDiMeStatus()
+        
         fileTable.setDataSource(spotlightSource)
         safariTable.setDataSource(safariSource)
+    }
+    
+    override func viewDidDisappear() {
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: JustUsedConstants.diMeConnectionNotification, object: HistoryManager.sharedManager)
     }
     
     /// Must call this function to set-up delegates and data sources
@@ -39,6 +55,33 @@ class ViewController: NSViewController, SpotlightHistoryUpdateDelegate, SafariHi
     func newHistoryItems(newURLs: [SafariHistItem]) {
         safariSource!.insertNewData(newURLs)
         safariTable?.reloadData()
+    }
+    
+    /// Checks dime status and updates view accordingly
+    private func updateDiMeStatus() {
+        if HistoryManager.sharedManager.isDiMeAvailable() {
+            statusImage.image = NSImage(named: "NSStatusAvailable")
+            statusButton.tag = kTagDisconnect
+            statusButton.title = "Disconnect"
+            statusLabel.stringValue = "Connected"
+        } else {
+            statusLabel.stringValue = "Disconnected"
+            statusImage.image = NSImage(named: "NSStatusUnavailable")
+            statusButton.tag = kTagConnect
+            statusButton.title = "Connect"
+        }
+    }
+    
+    @IBAction func connectButtonPress(sender: NSButton) {
+        if sender.tag == kTagDisconnect {
+            HistoryManager.sharedManager.dimeDisconnect()
+        } else if sender.tag == kTagConnect {
+            HistoryManager.sharedManager.dimeConnect()
+        }
+    }
+    
+    @objc private func dimeConnectionChanged(notification: NSNotification) {
+        updateDiMeStatus()
     }
     
     @IBAction func quitButtonPress(sender: NSButton) {
@@ -71,7 +114,11 @@ class SafariTrackerDataSource: NSObject, NSTableViewDataSource  {
             let date = allHistory[row].date
             return date.descriptionWithLocale(NSLocale.currentLocale())
         } else if tableColumn!.identifier == JustUsedConstants.kSHistoryTitle {
-            return allHistory[row].title
+            if let title = allHistory[row].title {
+                return title
+            } else {
+                return ""
+            }
         } else if tableColumn!.identifier == JustUsedConstants.kLocTitle {
             if let location = allHistory[row].location {
                 return location.locationString

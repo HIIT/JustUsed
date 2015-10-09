@@ -28,6 +28,21 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     let statusItem = NSStatusBar.systemStatusBar().statusItemWithLength(NSSquareStatusItemLength)
 
     func applicationDidFinishLaunching(aNotification: NSNotification) {
+        
+        // Set default preferences
+        var defaultPrefs = [String: AnyObject]()
+        defaultPrefs[JustUsedConstants.prefDiMeServerURL] = "http://localhost:8080/api"
+        defaultPrefs[JustUsedConstants.prefDiMeServerUserName] = "Test1"
+        defaultPrefs[JustUsedConstants.prefDiMeServerPassword] = "123456"
+        defaultPrefs[JustUsedConstants.prefSendPlainTexts] = 1
+        defaultPrefs[JustUsedConstants.prefSendSafariHistory] = 1
+        NSUserDefaults.standardUserDefaults().registerDefaults(defaultPrefs)
+        NSUserDefaults.standardUserDefaults().synchronize()
+        
+        // Starts dime
+        HistoryManager.sharedManager.dimeConnect()
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "diMeConnectionChanged:", name: JustUsedConstants.diMeConnectionNotification, object: HistoryManager.sharedManager)
+        
         if let _ = LocationSingleton.getCurrentLocation() {
             // just fetch nothing to initialise location
         }
@@ -44,9 +59,21 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         popover.contentViewController = self.viewController!
         safHistoryFetcher.addUpdateDelegate(self.viewController!)
         spoTracker.addSpotlightDataDelegate(self.viewController!)
+        
+        // History manager and its delegation
+        safHistoryFetcher.addUpdateDelegate(HistoryManager.sharedManager)
+        spoTracker.addSpotlightDataDelegate(HistoryManager.sharedManager)
+        
+        diMeConnectionChanged(nil)
+    }
+    
+    /// Updates itself when connection is lost / resumed
+    @objc private func diMeConnectionChanged(notification: NSNotification?) {
+        statusItem.button!.appearsDisabled = !HistoryManager.sharedManager.isDiMeAvailable()
     }
 
     func applicationWillTerminate(aNotification: NSNotification) {
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: JustUsedConstants.diMeConnectionNotification, object: HistoryManager.sharedManager)
     }
 
     func showPopover(sender: AnyObject?) {
