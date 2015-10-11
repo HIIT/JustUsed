@@ -65,14 +65,14 @@ class HistoryManager: SpotlightHistoryUpdateDelegate, SafariHistoryUpdateDelegat
         for newURL in newURLs {
             let infoElem = DocumentInformationElement(fromSafariHist: newURL)
             let event = DesktopEvent(infoElem: infoElem, ofType: TrackingType.Safari, withDate: newURL.date)
-            sendDictToDime(event.getDict())
+            sendToDiMe(event)
         }
     }
     
     func newSpotlightData(newItem: SpotlightHistItem) {
         let infoElem = DocumentInformationElement(fromSpotlightHist: newItem)
         let event = DesktopEvent(infoElem: infoElem, ofType: TrackingType.Spotlight, withDate: newItem.lastAccessDate)
-        sendDictToDime(event.getDict())
+        sendToDiMe(event)
     }
     
     // MARK: - Internal functions
@@ -90,7 +90,7 @@ class HistoryManager: SpotlightHistoryUpdateDelegate, SafariHistoryUpdateDelegat
     }
     
     /// Send the given dictionary to DiMe (assumed to be in correct form due to the use of public callers of this method)
-    private func sendDictToDime(dictionaryObject: [String: AnyObject]) {
+    private func sendToDiMe(dimeData: DiMeBase) {
        
         if dimeAvailable {
             
@@ -108,7 +108,7 @@ class HistoryManager: SpotlightHistoryUpdateDelegate, SafariHistoryUpdateDelegat
 
             let jsonData: NSData?
             do {
-                jsonData = try NSJSONSerialization.dataWithJSONObject(dictionaryObject, options: options)
+                jsonData = try NSJSONSerialization.dataWithJSONObject(dimeData.getDict(), options: options)
             } catch let error1 as NSError {
                 error.memory = error1
                 jsonData = nil
@@ -119,7 +119,7 @@ class HistoryManager: SpotlightHistoryUpdateDelegate, SafariHistoryUpdateDelegat
                 return
             }
             
-            Alamofire.request(Alamofire.Method.POST, server_url + "/data/event", parameters: dictionaryObject, encoding: Alamofire.ParameterEncoding.JSON, headers: headers).responseJSON {
+            Alamofire.request(Alamofire.Method.POST, server_url + "/data/event", parameters: dimeData.getDict(), encoding: Alamofire.ParameterEncoding.JSON, headers: headers).responseJSON {
                 _, _, response in
                 if response.isFailure {
                     self.dimeConnectState(false)
