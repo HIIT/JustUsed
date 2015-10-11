@@ -9,30 +9,23 @@
 import Foundation
 
 /// Used to send the first-time file opening event
-class DesktopEvent: Event, DiMeAble, Dictionariable {
+class DesktopEvent: Event {
     
     init(infoElem: DocumentInformationElement, ofType type: TrackingType, withDate date: NSDate) {
         super.init()
-        self.json["targettedResource"] = JSON(infoElem.getDict())
+        
+        theDictionary["targettedResource"] = infoElem.getDict()
         switch type {
         case .Safari:
-            json["actor"] = JSON("JustUsed_Safari")
+            theDictionary["actor"] = "JustUsed_Safari"
         case .Spotlight:
-            json["actor"] = JSON("JustUsed_Spotlight")
+            theDictionary["actor"] = "JustUsed_Spotlight"
         }
-        json["start"] = JSON(JustUsedConstants.diMeDateFormatter.stringFromDate(date))
-        setDiMeDict()
+        theDictionary["start"] = JustUsedConstants.diMeDateFormatter.stringFromDate(date)
+        
+        theDictionary["@type"] = "DesktopEvent"
+        theDictionary["type"] = "http://www.hiit.fi/ontologies/dime/#DesktopEvent"
     }
-    
-    func setDiMeDict() {
-        self.json["@type"] = JSON("DesktopEvent")
-        self.json["type"] = JSON("http://www.hiit.fi/ontologies/dime/#DesktopEvent")
-    }
-    
-    func getDict() -> [String : AnyObject] {
-        return json.dictionaryObject!
-    }
-    
 }
 
 enum TrackingType {

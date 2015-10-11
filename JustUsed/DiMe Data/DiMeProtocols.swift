@@ -16,13 +16,21 @@ protocol Dictionariable {
     func getDict() -> [String: AnyObject]
 }
 
-/// Marks dime "container" objects that can send themselves to DiMe
-protocol DiMeAble {
+/// This class is made for subclassing. It represents data common to all dime objects (see /dime-server/src/main/java/fi/hiit/dime/data/DiMeData.java in the dime project).
+class DiMeBase: NSObject, Dictionariable {
     
-    /// Set DiMe Dictionary. Can be called directly by class/subclass' own initializer.
-    /// This method must set the following fields in its own json:
+    /// Main dictionary storing all data
     ///
+    /// **Important**: all sublasses must set these two keys, in order to be decoded by dime:
     /// - @type
     /// - type
-    func setDiMeDict()
+    var theDictionary = [String: AnyObject]()
+    
+    override init() {
+        super.init()
+    }
+    
+    func getDict() -> [String : AnyObject] {
+        return theDictionary
+    }
 }

@@ -8,35 +8,30 @@
 
 import Foundation
 
-class DocumentInformationElement: NSObject, DiMeAble, Dictionariable {
+class DocumentInformationElement: DiMeBase {
     
     let kMaxPlainTextLength: Int = 500
     
-    var json: JSON
-    var id: String
-    
-    /// Creates a document from a Safari history element
     ///
     init(fromSafariHist histItem: SafariHistItem) {
-        let emptyDict = [String: AnyObject]()
-        json = JSON(emptyDict)
-        id = histItem.url.sha1()
+        super.init()
         
-        super.init() // required
-        setDiMeDict() // required
-        
-        json["id"] = JSON(histItem.url.sha1())
-        json["mimeType"] = JSON("text/url")
-        json["uri"] = JSON(histItem.url)
+        theDictionary["id"] = histItem.url.sha1()
+        theDictionary["mimeType"] = "text/url"
+        theDictionary["uri"] = histItem.url
         if let title = histItem.title {
-            json["title"] = JSON(title)
+            theDictionary["title"] = title
         }
+        
+        // set dime-required fields
+        theDictionary["@type"] = "Document"
+        theDictionary["type"] = "http://www.hiit.fi/ontologies/dime/#Document"
     }
     
     /// Creates a document from a Spotlight history element
     init(fromSpotlightHist histItem: SpotlightHistItem) {
-        let emptyDict = [String: AnyObject]()
-        json = JSON(emptyDict)
+        super.init()
+        var id: String
         
         // check if the histItem contains plain text, if so use for hash and set id
         let mt: NSString = histItem.mime
@@ -48,7 +43,7 @@ class DocumentInformationElement: NSObject, DiMeAble, Dictionariable {
                 }
                 let plainTextString: String = plainText as String
                 id = plainTextString.sha1()
-                json["plainTextContent"] = JSON(plainTextString)
+                theDictionary["plainTextContent"] = plainTextString
             } catch (let exception) {
                 id = histItem.path.sha1()
                 AppSingleton.log.error("Error while fetching plain text from \(histItem.path): \(exception)")
@@ -57,24 +52,16 @@ class DocumentInformationElement: NSObject, DiMeAble, Dictionariable {
             id = histItem.path.sha1()
         }
         
-        json["id"] = JSON(id)
-        
-        super.init()
-        setDiMeDict()
+        theDictionary["id"] = id
         
         // set everything else apart from plain text and id
-        json["mimeType"] = JSON(histItem.mime)
-        json["uri"] = JSON(histItem.path)
-        json["title"] = JSON(NSURL(fileURLWithPath: histItem.path).lastPathComponent!)
+        theDictionary["mimeType"] = histItem.mime
+        theDictionary["uri"] = histItem.path
+        theDictionary["title"] = NSURL(fileURLWithPath: histItem.path).lastPathComponent!
         
+        // set dime-required fields
+        theDictionary["@type"] = "Document"
+        theDictionary["type"] = "http://www.hiit.fi/ontologies/dime/#Document"
     }
     
-    func setDiMeDict() {
-        json["@type"] = JSON("Document")
-        json["type"] = JSON("http://www.hiit.fi/ontologies/dime/#Document")
-    }
-    
-    func getDict() -> [String : AnyObject] {
-        return json.dictionaryObject!
-    }
 }
