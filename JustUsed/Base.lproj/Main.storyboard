@@ -759,12 +759,12 @@
                                     <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </clipView>
                                 <animations/>
-                                <scroller key="horizontalScroller" verticalHuggingPriority="750" doubleValue="0.0036429872495446266" horizontal="YES" id="w6A-F4-dVc">
+                                <scroller key="horizontalScroller" verticalHuggingPriority="750" horizontal="YES" id="w6A-F4-dVc">
                                     <rect key="frame" x="1" y="323" width="474" height="16"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <animations/>
                                 </scroller>
-                                <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="hc6-dM-1ER">
+                                <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="hc6-dM-1ER">
                                     <rect key="frame" x="224" y="17" width="15" height="102"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <animations/>
@@ -848,7 +848,7 @@
                                     <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </clipView>
                                 <animations/>
-                                <scroller key="horizontalScroller" verticalHuggingPriority="750" doubleValue="0.0097847358121330719" horizontal="YES" id="Qjw-sg-Q4c">
+                                <scroller key="horizontalScroller" verticalHuggingPriority="750" horizontal="YES" id="Qjw-sg-Q4c">
                                     <rect key="frame" x="1" y="323" width="473" height="16"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <animations/>

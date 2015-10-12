@@ -10,9 +10,9 @@ import Foundation
 
 class DocumentInformationElement: DiMeBase {
     
-    let kMaxPlainTextLength: Int = 500
+    let kMaxPlainTextLength: Int = 1000
     
-    ///
+    /// Creates a document from a Safari history element
     init(fromSafariHist histItem: SafariHistItem) {
         super.init()
         
