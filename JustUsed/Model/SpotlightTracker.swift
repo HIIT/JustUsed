@@ -66,7 +66,7 @@ extension NSMetadataItem {
         
         let location = LocationSingleton.getCurrentLocation()
         
-        return SpotlightHistItem(lastAccessDate: NSDate(), path: path, location: location, index: index, mime: mime!)
+        return SpotlightHistItem(lastAccessDate: NSDate(), path: "file://" + path, location: location, index: index, mime: mime!)
     }
 }
 
