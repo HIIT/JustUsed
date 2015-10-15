@@ -10,33 +10,12 @@ import Foundation
 import Cocoa
 import CoreLocation
 
-/// Used to represent locations
-struct MyLocation: Equatable {
-    
-    let locationString: String
-    let latitude: Double
-    let longitude: Double
- 
-    static let kUnknownLocation = MyLocation(locationString: "Unknown", latitude: -999, longitude: -999)
-}
-
-func ==(lhs: MyLocation, rhs: MyLocation) -> Bool {
-    return lhs.longitude == rhs.longitude && lhs.latitude == rhs.latitude
-}
-
 /// Keeps track of the location controller, of which we should have only one instance at a time
 class LocationSingleton {
     private static let _locationController = LocationController()
     
-    static func getCurrentLocation() -> MyLocation? {
-        if let currentLoc = LocationSingleton._locationController.location {
-            let lat = currentLoc.coordinate.latitude
-            let lon = currentLoc.coordinate.latitude
-            let str = LocationSingleton._locationController.locString!
-            return MyLocation(locationString: str, latitude: lat, longitude: lon)
-        } else {
-            return nil
-        }
+    static func getCurrentLocation() -> Location? {
+        return LocationSingleton._locationController.location
     }
 }
 
@@ -46,11 +25,8 @@ class LocationController: NSObject, CLLocationManagerDelegate {
     /// It will be true only if we are authorised to retrieve user's location
     var authorised: Bool
     
-    /// Stores location in string form
-    var locString: String?
-    
     /// Stores location in native form
-    var location: CLLocation?
+    var location: Location?
     
     required override init() {
         locMan = CLLocationManager()
@@ -81,17 +57,17 @@ class LocationController: NSObject, CLLocationManagerDelegate {
             geoMan.reverseGeocodeLocation(retLoc) {
                 placemarkA, error in
             
-                self.location = retLoc
+                self.location = Location(fromCLLocation: retLoc)
                 if let error = error {
-                    self.locString = "Error reversing: \(error.description)"
+                    self.location?.descriptionLine = "** Error reversing: \(error.description)"
                 } else {
                     let placemark = placemarkA![0]
                     var builtString = ""
                     if let country = placemark.country {
                         builtString += "Country: \(country)"
                     }
-                    if let city = placemark.locality {
-                        builtString += ", City: \(city)"
+                    if let locality = placemark.locality {
+                        builtString += ", Locality: \(locality)"
                     }
                     if let subLoc = placemark.subLocality {
                         builtString += ", Neighborhood: \(subLoc)"
@@ -100,7 +76,7 @@ class LocationController: NSObject, CLLocationManagerDelegate {
                         builtString += ", Street: \(street)"
                     }
                     
-                    self.locString = builtString
+                    self.location?.descriptionLine = builtString
                 }
                 
             }

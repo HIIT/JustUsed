@@ -64,14 +64,14 @@ class HistoryManager: SpotlightHistoryUpdateDelegate, SafariHistoryUpdateDelegat
     func newHistoryItems(newURLs: [SafariHistItem]) {
         for newURL in newURLs {
             let infoElem = DocumentInformationElement(fromSafariHist: newURL)
-            let event = DesktopEvent(infoElem: infoElem, ofType: TrackingType.Safari, withDate: newURL.date)
+            let event = DesktopEvent(infoElem: infoElem, ofType: TrackingType.Safari, withDate: newURL.date, andLocation: newURL.location)
             sendToDiMe(event)
         }
     }
     
     func newSpotlightData(newItem: SpotlightHistItem) {
         let infoElem = DocumentInformationElement(fromSpotlightHist: newItem)
-        let event = DesktopEvent(infoElem: infoElem, ofType: TrackingType.Spotlight, withDate: newItem.lastAccessDate)
+        let event = DesktopEvent(infoElem: infoElem, ofType: TrackingType.Spotlight, withDate: newItem.lastAccessDate, andLocation: newItem.location)
         sendToDiMe(event)
     }
     

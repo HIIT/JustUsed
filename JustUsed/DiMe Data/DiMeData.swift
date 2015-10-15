@@ -12,7 +12,7 @@ import Foundation
 /// where all keys are strings and values can be used in a JSON
 protocol Dictionariable {
     
-    /// Returns itself in a dict
+    /// Returns itself in a JSON-Serializable dict
     func getDict() -> [String: AnyObject]
 }
 

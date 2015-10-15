@@ -11,7 +11,7 @@ import Foundation
 /// Used to send the first-time file opening event
 class DesktopEvent: Event {
     
-    init(infoElem: DocumentInformationElement, ofType type: TrackingType, withDate date: NSDate) {
+    init(infoElem: DocumentInformationElement, ofType type: TrackingType, withDate date: NSDate, andLocation location: Location?) {
         super.init()
         
         theDictionary["targettedResource"] = infoElem.getDict()
@@ -22,6 +22,10 @@ class DesktopEvent: Event {
             theDictionary["actor"] = "JustUsed_Spotlight"
         }
         theDictionary["start"] = JustUsedConstants.diMeDateFormatter.stringFromDate(date)
+        
+        if let loc = location {
+            theDictionary["location"] = loc.getDict()
+        }
         
         theDictionary["@type"] = "DesktopEvent"
         theDictionary["type"] = "http://www.hiit.fi/ontologies/dime/#DesktopEvent"

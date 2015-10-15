@@ -23,7 +23,7 @@ struct SafariHistItem: Equatable {
     let date: NSDate
     let url: String
     let title: String?
-    let location: MyLocation?
+    let location: Location?
 }
 
 func ==(lhs: SafariHistItem, rhs: SafariHistItem) -> Bool {

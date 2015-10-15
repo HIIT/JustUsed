@@ -32,6 +32,7 @@
 		A9F507911BC7BF5900275C6C /* DiMeData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9F5078D1BC7BF5900275C6C /* DiMeData.swift */; settings = {ASSET_TAGS = (); }; };
 		A9F507921BC7BF5900275C6C /* DocumentInformationElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9F5078E1BC7BF5900275C6C /* DocumentInformationElement.swift */; settings = {ASSET_TAGS = (); }; };
 		A9F507931BC7BF5900275C6C /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9F5078F1BC7BF5900275C6C /* Event.swift */; settings = {ASSET_TAGS = (); }; };
+		A9F782071BCFCCE900516E55 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9F782061BCFCCE900516E55 /* Location.swift */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -116,6 +117,7 @@
 		A9F5078D1BC7BF5900275C6C /* DiMeData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiMeData.swift; sourceTree = "<group>"; };
 		A9F5078E1BC7BF5900275C6C /* DocumentInformationElement.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentInformationElement.swift; sourceTree = "<group>"; };
 		A9F5078F1BC7BF5900275C6C /* Event.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
+		A9F782061BCFCCE900516E55 /* Location.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -257,6 +259,7 @@
 				A9F5078D1BC7BF5900275C6C /* DiMeData.swift */,
 				A9F5078E1BC7BF5900275C6C /* DocumentInformationElement.swift */,
 				A9F5078F1BC7BF5900275C6C /* Event.swift */,
+				A9F782061BCFCCE900516E55 /* Location.swift */,
 			);
 			name = "DiMe Data";
 			path = "JustUsed/DiMe Data";
@@ -443,6 +446,7 @@
 				A9F507891BC7BA4B00275C6C /* ViewController.swift in Sources */,
 				A92574591BCF8FF9004866B4 /* XCGLogger.swift in Sources */,
 				A92574641BCF906A004866B4 /* LocationSingleton.swift in Sources */,
+				A9F782071BCFCCE900516E55 /* Location.swift in Sources */,
 				A9F507931BC7BF5900275C6C /* Event.swift in Sources */,
 				A92574791BCF9190004866B4 /* FMResultSet.m in Sources */,
 				A92574771BCF9190004866B4 /* FMDatabasePool.m in Sources */,

@@ -23,7 +23,7 @@ struct SpotlightHistItem: Equatable {
     /// Path of this file on disk
     let path: String
     /// Location when this file was last opened, if available
-    var location: MyLocation?
+    var location: Location?
     /// Index used by spotlight (an index refers to a specific item in spotlight's history)
     let index: Int
     /// Mime type

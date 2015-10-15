@@ -120,10 +120,10 @@ class SafariTrackerDataSource: NSObject, NSTableViewDataSource  {
                 return ""
             }
         } else if tableColumn!.identifier == JustUsedConstants.kLocTitle {
-            if let location = allHistory[row].location {
-                return location.locationString
+            if let locString = allHistory[row].location?.descriptionLine {
+                return locString
             } else {
-                return MyLocation.kUnknownLocation.locationString
+                return JustUsedConstants.kUnkownLocationString
             }
         } else {
             return allHistory[row].url
@@ -144,10 +144,10 @@ class SpotlightTrackerDataSource: NSObject, NSTableViewDataSource {
         lutimes.append(newItem.lastAccessDate.descriptionWithLocale(NSLocale.currentLocale()))
         lupaths.append(newItem.path)
         integers.append("\(newItem.index)")
-        if let location = newItem.location {
-            locations.append(location.locationString)
+        if let locString = newItem.location?.descriptionLine {
+            locations.append(locString)
         } else {
-            locations.append(MyLocation.kUnknownLocation.locationString)
+            locations.append(JustUsedConstants.kUnkownLocationString)
         }
         mimes.append(newItem.mime)
     }

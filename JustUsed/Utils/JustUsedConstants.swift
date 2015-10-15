@@ -48,6 +48,9 @@ class JustUsedConstants {
     
     // MARK: - General constants
     
+    /// String shown in tables when no location string is present
+    static let kUnkownLocationString = "Unkown location"
+    
     // Minumum amount of seconds needed to re-adding a spotlight item to history (to prevent many duplicates)
     static let kSpotlightMinSeconds = 300.0
     
