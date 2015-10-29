@@ -136,14 +136,14 @@ class SpotlightTrackerDataSource: NSObject, NSTableViewDataSource {
     
     var lutimes = [String]()
     var lupaths = [String]()
-    var integers = [String]()
+    var sources = [String]()
     var locations = [String]()
     var mimes = [String]()
     
     func addData(newItem: SpotlightHistItem) {
         lutimes.append(newItem.lastAccessDate.descriptionWithLocale(NSLocale.currentLocale()))
         lupaths.append(newItem.path)
-        integers.append("\(newItem.index)")
+        sources.append(newItem.source)
         if let locString = newItem.location?.descriptionLine {
             locations.append(locString)
         } else {
@@ -163,8 +163,8 @@ class SpotlightTrackerDataSource: NSObject, NSTableViewDataSource {
             return lutimes[row]
         } else if tableColumn!.identifier == JustUsedConstants.kPathTitle {
             return lupaths[row]
-        } else if tableColumn!.identifier == JustUsedConstants.kIndexTitle {
-            return integers[row]
+        } else if tableColumn!.identifier == JustUsedConstants.kSourceTitle {
+            return sources[row]
         } else if tableColumn!.identifier == JustUsedConstants.kLocTitle {
             return locations[row]
         } else if tableColumn!.identifier == JustUsedConstants.kMimeType {

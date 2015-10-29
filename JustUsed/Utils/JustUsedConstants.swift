@@ -13,7 +13,7 @@ class JustUsedConstants {
     // Make sure these constants match the column identifiers (also titles)
     static let kLastUsedDateTitle = "Last Used Date"
     static let kPathTitle = "File Path"
-    static let kIndexTitle = "Index Int"
+    static let kSourceTitle = "Source"
     static let kBoolPointTitle = "f_Stopped"
     static let kMimeType = "Mime type"
     static let kLocTitle = "Location description"

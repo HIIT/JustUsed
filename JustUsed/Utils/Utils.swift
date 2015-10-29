@@ -12,6 +12,33 @@ import Cocoa
 
 // MARK: - Extensions to standard types
 
+extension NSURL {
+    
+    /// Get mime type
+    func getMime() -> String? {
+        var mime: String?
+        let UTI = UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension, self.pathExtension!, nil)
+        let MIMEType = UTTypeCopyPreferredTagWithClass(UTI!.takeRetainedValue(), kUTTagClassMIMEType)
+        var isDir = ObjCBool(false)
+        if let mimet = MIMEType {
+            mime = mimet.takeRetainedValue() as String
+        } else if NSFileManager.defaultManager().fileExistsAtPath(self.path!, isDirectory: &isDir) {
+            if isDir {
+                mime = "application/x-directory"
+            } else {
+                // if the file exists but it's not a directory and has no known mime type
+                var foundEncoding: UInt = 0
+                if let _ = try? NSString(contentsOfURL: self, usedEncoding: &foundEncoding) {
+                    mime = "text/plain"
+                } else {
+                    mime = "application/octet-stream"
+                }
+            }
+        }
+        return mime
+    }
+}
+
 extension NSDate {
     
     /// Number of ms since 1/1/1970. Read-only computed property.

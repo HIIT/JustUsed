@@ -24,50 +24,14 @@ struct SpotlightHistItem: Equatable {
     let path: String
     /// Location when this file was last opened, if available
     var location: Location?
-    /// Index used by spotlight (an index refers to a specific item in spotlight's history)
-    let index: Int
     /// Mime type
     let mime: String
+    /// What program opened this file
+    let source: String
 }
 
 func ==(lhs:SpotlightHistItem, rhs: SpotlightHistItem) -> Bool {
-    return lhs.path == rhs.path && lhs.index == rhs.index && lhs.mime == rhs.mime
-}
-
-extension NSMetadataItem {
-    
-    /// Returns a struct representing this metadataitem
-    func makeHistItem(withIndex index: Int) -> SpotlightHistItem {
-        let path = self.valueForKey(kMDItemPath as String)!.description
-        let index = index
-        
-        // mime type
-        var mime: String?
-        let pathURL = NSURL(fileURLWithPath: path)
-        let UTI = UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension, pathURL.pathExtension!, nil)
-        let MIMEType = UTTypeCopyPreferredTagWithClass(UTI!.takeRetainedValue(), kUTTagClassMIMEType)
-        var isDir = ObjCBool(false)
-        if let mimet = MIMEType {
-            mime = mimet.takeRetainedValue() as String
-        } else if NSFileManager.defaultManager().fileExistsAtPath(path, isDirectory: &isDir) {
-            if isDir {
-                mime = "application/x-directory"
-            } else {
-                // if the file exists but it's not a directory and has no known mime type
-                var foundEncoding: UInt = 0
-                if let _ = try? NSString(contentsOfURL: NSURL(fileURLWithPath: path), usedEncoding: &foundEncoding) {
-                    mime = "text/plain"
-                } else {
-                    mime = "application/octet-stream"
-                }
-            }
-        }
-        // end mime type
-        
-        let location = LocationSingleton.getCurrentLocation()
-        
-        return SpotlightHistItem(lastAccessDate: NSDate(), path: "file://" + path, location: location, index: index, mime: mime!)
-    }
+    return lhs.path == rhs.path && lhs.source == rhs.source && lhs.mime == rhs.mime
 }
 
 class SpotlightTracker: NSObject {
@@ -77,7 +41,7 @@ class SpotlightTracker: NSObject {
     
     dynamic var query: NSMetadataQuery?
     
-    /// Stores all items found by spotlight. Items are stored in the same index used by spotlight, so item 0 in this list correponds to the first item found after starting the application
+    /// Stores all items found by spotlight. Items are stored in order, so item 0 in this list correponds to the first item found after starting the application
     private var allItems = [SpotlightHistItem]()
     
     private var SpotlightHistoryUpdateDelegates: [SpotlightHistoryUpdateDelegate]?
@@ -99,12 +63,30 @@ class SpotlightTracker: NSObject {
         query?.searchScopes = [NSMetadataQueryUserHomeScope]
         
         let startDate = NSDate()
-        let predicateFormat = "kMDItemLastUsedDate >= %@"
+        let predicateFormat = "kMDItemFSContentChangeDate >= %@"
         var predicateToRun = NSPredicate(format: predicateFormat, argumentArray: [startDate])
         
         // Now, we don't want to include email messages in the result set, so add in an AND that excludes them
         let emailExclusionPredicate = NSPredicate(format: "(kMDItemContentType != 'com.apple.mail.emlx') && (kMDItemContentType != 'public.vcard')", argumentArray: nil)
-        predicateToRun = NSCompoundPredicate(andPredicateWithSubpredicates: [predicateToRun, emailExclusionPredicate])
+        
+        // Only look for files that end in .sfl
+        let extensionPredicate = NSPredicate(format: "%K ENDSWITH %@", NSMetadataItemFSNameKey, ".sfl")
+        
+        predicateToRun = NSCompoundPredicate(andPredicateWithSubpredicates: [predicateToRun, emailExclusionPredicate, extensionPredicate])
+        
+        // Exclude top-level sfl files
+        let excludedFiles = ["com.apple.LSSharedFileList.RecentDocuments.sfl",
+            "com.apple.LSSharedFileList.RecentApplications.sfl",
+            "com.apple.LSSharedFileList.RecentHosts.sfl",
+            "com.apple.LSSharedFileList.FavoriteItems.sfl",
+            "com.apple.LSSharedFileList.ProjectsItems.sfl",
+            "com.apple.LSSharedFileList.RecentServers.sfl",
+            "com.apple.LSSharedFileList.ApplicationRecentDocuments.sfl"]
+        
+        for exclFile in excludedFiles {
+            let exclPredicate = NSPredicate(format: "%K != %@", NSMetadataItemFSNameKey, exclFile)
+            predicateToRun = NSCompoundPredicate(andPredicateWithSubpredicates: [predicateToRun, exclPredicate])
+        }
         
         query?.predicate = predicateToRun
         query?.startQuery()
@@ -116,18 +98,21 @@ class SpotlightTracker: NSObject {
     
     func updateBlock(input: AnyObject!, index: Int, boolPoint: UnsafeMutablePointer<ObjCBool>) {
         let inputVal = input as! NSMetadataItem
-        let newHistItem = inputVal.makeHistItem(withIndex: index)
-        if index >= allItems.count {
+        guard let path = inputVal.valueForKey(kMDItemPath as String), date = inputVal.valueForKey(NSMetadataItemFSContentChangeDateKey as String), newHistItem = fetchMostRecentDoc(fromSfl: NSURL(fileURLWithPath: path as! String), date: date as! NSDate) else {
+            return
+        }
+        if !allItems.contains(newHistItem) {
             for delegate in SpotlightHistoryUpdateDelegates! {
                 delegate.newSpotlightData(newHistItem)
             }
             allItems.append(newHistItem)
         } else {
+            let previousItemIndex = allItems.indexOf(newHistItem)!
             // Only re-add items if first time that it was opened was before kMinSeconds from now
             let shiftedDate = NSDate().dateByAddingTimeInterval(-kMinSeconds)
-            let previousDate = allItems[index].lastAccessDate
+            let previousDate = allItems[previousItemIndex].lastAccessDate
             if shiftedDate.compare(previousDate) == NSComparisonResult.OrderedDescending {
-                allItems[index].lastAccessDate = NSDate()
+                allItems[previousItemIndex].lastAccessDate = NSDate()
                 for delegate in SpotlightHistoryUpdateDelegates! {
                     delegate.newSpotlightData(newHistItem)
                 }
@@ -135,4 +120,52 @@ class SpotlightTracker: NSObject {
         }
     }
     
+    /// Extract the most recent opened document from the given shared file list
+    ///
+    /// - parameter fromSfl: The path of the sfl file on disk
+    /// - returns: A spotlight hist item representing the most recent opened document in the sfl
+    private func fetchMostRecentDoc(fromSfl filePath: NSURL, date: NSDate) -> SpotlightHistItem? {
+        
+        let sfl = NSDictionary(contentsOfURL: filePath)!
+        
+        let objects = sfl["$objects"]!
+        
+        // create tuples for each element in the sharedfilelist, first item is count, second path
+        var tuples = [(count: Int, path: String)]()
+        var i = 0
+        while i < objects.count! {
+            // seek order (int) which comes before bookmark
+            if let odict = objects[i] as? NSDictionary, order = odict["order"] {
+                if let cnt = order as? Int {
+                    
+                    // seek bookmark and associate it to previously found order
+                    while i < objects.count! - 1 {
+                        i++
+                        
+                        if let possiblebook = objects[i] as? NSData, abookdict = NSURL.resourceValuesForKeys([NSURLPathKey], fromBookmarkData: possiblebook) {
+                            
+                            tuples.append((count: cnt, path: abookdict[NSURLPathKey]! as! String))
+                            break
+                            
+                        }
+                        
+                    }
+                    
+                }
+            }
+            i++
+        }
+        if tuples.count > 0 {
+            // sort tuples by count in ascending order, take first item
+            tuples = tuples.sort {$0.0 < $1.0}
+            // most recent document URL
+            let docUrl = NSURL(fileURLWithPath: tuples[0].path)
+            // get application name by removing extension
+            let docSource = filePath.URLByDeletingPathExtension!.lastPathComponent!
+            let location = LocationSingleton.getCurrentLocation()
+            return SpotlightHistItem(lastAccessDate: date, path: docUrl.path!, location: location, mime: docUrl.getMime()!, source: docSource)
+        } else {
+            return nil
+        }
+    }
 }

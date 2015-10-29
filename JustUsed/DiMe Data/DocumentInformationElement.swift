@@ -56,7 +56,7 @@ class DocumentInformationElement: DiMeBase {
         
         // set everything else apart from plain text and id
         theDictionary["mimeType"] = histItem.mime
-        theDictionary["uri"] = histItem.path
+        theDictionary["uri"] = "file://" + histItem.path
         theDictionary["title"] = NSURL(fileURLWithPath: histItem.path).lastPathComponent!
         
         // set dime-required fields

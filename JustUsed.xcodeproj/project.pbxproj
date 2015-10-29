@@ -7,32 +7,32 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		A92574551BCF8F98004866B4 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = A92574541BCF8F98004866B4 /* Utils.swift */; settings = {ASSET_TAGS = (); }; };
-		A92574591BCF8FF9004866B4 /* XCGLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = A92574581BCF8FF9004866B4 /* XCGLogger.swift */; settings = {ASSET_TAGS = (); }; };
-		A925745B1BCF901D004866B4 /* JustUsedConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A925745A1BCF901D004866B4 /* JustUsedConstants.swift */; settings = {ASSET_TAGS = (); }; };
-		A92574621BCF906A004866B4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A925745D1BCF906A004866B4 /* AppDelegate.swift */; settings = {ASSET_TAGS = (); }; };
-		A92574631BCF906A004866B4 /* AppSingleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A925745E1BCF906A004866B4 /* AppSingleton.swift */; settings = {ASSET_TAGS = (); }; };
-		A92574641BCF906A004866B4 /* LocationSingleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A925745F1BCF906A004866B4 /* LocationSingleton.swift */; settings = {ASSET_TAGS = (); }; };
-		A92574651BCF906A004866B4 /* SafariHistoryFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = A92574601BCF906A004866B4 /* SafariHistoryFetcher.swift */; settings = {ASSET_TAGS = (); }; };
-		A92574661BCF906A004866B4 /* SpotlightTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = A92574611BCF906A004866B4 /* SpotlightTracker.swift */; settings = {ASSET_TAGS = (); }; };
-		A92574751BCF9190004866B4 /* FMDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = A925746B1BCF9190004866B4 /* FMDatabase.m */; settings = {ASSET_TAGS = (); }; };
-		A92574761BCF9190004866B4 /* FMDatabaseAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = A925746D1BCF9190004866B4 /* FMDatabaseAdditions.m */; settings = {ASSET_TAGS = (); }; };
-		A92574771BCF9190004866B4 /* FMDatabasePool.m in Sources */ = {isa = PBXBuildFile; fileRef = A925746F1BCF9190004866B4 /* FMDatabasePool.m */; settings = {ASSET_TAGS = (); }; };
-		A92574781BCF9190004866B4 /* FMDatabaseQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = A92574711BCF9190004866B4 /* FMDatabaseQueue.m */; settings = {ASSET_TAGS = (); }; };
-		A92574791BCF9190004866B4 /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = A92574741BCF9190004866B4 /* FMResultSet.m */; settings = {ASSET_TAGS = (); }; };
+		A92574551BCF8F98004866B4 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = A92574541BCF8F98004866B4 /* Utils.swift */; };
+		A92574591BCF8FF9004866B4 /* XCGLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = A92574581BCF8FF9004866B4 /* XCGLogger.swift */; };
+		A925745B1BCF901D004866B4 /* JustUsedConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A925745A1BCF901D004866B4 /* JustUsedConstants.swift */; };
+		A92574621BCF906A004866B4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A925745D1BCF906A004866B4 /* AppDelegate.swift */; };
+		A92574631BCF906A004866B4 /* AppSingleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A925745E1BCF906A004866B4 /* AppSingleton.swift */; };
+		A92574641BCF906A004866B4 /* LocationSingleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A925745F1BCF906A004866B4 /* LocationSingleton.swift */; };
+		A92574651BCF906A004866B4 /* SafariHistoryFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = A92574601BCF906A004866B4 /* SafariHistoryFetcher.swift */; };
+		A92574661BCF906A004866B4 /* SpotlightTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = A92574611BCF906A004866B4 /* SpotlightTracker.swift */; };
+		A92574751BCF9190004866B4 /* FMDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = A925746B1BCF9190004866B4 /* FMDatabase.m */; };
+		A92574761BCF9190004866B4 /* FMDatabaseAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = A925746D1BCF9190004866B4 /* FMDatabaseAdditions.m */; };
+		A92574771BCF9190004866B4 /* FMDatabasePool.m in Sources */ = {isa = PBXBuildFile; fileRef = A925746F1BCF9190004866B4 /* FMDatabasePool.m */; };
+		A92574781BCF9190004866B4 /* FMDatabaseQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = A92574711BCF9190004866B4 /* FMDatabaseQueue.m */; };
+		A92574791BCF9190004866B4 /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = A92574741BCF9190004866B4 /* FMResultSet.m */; };
 		A9438DD91B7A3F0400F1A54B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A9438DD81B7A3F0400F1A54B /* Images.xcassets */; };
 		A9438DDC1B7A3F0400F1A54B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A9438DDA1B7A3F0400F1A54B /* Main.storyboard */; };
 		A9438DE81B7A3F0400F1A54B /* JustUsedTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9438DE71B7A3F0400F1A54B /* JustUsedTests.swift */; };
 		A9D4A2D51B7B9B3400EC1D68 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A9D4A2D41B7B9B3400EC1D68 /* libsqlite3.dylib */; };
 		A9D894201BD00EED00314475 /* Alamofire.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A9F5077D1BC7B8DE00275C6C /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		A9F507881BC7BA4B00275C6C /* DiMePreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9F507861BC7BA4B00275C6C /* DiMePreferencesViewController.swift */; settings = {ASSET_TAGS = (); }; };
-		A9F507891BC7BA4B00275C6C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9F507871BC7BA4B00275C6C /* ViewController.swift */; settings = {ASSET_TAGS = (); }; };
-		A9F5078B1BC7BF1300275C6C /* HistoryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9F5078A1BC7BF1300275C6C /* HistoryManager.swift */; settings = {ASSET_TAGS = (); }; };
-		A9F507901BC7BF5900275C6C /* DesktopEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9F5078C1BC7BF5900275C6C /* DesktopEvent.swift */; settings = {ASSET_TAGS = (); }; };
-		A9F507911BC7BF5900275C6C /* DiMeData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9F5078D1BC7BF5900275C6C /* DiMeData.swift */; settings = {ASSET_TAGS = (); }; };
-		A9F507921BC7BF5900275C6C /* DocumentInformationElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9F5078E1BC7BF5900275C6C /* DocumentInformationElement.swift */; settings = {ASSET_TAGS = (); }; };
-		A9F507931BC7BF5900275C6C /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9F5078F1BC7BF5900275C6C /* Event.swift */; settings = {ASSET_TAGS = (); }; };
-		A9F782071BCFCCE900516E55 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9F782061BCFCCE900516E55 /* Location.swift */; settings = {ASSET_TAGS = (); }; };
+		A9F507881BC7BA4B00275C6C /* DiMePreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9F507861BC7BA4B00275C6C /* DiMePreferencesViewController.swift */; };
+		A9F507891BC7BA4B00275C6C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9F507871BC7BA4B00275C6C /* ViewController.swift */; };
+		A9F5078B1BC7BF1300275C6C /* HistoryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9F5078A1BC7BF1300275C6C /* HistoryManager.swift */; };
+		A9F507901BC7BF5900275C6C /* DesktopEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9F5078C1BC7BF5900275C6C /* DesktopEvent.swift */; };
+		A9F507911BC7BF5900275C6C /* DiMeData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9F5078D1BC7BF5900275C6C /* DiMeData.swift */; };
+		A9F507921BC7BF5900275C6C /* DocumentInformationElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9F5078E1BC7BF5900275C6C /* DocumentInformationElement.swift */; };
+		A9F507931BC7BF5900275C6C /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9F5078F1BC7BF5900275C6C /* Event.swift */; };
+		A9F782071BCFCCE900516E55 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9F782061BCFCCE900516E55 /* Location.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -607,6 +607,7 @@
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				INFOPLIST_FILE = JustUsed/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				PRODUCT_BUNDLE_IDENTIFIER = HIIT.JustUsed;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -624,6 +625,7 @@
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				INFOPLIST_FILE = JustUsed/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				PRODUCT_BUNDLE_IDENTIFIER = HIIT.JustUsed;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";

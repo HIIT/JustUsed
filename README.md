@@ -4,9 +4,14 @@ JustUsed currently tracks two things: “Used” files and Safari history
 
 ## Used files
 
-Uses the Spotlight API (```NSMetadataQuery```) to detect files which have a value of ```kMDItemLastUsedDate``` greater (more recent) than the time the application was opened. Files added to the list of items are added to a table (and displayed back). This approach is very lightweight.
+Uses the Spotlight API (`NSMetadataQuery`) to detect `*.sfl` files which have a value of `kMDItemFSContentChangeDate` greater (more recent) than the time the JustUsed was launched. SFL (SharedFileList) files are used by OS X El Capitan (they are called differently in previous versions of OS X) to track the most recently opened documents in any application that uses standard OS X libraries. JustUsed then finds the most recent document found in the most recently changed sfl file, and assumes it was the most recently opened document.
 
-To see additional data that could be used as input to the spotlight api tri ```mdls somefile``` in Terminal. Any of the returned keys can be used to initiate spotlight queries.
+This approach has drawbacks: if one opens the most recent document from within the same application multiple times, it will not be reported as recently opened. The alternative would be using Spotlight to find items which have a recent `kMDItemLastUsedDate`, however this approach doesn't work in two scenarios:
+
+1. When a file is downloaded from the internet (an attribute called `com.apple.quarantine` gets set on downloaded items).
+2. When a file is opened from within an application (i.e. without using Finder).
+
+These two bugs have been reported to Apple.
 
 ## Safari history
 
