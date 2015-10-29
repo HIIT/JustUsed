@@ -14,13 +14,29 @@
 import Foundation
 import Alamofire
 
-class HistoryManager: SpotlightHistoryUpdateDelegate, SafariHistoryUpdateDelegate {
+class HistoryManager: NSObject, SpotlightHistoryUpdateDelegate, SafariHistoryUpdateDelegate {
     
     /// Returns a shared instance of this class. This is the designed way of accessing the history manager.
     static let sharedManager = HistoryManager()
     
+    /// DiMe connection is checked every time this amount of second passes
+    static let kConnectionCheckTime = 5.0
+    
     /// Is true if there is a connection to DiMe, and can be used
     private var dimeAvailable: Bool = false
+    
+    // MARK: - Initialization
+    
+    override init() {
+        super.init()
+        let connectTimer = NSTimer(timeInterval: HistoryManager.kConnectionCheckTime, target: self, selector: "connectionTimerCheck:", userInfo: nil, repeats: true)
+        NSRunLoop.currentRunLoop().addTimer(connectTimer, forMode: NSRunLoopCommonModes)
+    }
+    
+    /// Callback for connection timer
+    func connectionTimerCheck(aTimer: NSTimer) {
+        dimeConnect()
+    }
     
     // MARK: - External functions
     
