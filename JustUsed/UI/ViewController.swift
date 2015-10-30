@@ -8,13 +8,13 @@
 
 import Cocoa
 
-class ViewController: NSViewController, SpotlightHistoryUpdateDelegate, SafariHistoryUpdateDelegate {
+class ViewController: NSViewController, RecentDocumentUpdateDelegate, SafariHistoryUpdateDelegate {
     
     // Whether the button says connect or disconnect (to avoid using strings)
     let kTagConnect: Int = 1
     let kTagDisconnect: Int = 2
     
-    weak var spotlightSource: SpotlightTrackerDataSource?
+    weak var spotlightSource: RecentDocDataSource?
     weak var safariSource: SafariTrackerDataSource?
     
     @IBOutlet weak var safariTable: NSTableView!
@@ -42,12 +42,12 @@ class ViewController: NSViewController, SpotlightHistoryUpdateDelegate, SafariHi
     }
     
     /// Must call this function to set-up delegates and data sources
-    func setSources(spotlightSource: SpotlightTrackerDataSource, safariSource: SafariTrackerDataSource) {
+    func setSources(spotlightSource: RecentDocDataSource, safariSource: SafariTrackerDataSource) {
         self.spotlightSource = spotlightSource
         self.safariSource = safariSource
     }
     
-    func newSpotlightData(newItem: SpotlightHistItem) {
+    func newRecentDocument(newItem: RecentDocItem) {
         spotlightSource!.addData(newItem)
         fileTable?.reloadData()
     }
@@ -132,7 +132,7 @@ class SafariTrackerDataSource: NSObject, NSTableViewDataSource  {
     
 }
 
-class SpotlightTrackerDataSource: NSObject, NSTableViewDataSource {
+class RecentDocDataSource: NSObject, NSTableViewDataSource {
     
     var lutimes = [String]()
     var lupaths = [String]()
@@ -140,7 +140,7 @@ class SpotlightTrackerDataSource: NSObject, NSTableViewDataSource {
     var locations = [String]()
     var mimes = [String]()
     
-    func addData(newItem: SpotlightHistItem) {
+    func addData(newItem: RecentDocItem) {
         lutimes.append(newItem.lastAccessDate.descriptionWithLocale(NSLocale.currentLocale()))
         lupaths.append(newItem.path)
         sources.append(newItem.source)

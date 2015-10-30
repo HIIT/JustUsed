@@ -29,7 +29,7 @@ class DocumentInformationElement: DiMeBase {
     }
     
     /// Creates a document from a Spotlight history element
-    init(fromSpotlightHist histItem: SpotlightHistItem) {
+    init(fromRecentDoc histItem: RecentDocItem) {
         super.init()
         var id: String
         

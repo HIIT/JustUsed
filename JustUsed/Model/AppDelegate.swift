@@ -16,11 +16,17 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     // Trackers
     let safHistoryFetcher = SafariHistoryFetcher()
-    let spoTracker = SpotlightTracker()
+    let recentDocTracker: RecentDocumentsTracker = {
+        if AppSingleton.isElCapitan {
+            return SpotlightTracker()
+        } else {
+            return RecentPlistTracker()
+        }
+    }()
     
     // Data sources to display tables in GUI
     let safHistoryDataSource = SafariTrackerDataSource()
-    let spoHistoryDataSource = SpotlightTrackerDataSource()
+    let spoHistoryDataSource = RecentDocDataSource()
     
     /// Popover that will be displayed while clicking on menubar button
     let popover = NSPopover() 
@@ -58,11 +64,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         viewController!.setSources(spoHistoryDataSource, safariSource: safHistoryDataSource)
         popover.contentViewController = self.viewController!
         safHistoryFetcher.addUpdateDelegate(self.viewController!)
-        spoTracker.addSpotlightDataDelegate(self.viewController!)
+        recentDocTracker.addRecentDocumentUpdateDelegate(self.viewController!)
         
         // History manager and its delegation
         safHistoryFetcher.addUpdateDelegate(HistoryManager.sharedManager)
-        spoTracker.addSpotlightDataDelegate(HistoryManager.sharedManager)
+        recentDocTracker.addRecentDocumentUpdateDelegate(HistoryManager.sharedManager)
         
         diMeConnectionChanged(nil)
     }

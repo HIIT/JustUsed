@@ -20,6 +20,8 @@
 		A92574771BCF9190004866B4 /* FMDatabasePool.m in Sources */ = {isa = PBXBuildFile; fileRef = A925746F1BCF9190004866B4 /* FMDatabasePool.m */; };
 		A92574781BCF9190004866B4 /* FMDatabaseQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = A92574711BCF9190004866B4 /* FMDatabaseQueue.m */; };
 		A92574791BCF9190004866B4 /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = A92574741BCF9190004866B4 /* FMResultSet.m */; };
+		A92C0ACD1BE401BC00F93915 /* RecentPlistTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = A92C0ACC1BE401BC00F93915 /* RecentPlistTracker.swift */; };
+		A92C0AD31BE40EF000F93915 /* RecentDocumentsTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = A92C0AD21BE40EF000F93915 /* RecentDocumentsTracker.swift */; };
 		A9438DD91B7A3F0400F1A54B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A9438DD81B7A3F0400F1A54B /* Images.xcassets */; };
 		A9438DDC1B7A3F0400F1A54B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A9438DDA1B7A3F0400F1A54B /* Main.storyboard */; };
 		A9438DE81B7A3F0400F1A54B /* JustUsedTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9438DE71B7A3F0400F1A54B /* JustUsedTests.swift */; };
@@ -122,6 +124,8 @@
 		A92574721BCF9190004866B4 /* FMDB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDB.h; sourceTree = "<group>"; };
 		A92574731BCF9190004866B4 /* FMResultSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMResultSet.h; sourceTree = "<group>"; };
 		A92574741BCF9190004866B4 /* FMResultSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMResultSet.m; sourceTree = "<group>"; };
+		A92C0ACC1BE401BC00F93915 /* RecentPlistTracker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecentPlistTracker.swift; sourceTree = "<group>"; };
+		A92C0AD21BE40EF000F93915 /* RecentDocumentsTracker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecentDocumentsTracker.swift; sourceTree = "<group>"; };
 		A9438DCF1B7A3F0400F1A54B /* JustUsed.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JustUsed.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A9438DD31B7A3F0400F1A54B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A9438DD81B7A3F0400F1A54B /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
@@ -167,7 +171,9 @@
 				A925745E1BCF906A004866B4 /* AppSingleton.swift */,
 				A925745F1BCF906A004866B4 /* LocationSingleton.swift */,
 				A92574601BCF906A004866B4 /* SafariHistoryFetcher.swift */,
+				A92C0AD21BE40EF000F93915 /* RecentDocumentsTracker.swift */,
 				A92574611BCF906A004866B4 /* SpotlightTracker.swift */,
+				A92C0ACC1BE401BC00F93915 /* RecentPlistTracker.swift */,
 			);
 			name = Model;
 			path = JustUsed/Model;
@@ -474,8 +480,10 @@
 				A92574791BCF9190004866B4 /* FMResultSet.m in Sources */,
 				A92574771BCF9190004866B4 /* FMDatabasePool.m in Sources */,
 				A92574551BCF8F98004866B4 /* Utils.swift in Sources */,
+				A92C0AD31BE40EF000F93915 /* RecentDocumentsTracker.swift in Sources */,
 				A9F507911BC7BF5900275C6C /* DiMeData.swift in Sources */,
 				A925745B1BCF901D004866B4 /* JustUsedConstants.swift in Sources */,
+				A92C0ACD1BE401BC00F93915 /* RecentPlistTracker.swift in Sources */,
 				A92574751BCF9190004866B4 /* FMDatabase.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -607,7 +615,7 @@
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				INFOPLIST_FILE = JustUsed/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				PRODUCT_BUNDLE_IDENTIFIER = HIIT.JustUsed;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -625,7 +633,7 @@
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				INFOPLIST_FILE = JustUsed/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				PRODUCT_BUNDLE_IDENTIFIER = HIIT.JustUsed;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";

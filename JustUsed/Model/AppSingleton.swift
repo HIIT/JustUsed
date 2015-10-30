@@ -10,6 +10,10 @@ import Foundation
 import Cocoa
 
 class AppSingleton {
+    /// Returns true if OS X version is greater than 10.10
+    static let isElCapitan = NSProcessInfo.processInfo().operatingSystemVersion.majorVersion == 10 &&
+                             NSProcessInfo.processInfo().operatingSystemVersion.minorVersion == 11
+    
     static let log = AppSingleton.createLog()
     
     static func createLog() -> XCGLogger {

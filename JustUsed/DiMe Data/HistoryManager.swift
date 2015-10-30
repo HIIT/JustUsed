@@ -14,7 +14,7 @@
 import Foundation
 import Alamofire
 
-class HistoryManager: NSObject, SpotlightHistoryUpdateDelegate, SafariHistoryUpdateDelegate {
+class HistoryManager: NSObject, RecentDocumentUpdateDelegate, SafariHistoryUpdateDelegate {
     
     /// Returns a shared instance of this class. This is the designed way of accessing the history manager.
     static let sharedManager = HistoryManager()
@@ -85,8 +85,8 @@ class HistoryManager: NSObject, SpotlightHistoryUpdateDelegate, SafariHistoryUpd
         }
     }
     
-    func newSpotlightData(newItem: SpotlightHistItem) {
-        let infoElem = DocumentInformationElement(fromSpotlightHist: newItem)
+    func newRecentDocument(newItem: RecentDocItem) {
+        let infoElem = DocumentInformationElement(fromRecentDoc: newItem)
         let event = DesktopEvent(infoElem: infoElem, ofType: TrackingType.Spotlight, withDate: newItem.lastAccessDate, andLocation: newItem.location)
         sendToDiMe(event)
     }
