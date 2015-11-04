@@ -9,8 +9,28 @@
 
 import Foundation
 import Cocoa
+import Quartz
 
 // MARK: - Extensions to standard types
+
+extension PDFDocument {
+    
+    /// Returns a trimmed plain text of the data contained in the document, nil not preset
+    func getText() -> String? {
+        
+        var trimmedText = string()
+        trimmedText = trimmedText.stringByReplacingOccurrencesOfString("\u{fffc}", withString: "")
+        trimmedText = trimmedText.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet()) // get trimmed version of all text
+        trimmedText = trimmedText.stringByTrimmingCharactersInSet(NSCharacterSet.newlineCharacterSet()) // trim newlines
+        trimmedText = trimmedText.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet()) // trim again
+        if trimmedText.characters.count > 5 {  // we assume the document does contain useful text if there are more than 5 characters remaining
+            return trimmedText
+        } else {
+            return nil
+        }
+    }
+    
+}
 
 extension NSURL {
     

@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Quartz
 
 class DocumentInformationElement: DiMeBase {
     
@@ -23,6 +24,11 @@ class DocumentInformationElement: DiMeBase {
             theDictionary["title"] = title
         }
         
+        // attempt to fetch plain text from url
+        if let url = NSURL(string: histItem.url), urlData = NSData(contentsOfURL: url), atString = NSAttributedString(HTML: urlData, documentAttributes: nil) {
+            theDictionary["plainTextContent"] = atString.string
+        }
+        
         // set dime-required fields
         theDictionary["@type"] = "Document"
         theDictionary["type"] = "http://www.hiit.fi/ontologies/dime/#Document"
@@ -37,16 +43,22 @@ class DocumentInformationElement: DiMeBase {
         let mt: NSString = histItem.mime
         if mt.substringToIndex(4) == "text" {
             do {
-                var plainText: NSString = try String(contentsOfFile: histItem.path)
-                if plainText.length >= kMaxPlainTextLength {
-                    plainText = plainText.substringToIndex(kMaxPlainTextLength)
-                }
+                let plainText: NSString = try String(contentsOfFile: histItem.path)
                 let plainTextString: String = plainText as String
                 id = plainTextString.sha1()
                 theDictionary["plainTextContent"] = plainTextString
             } catch (let exception) {
                 id = histItem.path.sha1()
                 AppSingleton.log.error("Error while fetching plain text from \(histItem.path): \(exception)")
+            }
+        } else if mt == "application/pdf" {
+            // attempt to fetch plain text from pdf
+            let docUrl = NSURL(fileURLWithPath: histItem.path)
+            if let pdfDoc = PDFDocument(URL: docUrl), plainString = pdfDoc.getText() {
+                id = plainString.sha1()
+                theDictionary["plainTextContent"] = plainString
+            } else {
+                id = histItem.path.sha1()
             }
         } else {
             id = histItem.path.sha1()
