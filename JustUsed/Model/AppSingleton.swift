@@ -17,6 +17,11 @@ class AppSingleton {
     static let log = AppSingleton.createLog()
     
     static func createLog() -> XCGLogger {
+        let dateFormat = "Y'-'MM'-'d'T'HH':'mm':'ssZ"  // date format for string appended to log
+        let dateFormatter = NSDateFormatter()
+        dateFormatter.dateFormat = dateFormat
+        let appString = dateFormatter.stringFromDate(NSDate())
+        
         var firstLine: String = "Log directory succesfully created / present"
         let tempURL = NSURL(fileURLWithPath: NSTemporaryDirectory()).URLByAppendingPathComponent(NSBundle.mainBundle().bundleIdentifier!)
         do {
@@ -24,7 +29,7 @@ class AppSingleton {
         } catch {
             firstLine = "Error creating log directory: \(error)"
         }
-        let logFilePath = tempURL.URLByAppendingPathComponent("XCGLog.log")
+        let logFilePath = tempURL.URLByAppendingPathComponent("XCGLog_\(appString).log")
         let newLog = XCGLogger.defaultInstance()
         newLog.setup(.Debug, showThreadName: true, showLogLevel: true, showFileNames: true, showLineNumbers: true, writeToFile: logFilePath, fileLogLevel: .Debug)
         newLog.debug(firstLine)
