@@ -17,7 +17,7 @@ class DocumentInformationElement: DiMeBase {
     init(fromSafariHist histItem: SafariHistItem) {
         super.init()
         
-        theDictionary["id"] = histItem.url.sha1()
+        theDictionary["appId"] = histItem.url.sha1()
         theDictionary["mimeType"] = "text/url"
         theDictionary["uri"] = histItem.url
         if let title = histItem.title {
@@ -64,7 +64,7 @@ class DocumentInformationElement: DiMeBase {
             id = histItem.path.sha1()
         }
         
-        theDictionary["id"] = id
+        theDictionary["appId"] = id
         
         // set everything else apart from plain text and id
         theDictionary["mimeType"] = histItem.mime
