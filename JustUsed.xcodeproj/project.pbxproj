@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A914066E1C0348EF00C3C2E0 /* SpotlightDocumentTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = A914066D1C0348EF00C3C2E0 /* SpotlightDocumentTracker.swift */; };
 		A92574551BCF8F98004866B4 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = A92574541BCF8F98004866B4 /* Utils.swift */; };
 		A92574591BCF8FF9004866B4 /* XCGLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = A92574581BCF8FF9004866B4 /* XCGLogger.swift */; };
 		A925745B1BCF901D004866B4 /* JustUsedConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A925745A1BCF901D004866B4 /* JustUsedConstants.swift */; };
@@ -14,7 +15,6 @@
 		A92574631BCF906A004866B4 /* AppSingleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A925745E1BCF906A004866B4 /* AppSingleton.swift */; };
 		A92574641BCF906A004866B4 /* LocationSingleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A925745F1BCF906A004866B4 /* LocationSingleton.swift */; };
 		A92574651BCF906A004866B4 /* SafariHistoryFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = A92574601BCF906A004866B4 /* SafariHistoryFetcher.swift */; };
-		A92574661BCF906A004866B4 /* SpotlightTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = A92574611BCF906A004866B4 /* SpotlightTracker.swift */; };
 		A92574751BCF9190004866B4 /* FMDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = A925746B1BCF9190004866B4 /* FMDatabase.m */; };
 		A92574761BCF9190004866B4 /* FMDatabaseAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = A925746D1BCF9190004866B4 /* FMDatabaseAdditions.m */; };
 		A92574771BCF9190004866B4 /* FMDatabasePool.m in Sources */ = {isa = PBXBuildFile; fileRef = A925746F1BCF9190004866B4 /* FMDatabasePool.m */; };
@@ -104,6 +104,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		A914066D1C0348EF00C3C2E0 /* SpotlightDocumentTracker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpotlightDocumentTracker.swift; sourceTree = "<group>"; };
 		A92574541BCF8F98004866B4 /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		A92574581BCF8FF9004866B4 /* XCGLogger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XCGLogger.swift; sourceTree = "<group>"; };
 		A925745A1BCF901D004866B4 /* JustUsedConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JustUsedConstants.swift; sourceTree = "<group>"; };
@@ -112,7 +113,6 @@
 		A925745E1BCF906A004866B4 /* AppSingleton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppSingleton.swift; sourceTree = "<group>"; };
 		A925745F1BCF906A004866B4 /* LocationSingleton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationSingleton.swift; sourceTree = "<group>"; };
 		A92574601BCF906A004866B4 /* SafariHistoryFetcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SafariHistoryFetcher.swift; sourceTree = "<group>"; };
-		A92574611BCF906A004866B4 /* SpotlightTracker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpotlightTracker.swift; sourceTree = "<group>"; };
 		A925746A1BCF9190004866B4 /* FMDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabase.h; sourceTree = "<group>"; };
 		A925746B1BCF9190004866B4 /* FMDatabase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabase.m; sourceTree = "<group>"; };
 		A925746C1BCF9190004866B4 /* FMDatabaseAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabaseAdditions.h; sourceTree = "<group>"; };
@@ -171,8 +171,8 @@
 				A925745E1BCF906A004866B4 /* AppSingleton.swift */,
 				A925745F1BCF906A004866B4 /* LocationSingleton.swift */,
 				A92574601BCF906A004866B4 /* SafariHistoryFetcher.swift */,
+				A914066D1C0348EF00C3C2E0 /* SpotlightDocumentTracker.swift */,
 				A92C0AD21BE40EF000F93915 /* RecentDocumentsTracker.swift */,
-				A92574611BCF906A004866B4 /* SpotlightTracker.swift */,
 				A92C0ACC1BE401BC00F93915 /* RecentPlistTracker.swift */,
 			);
 			name = Model;
@@ -463,7 +463,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				A92574621BCF906A004866B4 /* AppDelegate.swift in Sources */,
-				A92574661BCF906A004866B4 /* SpotlightTracker.swift in Sources */,
 				A92574631BCF906A004866B4 /* AppSingleton.swift in Sources */,
 				A9F507921BC7BF5900275C6C /* DocumentInformationElement.swift in Sources */,
 				A92574761BCF9190004866B4 /* FMDatabaseAdditions.m in Sources */,
@@ -473,6 +472,7 @@
 				A92574651BCF906A004866B4 /* SafariHistoryFetcher.swift in Sources */,
 				A92574781BCF9190004866B4 /* FMDatabaseQueue.m in Sources */,
 				A9F507891BC7BA4B00275C6C /* ViewController.swift in Sources */,
+				A914066E1C0348EF00C3C2E0 /* SpotlightDocumentTracker.swift in Sources */,
 				A92574591BCF8FF9004866B4 /* XCGLogger.swift in Sources */,
 				A92574641BCF906A004866B4 /* LocationSingleton.swift in Sources */,
 				A9F782071BCFCCE900516E55 /* Location.swift in Sources */,

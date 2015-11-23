@@ -18,7 +18,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     let safHistoryFetcher = SafariHistoryFetcher()
     let recentDocTracker: RecentDocumentsTracker = {
         if AppSingleton.isElCapitan {
-            return SpotlightTracker()
+            return SpotlightDocumentTracker()
         } else {
             return RecentPlistTracker()
         }

@@ -10,7 +10,7 @@ import Foundation
 import Cocoa
 
 /// SpotlightTracker checks all recently modified .sfl files (where recently opened documents are stored by OS X El Capitan) using spotlight.
-class SpotlightTracker: RecentDocumentsTracker {
+class SpotlightDocumentTracker: RecentDocumentsTracker {
     
     /// Won't re-add a last used item if it is already used within the last x seconds
     let kMinSeconds = JustUsedConstants.kSpotlightMinSeconds
