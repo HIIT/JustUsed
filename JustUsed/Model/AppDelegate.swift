@@ -71,6 +71,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         recentDocTracker.addRecentDocumentUpdateDelegate(HistoryManager.sharedManager)
         
         diMeConnectionChanged(nil)
+        
+        // Creating Firefox fetcher (TODO: move in proper place)
+        let x = FirefoxHistoryFetcher()
+        Swift.print(x?.dbFolder)
     }
     
     /// Updates itself when connection is lost / resumed

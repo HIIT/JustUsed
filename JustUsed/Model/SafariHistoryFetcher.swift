@@ -160,7 +160,7 @@ class SafariHistoryFetcher {
         func latestDBTime() -> NSDate {
             var dates = [NSDate]()
             
-            for fileUrl in getDBPaths() {
+            for fileUrl in getDBURLs() {
                 
                 var inVal: AnyObject?
                 var myError: NSError?
@@ -183,7 +183,7 @@ class SafariHistoryFetcher {
         
         /// Copies both .db and .db-wal files to temporary directory
         /// Returns all paths, with the first one being the .db file
-        func copyFiles() -> [String]{
+        func copyFiles() -> [String] {
             
             var allPaths = [String]()  // paths will be put here
             // Create temporary directory and delete previous temporary file (if present)
@@ -198,7 +198,7 @@ class SafariHistoryFetcher {
             }
             
             // Copy files
-            for dbPathURL in getDBPaths() {
+            for dbPathURL in getDBURLs() {
                 let filenameURL = dbPathURL
                 let tempDataFileURL = tempURL.URLByAppendingPathComponent("Safari_copied_\(filenameURL.lastPathComponent!)")
                 let tempDataFile = tempDataFileURL.path!
@@ -230,7 +230,7 @@ class SafariHistoryFetcher {
         }
         
         /// Gets path of both .db and .db-wal files, in an array of String
-        func getDBPaths() ->  [NSURL] {
+        func getDBURLs() -> [NSURL] {
             let safariLibURL = NSURL(fileURLWithPath: NSHomeDirectory()).URLByAppendingPathComponent("Library/Safari")
             
             let filenames: [String] = ["History.db", "History.db-wal", "History.db-shm"]

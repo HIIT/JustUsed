@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		A914066E1C0348EF00C3C2E0 /* SpotlightDocumentTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = A914066D1C0348EF00C3C2E0 /* SpotlightDocumentTracker.swift */; };
+		A91406731C036D5500C3C2E0 /* FirefoxHistoryFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = A91406721C036D5500C3C2E0 /* FirefoxHistoryFetcher.swift */; };
 		A92574551BCF8F98004866B4 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = A92574541BCF8F98004866B4 /* Utils.swift */; };
 		A92574591BCF8FF9004866B4 /* XCGLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = A92574581BCF8FF9004866B4 /* XCGLogger.swift */; };
 		A925745B1BCF901D004866B4 /* JustUsedConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A925745A1BCF901D004866B4 /* JustUsedConstants.swift */; };
@@ -25,6 +26,7 @@
 		A9438DD91B7A3F0400F1A54B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A9438DD81B7A3F0400F1A54B /* Images.xcassets */; };
 		A9438DDC1B7A3F0400F1A54B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A9438DDA1B7A3F0400F1A54B /* Main.storyboard */; };
 		A9438DE81B7A3F0400F1A54B /* JustUsedTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9438DE71B7A3F0400F1A54B /* JustUsedTests.swift */; };
+		A9647CDB1C03853D00485837 /* ChromeHistoryFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9647CDA1C03853D00485837 /* ChromeHistoryFetcher.swift */; };
 		A9D4A2D51B7B9B3400EC1D68 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A9D4A2D41B7B9B3400EC1D68 /* libsqlite3.dylib */; };
 		A9D894201BD00EED00314475 /* Alamofire.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A9F5077D1BC7B8DE00275C6C /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		A9F507881BC7BA4B00275C6C /* DiMePreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9F507861BC7BA4B00275C6C /* DiMePreferencesViewController.swift */; };
@@ -105,6 +107,7 @@
 
 /* Begin PBXFileReference section */
 		A914066D1C0348EF00C3C2E0 /* SpotlightDocumentTracker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpotlightDocumentTracker.swift; sourceTree = "<group>"; };
+		A91406721C036D5500C3C2E0 /* FirefoxHistoryFetcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirefoxHistoryFetcher.swift; sourceTree = "<group>"; };
 		A92574541BCF8F98004866B4 /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		A92574581BCF8FF9004866B4 /* XCGLogger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XCGLogger.swift; sourceTree = "<group>"; };
 		A925745A1BCF901D004866B4 /* JustUsedConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JustUsedConstants.swift; sourceTree = "<group>"; };
@@ -133,6 +136,7 @@
 		A9438DE11B7A3F0400F1A54B /* JustUsedTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = JustUsedTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A9438DE61B7A3F0400F1A54B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A9438DE71B7A3F0400F1A54B /* JustUsedTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JustUsedTests.swift; sourceTree = "<group>"; };
+		A9647CDA1C03853D00485837 /* ChromeHistoryFetcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChromeHistoryFetcher.swift; sourceTree = "<group>"; };
 		A9D4A2D41B7B9B3400EC1D68 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		A9F507721BC7B8DE00275C6C /* Alamofire.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Alamofire.xcodeproj; path = Alamofire/Alamofire.xcodeproj; sourceTree = "<group>"; };
 		A9F507861BC7BA4B00275C6C /* DiMePreferencesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiMePreferencesViewController.swift; sourceTree = "<group>"; };
@@ -171,6 +175,8 @@
 				A925745E1BCF906A004866B4 /* AppSingleton.swift */,
 				A925745F1BCF906A004866B4 /* LocationSingleton.swift */,
 				A92574601BCF906A004866B4 /* SafariHistoryFetcher.swift */,
+				A91406721C036D5500C3C2E0 /* FirefoxHistoryFetcher.swift */,
+				A9647CDA1C03853D00485837 /* ChromeHistoryFetcher.swift */,
 				A914066D1C0348EF00C3C2E0 /* SpotlightDocumentTracker.swift */,
 				A92C0AD21BE40EF000F93915 /* RecentDocumentsTracker.swift */,
 				A92C0ACC1BE401BC00F93915 /* RecentPlistTracker.swift */,
@@ -474,6 +480,7 @@
 				A9F507891BC7BA4B00275C6C /* ViewController.swift in Sources */,
 				A914066E1C0348EF00C3C2E0 /* SpotlightDocumentTracker.swift in Sources */,
 				A92574591BCF8FF9004866B4 /* XCGLogger.swift in Sources */,
+				A91406731C036D5500C3C2E0 /* FirefoxHistoryFetcher.swift in Sources */,
 				A92574641BCF906A004866B4 /* LocationSingleton.swift in Sources */,
 				A9F782071BCFCCE900516E55 /* Location.swift in Sources */,
 				A9F507931BC7BF5900275C6C /* Event.swift in Sources */,
@@ -483,6 +490,7 @@
 				A92C0AD31BE40EF000F93915 /* RecentDocumentsTracker.swift in Sources */,
 				A9F507911BC7BF5900275C6C /* DiMeData.swift in Sources */,
 				A925745B1BCF901D004866B4 /* JustUsedConstants.swift in Sources */,
+				A9647CDB1C03853D00485837 /* ChromeHistoryFetcher.swift in Sources */,
 				A92C0ACD1BE401BC00F93915 /* RecentPlistTracker.swift in Sources */,
 				A92574751BCF9190004866B4 /* FMDatabase.m in Sources */,
 			);

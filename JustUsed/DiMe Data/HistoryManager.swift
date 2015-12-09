@@ -59,8 +59,8 @@ class HistoryManager: NSObject, RecentDocumentUpdateDelegate, SafariHistoryUpdat
         let dictionaryObject = ["test": "test"]
         
         Alamofire.request(Alamofire.Method.POST, server_url + "/ping", parameters: dictionaryObject, encoding: Alamofire.ParameterEncoding.JSON, headers: headers).responseJSON {
-            _, _, response in
-            if response.isFailure {
+            response in
+            if response.result.isFailure {
                 // connection failed
                 self.dimeConnectState(false)
             } else {
@@ -136,9 +136,10 @@ class HistoryManager: NSObject, RecentDocumentUpdateDelegate, SafariHistoryUpdat
             }
             
             Alamofire.request(Alamofire.Method.POST, server_url + "/data/event", parameters: dimeData.getDict(), encoding: Alamofire.ParameterEncoding.JSON, headers: headers).responseJSON {
-                _, _, response in
-                if response.isFailure {
+                response in
+                if response.result.isFailure {
                     self.dimeConnectState(false)
+                    AppSingleton.log.error("Failure when submitting data to dime:\n\(response.result.error!)")
                 } else {
                     // JSON(response.value!) to see what dime replied
                 }
