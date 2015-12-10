@@ -9,8 +9,7 @@
 import Foundation
 import Cocoa
 
-//class FirefoxHistoryFetcher: BrowserHistoryFetcher {
-class FirefoxHistoryFetcher {
+class FirefoxHistoryFetcher: BrowserHistoryFetcher {
 
     private(set) var lastHistoryEntry: NSDate
     var lastDBFileUpdate: NSDate
@@ -34,9 +33,55 @@ class FirefoxHistoryFetcher {
         }
         
         // initialization succeeded, do first history check
-        //historyCheck()
+        historyCheck()
         
     }
+    
+    func getNewHistoryItemsFromDB(dbPath: String) -> [BrowserHistItem] {
+        
+        // Perform database read
+        var new_urls = [BrowserHistItem]()
+        let db = FMDatabase(path: dbPath)
+        db.open()
+        let lastTime = self.lastHistoryEntry.unixTime_μs
+        self.lastHistoryEntry = NSDate()
+        let visits_query = "SELECT url, title, last_visit_date FROM moz_places WHERE last_visit_date > ?"
+        if let visits_result = db.executeQuery(visits_query, withArgumentsInArray: ["\(lastTime)"]) {
+            while visits_result.next() {
+                let visits_dict = visits_result.resultDictionary()
+                let visit_url = visits_dict["url"] as! String
+                let visit_title = visits_dict["title"] as? String
+                let visit_time = visits_dict["last_visit_date"] as! Int
+                let visit_date = NSDate(fromUnixTime_μs: visit_time)
+                let location = LocationSingleton.getCurrentLocation()
+                new_urls.append(BrowserHistItem(browser: .Firefox, date: visit_date, url: visit_url, title: visit_title, location: location))
+            }
+        }
+        db.close()
+        
+        return new_urls
+    }
+    
+    /// Firefox implementation: return places.sqlite and places.sqlite-wal
+    func getDBURLs() -> [NSURL] {
+        
+        let filenames: [String] = ["places.sqlite", "places.sqlite-wal", "places.sqlite-shm"]
+        
+        var retVal = [NSURL]()
+        for filename in filenames {
+            retVal.append(dbFolder.URLByAppendingPathComponent(filename))
+        }
+        
+        // If History.db does not exist, assume Firefox is not being used
+        if !AppSingleton.fileManager.fileExistsAtPath(retVal[0].path!) {
+            return [NSURL]()
+        }
+        
+        return retVal
+    }
+    
+    
+    // MARK: - Helpers
     
     /// Returns the location of the folder in which the Firefox databases are found.
     /// This is usually ~/Application\ Support/Firefox/Profiles/<id>.default.

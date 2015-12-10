@@ -61,12 +61,34 @@ extension NSURL {
 
 extension NSDate {
     
-    /// Number of ms since 1/1/1970. Read-only computed property.
-    var unixTime: Int { get {
+    /// Number of ms since 1/1/1970.
+    var unixTime_ms: Int { get {
         return Int(round(self.timeIntervalSince1970 * 1000))
         }
     }
     
+    /// Creates a date from a unix time in microsec
+    convenience init(fromUnixTime_μs μs: Int) {
+        self.init(timeIntervalSince1970: Double(μs) / 1000000)
+    }
+    
+    /// Number of microsec since 1/1/1970.
+    var unixTime_μs: Int { get {
+        return Int(round(self.timeIntervalSince1970 * 1000000))
+        }
+    }
+    
+    /// Creates a date from a windows time.
+    convenience init(fromWinTime wintime: Double) {
+        let unixtime_s = wintime/1000-11644473600
+        self.init(timeIntervalSince1970: unixtime_s)
+    }
+    
+    /// Returns the corresponding date as a windows timestamp.
+    var winTime: Double { get {
+        return 1000 * (11644473600 + self.timeIntervalSince1970)
+        }
+    }
     
     /// Returns the current time in a short format, e.g. 16:30.45
     /// Use this to pass dates to DiMe

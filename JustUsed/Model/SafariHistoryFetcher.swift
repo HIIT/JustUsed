@@ -47,10 +47,7 @@ class SafariHistoryFetcher: BrowserHistoryFetcher {
             while visits_result.next() {
                 let visits_dict = visits_result.resultDictionary()
                 let visit_id = visits_dict["history_item"] as! NSNumber
-                var visit_title: String?
-                if let newTitle = visits_dict["title"] as? String {
-                    visit_title = newTitle
-                }
+                let visit_title = visits_dict["title"] as? String
                 let visit_time = visits_dict["visit_time"] as! NSNumber
                 let visit_date = NSDate(timeIntervalSinceReferenceDate: visit_time as NSTimeInterval)
                 let item_query = "SELECT url FROM history_items WHERE id = ?"
