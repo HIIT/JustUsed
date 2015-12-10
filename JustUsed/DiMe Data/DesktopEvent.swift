@@ -16,10 +16,10 @@ class DesktopEvent: Event {
         
         theDictionary["targettedResource"] = infoElem.getDict()
         switch type {
-        case .Safari:
-            theDictionary["actor"] = "JustUsed_Safari"
         case .Spotlight:
             theDictionary["actor"] = "JustUsed_Spotlight"
+        case let .Browser(browser):
+            theDictionary["actor"] = "JustUsed_\(browser)"
         }
         theDictionary["start"] = JustUsedConstants.diMeDateFormatter.stringFromDate(date)
         
@@ -33,6 +33,6 @@ class DesktopEvent: Event {
 }
 
 enum TrackingType {
-    case Safari
+    case Browser(BrowserType)
     case Spotlight
 }

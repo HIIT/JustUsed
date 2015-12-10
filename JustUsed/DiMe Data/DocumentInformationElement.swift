@@ -14,7 +14,7 @@ class DocumentInformationElement: DiMeBase {
     let kMaxPlainTextLength: Int = 1000
     
     /// Creates a document from a Safari history element
-    init(fromSafariHist histItem: SafariHistItem) {
+    init(fromSafariHist histItem: BrowserHistItem) {
         super.init()
         
         theDictionary["appId"] = histItem.url.sha1()

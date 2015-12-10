@@ -17,6 +17,8 @@ class DiMePreferencesViewController: NSViewController {
     @IBOutlet weak var sendPlainTextCell: NSButtonCell!
     @IBOutlet weak var sendSafariHistCell: NSButtonCell!
     
+    @IBOutlet weak var logsPathLabel: NSTextField!
+    
     /// Create view and programmatically set-up bindings
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,6 +38,8 @@ class DiMePreferencesViewController: NSViewController {
         
         // similar set here
         sendSafariHistCell.bind("value", toObject: NSUserDefaultsController.sharedUserDefaultsController(), withKeyPath: "values." + JustUsedConstants.prefSendSafariHistory, options: options)
+        
+        logsPathLabel.stringValue = AppSingleton.logsURL.path ?? "<nil>"
         
     }
 }

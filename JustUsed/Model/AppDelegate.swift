@@ -15,7 +15,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     var viewController: ViewController?
     
     // Trackers
-    let safHistoryFetcher = SafariHistoryFetcher()
+    let browserManager = BrowserHistoryManager()
+    
     let recentDocTracker: RecentDocumentsTracker = {
         if AppSingleton.isElCapitan {
             return SpotlightDocumentTracker()
@@ -25,7 +26,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }()
     
     // Data sources to display tables in GUI
-    let safHistoryDataSource = SafariTrackerDataSource()
+    let browHistoryDataSource = BrowserTrackerDataSource()
     let spoHistoryDataSource = RecentDocDataSource()
     
     /// Popover that will be displayed while clicking on menubar button
@@ -59,22 +60,22 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         let storyboard = NSStoryboard(name: "Main", bundle: nil)
         popover.behavior = NSPopoverBehavior.Transient
         
+        // Prepare browser tracking for each browser
+        browserManager.addFetcher(SafariHistoryFetcher())
+        
         // View controller and its delegation
         self.viewController = (storyboard.instantiateControllerWithIdentifier("View Controller") as! ViewController)
-        viewController!.setSources(spoHistoryDataSource, safariSource: safHistoryDataSource)
+        viewController!.setSources(spoHistoryDataSource, browserSource: browHistoryDataSource)
         popover.contentViewController = self.viewController!
-        safHistoryFetcher.addUpdateDelegate(self.viewController!)
+        browserManager.addUpdateDelegate(self.viewController!)
         recentDocTracker.addRecentDocumentUpdateDelegate(self.viewController!)
         
         // History manager and its delegation
-        safHistoryFetcher.addUpdateDelegate(HistoryManager.sharedManager)
+        browserManager.addUpdateDelegate(HistoryManager.sharedManager)
         recentDocTracker.addRecentDocumentUpdateDelegate(HistoryManager.sharedManager)
         
         diMeConnectionChanged(nil)
         
-        // Creating Firefox fetcher (TODO: move in proper place)
-        let x = FirefoxHistoryFetcher()
-        Swift.print(x?.dbFolder)
     }
     
     /// Updates itself when connection is lost / resumed

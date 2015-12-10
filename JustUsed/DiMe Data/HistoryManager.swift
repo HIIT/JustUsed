@@ -14,7 +14,7 @@
 import Foundation
 import Alamofire
 
-class HistoryManager: NSObject, RecentDocumentUpdateDelegate, SafariHistoryUpdateDelegate {
+class HistoryManager: NSObject, RecentDocumentUpdateDelegate, BrowserHistoryUpdateDelegate {
     
     /// Returns a shared instance of this class. This is the designed way of accessing the history manager.
     static let sharedManager = HistoryManager()
@@ -77,10 +77,10 @@ class HistoryManager: NSObject, RecentDocumentUpdateDelegate, SafariHistoryUpdat
     
     // MARK: - Protocol implementation
     
-    func newHistoryItems(newURLs: [SafariHistItem]) {
+    func newHistoryItems(newURLs: [BrowserHistItem]) {
         for newURL in newURLs {
             let infoElem = DocumentInformationElement(fromSafariHist: newURL)
-            let event = DesktopEvent(infoElem: infoElem, ofType: TrackingType.Safari, withDate: newURL.date, andLocation: newURL.location)
+            let event = DesktopEvent(infoElem: infoElem, ofType: TrackingType.Browser(newURL.browser), withDate: newURL.date, andLocation: newURL.location)
             sendToDiMe(event)
         }
     }

@@ -15,6 +15,10 @@ class AppSingleton {
                              NSProcessInfo.processInfo().operatingSystemVersion.minorVersion == 11
     
     static let log = AppSingleton.createLog()
+    static private(set) var logsURL = NSURL()
+    
+    /// Ref to filemanager for convenience
+    static let fileManager = NSFileManager.defaultManager()
     
     static func createLog() -> XCGLogger {
         let dateFormat = "Y'-'MM'-'d'T'HH':'mm':'ssZ"  // date format for string appended to log
@@ -29,6 +33,7 @@ class AppSingleton {
         } catch {
             firstLine = "Error creating log directory: \(error)"
         }
+        AppSingleton.logsURL = tempURL
         let logFilePath = tempURL.URLByAppendingPathComponent("XCGLog_\(appString).log")
         let newLog = XCGLogger.defaultInstance()
         newLog.setup(.Debug, showThreadName: true, showLogLevel: true, showFileNames: true, showLineNumbers: true, writeToFile: logFilePath, fileLogLevel: .Debug)

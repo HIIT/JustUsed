@@ -17,9 +17,10 @@ class JustUsedConstants {
     static let kBoolPointTitle = "f_Stopped"
     static let kMimeType = "Mime type"
     static let kLocTitle = "Location description"
-    static let kSHistoryDate = "URL Visit time"
-    static let kSHistoryURL = "Visited URL"
-    static let kSHistoryTitle = "Page title"
+    static let kBHistoryBrowser = "Browser"
+    static let kBHistoryDate = "URL Visit time"
+    static let kBHistoryURL = "Visited URL"
+    static let kBHistoryTitle = "Page title"
     static let kMenuImageName = "DiMeTemplate"
     
     // MARK: - Preference identifiers

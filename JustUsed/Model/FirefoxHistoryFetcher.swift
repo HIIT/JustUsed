@@ -9,17 +9,33 @@
 import Foundation
 import Cocoa
 
+//class FirefoxHistoryFetcher: BrowserHistoryFetcher {
 class FirefoxHistoryFetcher {
+
+    private(set) var lastHistoryEntry: NSDate
+    var lastDBFileUpdate: NSDate
+    let browserType: BrowserType = .Safari
     
-    let dbFolder: NSURL
+    /// Keeping firefox's db folder here since it changes from user to user
+    private let dbFolder: NSURL
     
-    init?() {
+    required init?() {
+        
+        // initializes dates and performs first history check to update them
+        lastHistoryEntry = NSDate()
+        lastDBFileUpdate = NSDate.distantPast() // Initialise to be as early as possible.
+        
+        // if firefox db folder can't be found, fail initialization
         if let fdbf = FirefoxHistoryFetcher.getFirefoxDBFolder() {
             dbFolder = fdbf
         } else {
             dbFolder = NSURL()
             return nil
         }
+        
+        // initialization succeeded, do first history check
+        //historyCheck()
+        
     }
     
     /// Returns the location of the folder in which the Firefox databases are found.

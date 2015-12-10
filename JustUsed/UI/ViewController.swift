@@ -8,16 +8,16 @@
 
 import Cocoa
 
-class ViewController: NSViewController, RecentDocumentUpdateDelegate, SafariHistoryUpdateDelegate {
+class ViewController: NSViewController, RecentDocumentUpdateDelegate, BrowserHistoryUpdateDelegate {
     
     // Whether the button says connect or disconnect (to avoid using strings)
     let kTagConnect: Int = 1
     let kTagDisconnect: Int = 2
     
     weak var spotlightSource: RecentDocDataSource?
-    weak var safariSource: SafariTrackerDataSource?
+    weak var browserSource: BrowserTrackerDataSource?
     
-    @IBOutlet weak var safariTable: NSTableView!
+    @IBOutlet weak var browserTable: NSTableView!
     @IBOutlet weak var fileTable: NSTableView!
     
     // DiMe statuses
@@ -34,7 +34,7 @@ class ViewController: NSViewController, RecentDocumentUpdateDelegate, SafariHist
         updateDiMeStatus()
         
         fileTable.setDataSource(spotlightSource)
-        safariTable.setDataSource(safariSource)
+        browserTable.setDataSource(browserSource)
     }
     
     override func viewDidDisappear() {
@@ -42,9 +42,9 @@ class ViewController: NSViewController, RecentDocumentUpdateDelegate, SafariHist
     }
     
     /// Must call this function to set-up delegates and data sources
-    func setSources(spotlightSource: RecentDocDataSource, safariSource: SafariTrackerDataSource) {
+    func setSources(spotlightSource: RecentDocDataSource, browserSource: BrowserTrackerDataSource) {
         self.spotlightSource = spotlightSource
-        self.safariSource = safariSource
+        self.browserSource = browserSource
     }
     
     func newRecentDocument(newItem: RecentDocItem) {
@@ -52,9 +52,9 @@ class ViewController: NSViewController, RecentDocumentUpdateDelegate, SafariHist
         fileTable?.reloadData()
     }
     
-    func newHistoryItems(newURLs: [SafariHistItem]) {
-        safariSource!.insertNewData(newURLs)
-        safariTable?.reloadData()
+    func newHistoryItems(newURLs: [BrowserHistItem]) {
+        browserSource!.insertNewData(newURLs)
+        browserTable?.reloadData()
     }
     
     /// Checks dime status and updates view accordingly
@@ -90,12 +90,12 @@ class ViewController: NSViewController, RecentDocumentUpdateDelegate, SafariHist
     }
 }
 
-class SafariTrackerDataSource: NSObject, NSTableViewDataSource  {
+class BrowserTrackerDataSource: NSObject, NSTableViewDataSource  {
     
-    var allHistory = [SafariHistItem]()
+    var allHistory = [BrowserHistItem]()
     
     // Insert data avoiding duplicates
-    func insertNewData(newURLs: [SafariHistItem]) {
+    func insertNewData(newURLs: [BrowserHistItem]) {
         for newUrl in newURLs {
             if !allHistory.contains(newUrl) {
                 allHistory.append(newUrl)
@@ -110,10 +110,12 @@ class SafariTrackerDataSource: NSObject, NSTableViewDataSource  {
     
     
     func tableView(tableView: NSTableView, objectValueForTableColumn tableColumn: NSTableColumn?, row: Int) -> AnyObject? {
-        if tableColumn!.identifier == JustUsedConstants.kSHistoryDate {
+        if tableColumn!.identifier == JustUsedConstants.kBHistoryDate {
             let date = allHistory[row].date
             return date.descriptionWithLocale(NSLocale.currentLocale())
-        } else if tableColumn!.identifier == JustUsedConstants.kSHistoryTitle {
+        } else if tableColumn!.identifier == JustUsedConstants.kBHistoryBrowser {
+            return allHistory[row].browser.rawValue
+        } else if tableColumn!.identifier == JustUsedConstants.kBHistoryTitle {
             if let title = allHistory[row].title {
                 return title
             } else {
