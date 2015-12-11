@@ -44,8 +44,7 @@ class FirefoxHistoryFetcher: BrowserHistoryFetcher {
         let db = FMDatabase(path: dbPath)
         db.open()
         let lastTime = self.lastHistoryEntry.unixTime_μs
-        self.lastHistoryEntry = NSDate()
-        let visits_query = "SELECT url, title, last_visit_date FROM moz_places WHERE last_visit_date > ?"
+        let visits_query = "SELECT url, title, last_visit_date FROM moz_places WHERE last_visit_date > ? ORDER BY last_visit_date asc"
         if let visits_result = db.executeQuery(visits_query, withArgumentsInArray: ["\(lastTime)"]) {
             while visits_result.next() {
                 let visits_dict = visits_result.resultDictionary()
@@ -53,6 +52,7 @@ class FirefoxHistoryFetcher: BrowserHistoryFetcher {
                 let visit_title = visits_dict["title"] as? String
                 let visit_time = visits_dict["last_visit_date"] as! Int
                 let visit_date = NSDate(fromUnixTime_μs: visit_time)
+                self.lastHistoryEntry = visit_date
                 let location = LocationSingleton.getCurrentLocation()
                 new_urls.append(BrowserHistItem(browser: .Firefox, date: visit_date, url: visit_url, title: visit_title, location: location))
             }
@@ -72,10 +72,13 @@ class FirefoxHistoryFetcher: BrowserHistoryFetcher {
             retVal.append(dbFolder.URLByAppendingPathComponent(filename))
         }
         
-        // If History.db does not exist, assume Firefox is not being used
+        // If places.sqlite does not exist, assume Firefox is not being used
         if !AppSingleton.fileManager.fileExistsAtPath(retVal[0].path!) {
             return [NSURL]()
         }
+        
+        // filter by keeping only existing paths
+        retVal = retVal.filter({AppSingleton.fileManager.fileExistsAtPath($0.path!)})
         
         return retVal
     }

@@ -24,7 +24,7 @@ class SafariHistoryFetcher: BrowserHistoryFetcher {
         lastHistoryEntry = NSDate()
         lastDBFileUpdate = NSDate.distantPast() // Initialise to be as early as possible.
         
-        // If not valid urls exist, fail initialization
+        // If no valid urls exist, fail initialization
         if getDBURLs().count == 0 {
             return nil
         }
@@ -41,8 +41,7 @@ class SafariHistoryFetcher: BrowserHistoryFetcher {
         let db = FMDatabase(path: dbPath)
         db.open()
         let lastTime = self.lastHistoryEntry.timeIntervalSinceReferenceDate as Double
-        self.lastHistoryEntry = NSDate()
-        let visits_query = "SELECT history_item, visit_time, title FROM history_visits WHERE visit_time > ?"
+        let visits_query = "SELECT history_item, visit_time, title FROM history_visits WHERE visit_time > ? ORDER BY visit_time asc"
         if let visits_result = db.executeQuery(visits_query, withArgumentsInArray: ["\(lastTime)"]) {
             while visits_result.next() {
                 let visits_dict = visits_result.resultDictionary()
@@ -50,6 +49,7 @@ class SafariHistoryFetcher: BrowserHistoryFetcher {
                 let visit_title = visits_dict["title"] as? String
                 let visit_time = visits_dict["visit_time"] as! NSNumber
                 let visit_date = NSDate(timeIntervalSinceReferenceDate: visit_time as NSTimeInterval)
+                self.lastHistoryEntry = visit_date
                 let item_query = "SELECT url FROM history_items WHERE id = ?"
                 let item_result = db.executeQuery(item_query, withArgumentsInArray: [visit_id])
                 while item_result.next() {
@@ -80,6 +80,9 @@ class SafariHistoryFetcher: BrowserHistoryFetcher {
         if !AppSingleton.fileManager.fileExistsAtPath(retVal[0].path!) {
             return [NSURL]()
         }
+        
+        // filter by keeping only existing paths
+        retVal = retVal.filter({AppSingleton.fileManager.fileExistsAtPath($0.path!)})
         
         return retVal
     }

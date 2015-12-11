@@ -63,6 +63,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         // Prepare browser tracking for each browser
         browserManager.addFetcher(SafariHistoryFetcher())
         browserManager.addFetcher(FirefoxHistoryFetcher())
+        browserManager.addFetcher(ChromeHistoryFetcher())
         
         // View controller and its delegation
         self.viewController = (storyboard.instantiateControllerWithIdentifier("View Controller") as! ViewController)

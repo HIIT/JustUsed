@@ -78,15 +78,15 @@ extension NSDate {
         }
     }
     
-    /// Creates a date from a windows time.
-    convenience init(fromWinTime wintime: Double) {
-        let unixtime_s = wintime/1000-11644473600
+    /// Creates a date from a ldap timestamp.
+    convenience init(fromLdapTime lt: Int) {
+        let unixtime_s = Double(lt)/1000000-11644473600
         self.init(timeIntervalSince1970: unixtime_s)
     }
     
-    /// Returns the corresponding date as a windows timestamp.
-    var winTime: Double { get {
-        return 1000 * (11644473600 + self.timeIntervalSince1970)
+    /// Returns the corresponding date as a LDAP timestamp.
+    var ldapTime: Int { get {
+        return Int(round(1000000 * (11644473600 + self.timeIntervalSince1970)))
         }
     }
     
