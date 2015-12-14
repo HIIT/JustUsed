@@ -41,6 +41,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         defaultPrefs[JustUsedConstants.prefDiMeServerURL] = "http://localhost:8080/api"
         defaultPrefs[JustUsedConstants.prefDiMeServerUserName] = "Test1"
         defaultPrefs[JustUsedConstants.prefDiMeServerPassword] = "123456"
+        let defaultExcludeDomains = ["localhost", "talkgadget.google.com"]
+        defaultPrefs[JustUsedConstants.prefExcludeDomains] = defaultExcludeDomains
         defaultPrefs[JustUsedConstants.prefSendPlainTexts] = 1
         defaultPrefs[JustUsedConstants.prefSendSafariHistory] = 1
         NSUserDefaults.standardUserDefaults().registerDefaults(defaultPrefs)

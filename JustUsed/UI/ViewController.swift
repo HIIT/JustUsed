@@ -127,6 +127,8 @@ class BrowserTrackerDataSource: NSObject, NSTableViewDataSource  {
             } else {
                 return JustUsedConstants.kUnkownLocationString
             }
+        } else if tableColumn!.identifier == JustUsedConstants.kBHistoryExcluded {
+            return allHistory[row].excludedFromDiMe ? "Yes" : "No"
         } else {
             return allHistory[row].url
         }

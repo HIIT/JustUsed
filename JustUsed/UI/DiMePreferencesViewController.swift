@@ -39,7 +39,29 @@ class DiMePreferencesViewController: NSViewController {
         // similar set here
         sendSafariHistCell.bind("value", toObject: NSUserDefaultsController.sharedUserDefaultsController(), withKeyPath: "values." + JustUsedConstants.prefSendSafariHistory, options: options)
         
-        logsPathLabel.stringValue = AppSingleton.logsURL.path ?? "<nil>"
+        logsPathLabel.stringValue = AppSingleton.logsURL.path ?? "<Nothing logged so far>"
         
+    }
+    
+    /// Domain names
+    @IBOutlet weak var userDefaultsAC: NSArrayController!
+    @IBOutlet weak var domainsTable: NSTableView!
+    @IBOutlet weak var newDomainField: NSTextField!
+    
+    @IBAction func removeButtonPress(sender: NSButton) {
+        if domainsTable.selectedRow != -1 {
+            userDefaultsAC.removeObjectAtArrangedObjectIndex(domainsTable.selectedRow)
+        }
+    }
+    
+    @IBAction func addButtonPress(sender: NSButton) {
+        let newVal = newDomainField.stringValue.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+        if newVal.characters.count > 0 {
+            let cont = userDefaultsAC.content as! [String]
+            if cont.indexOf(newVal) == nil {
+                userDefaultsAC.addObject(newVal)
+            }
+            newDomainField.stringValue = ""
+        }
     }
 }

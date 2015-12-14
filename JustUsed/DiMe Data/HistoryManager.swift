@@ -79,9 +79,11 @@ class HistoryManager: NSObject, RecentDocumentUpdateDelegate, BrowserHistoryUpda
     
     func newHistoryItems(newURLs: [BrowserHistItem]) {
         for newURL in newURLs {
-            let infoElem = DocumentInformationElement(fromSafariHist: newURL)
-            let event = DesktopEvent(infoElem: infoElem, ofType: TrackingType.Browser(newURL.browser), withDate: newURL.date, andLocation: newURL.location)
-            sendToDiMe(event)
+            if !newURL.excludedFromDiMe {
+                let infoElem = DocumentInformationElement(fromSafariHist: newURL)
+                let event = DesktopEvent(infoElem: infoElem, ofType: TrackingType.Browser(newURL.browser), withDate: newURL.date, andLocation: newURL.location)
+                sendToDiMe(event)
+            }
         }
     }
     

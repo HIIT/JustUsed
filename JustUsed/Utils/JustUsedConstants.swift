@@ -18,12 +18,17 @@ class JustUsedConstants {
     static let kMimeType = "Mime type"
     static let kLocTitle = "Location description"
     static let kBHistoryBrowser = "Browser"
+    static let kBHistoryExcluded = "Excluded"
     static let kBHistoryDate = "URL Visit time"
     static let kBHistoryURL = "Visited URL"
     static let kBHistoryTitle = "Page title"
     static let kMenuImageName = "DiMeTemplate"
     
     // MARK: - Preference identifiers
+    
+    /// Preference index representing list of excluded domains.
+    /// - Note: changing this requires manual change in the preferences' array controller
+    static let prefExcludeDomains = "pref.excludeDomains"
     
     /// URL of the DiMe server (bound in the preferences window)
     static let prefDiMeServerURL = "dime.serverinfo.url"

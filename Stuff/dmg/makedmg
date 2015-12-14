@@ -7,4 +7,4 @@
 
 # requires PeyeDF.app in the current folder (latest binary)
 
-appdmg appdmg.json PeyeDF.dmg
+appdmg appdmg.json "Mac Desktop Tracker.dmg"

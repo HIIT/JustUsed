@@ -26,6 +26,28 @@ struct BrowserHistItem: Equatable {
     let url: String
     let title: String?
     let location: Location?
+    let excludedFromDiMe: Bool
+    
+    init(browser: BrowserType, date: NSDate, url: String, title: String?, location: Location?) {
+        self.browser = browser
+        self.date = date
+        self.url = url
+        self.title = title
+        self.location = location
+        
+        // Set excluded property if url's domain is in exclude list
+        if let url = NSURL(string: self.url), domain = url.host {
+            let excludeDomains = NSUserDefaults.standardUserDefaults().valueForKey(JustUsedConstants.prefExcludeDomains) as! [String]
+            let filteredDomains = excludeDomains.filter({domain.rangeOfString($0) != nil})
+            if filteredDomains.count > 0 {
+                excludedFromDiMe = true
+            } else {
+                excludedFromDiMe = false
+            }
+        } else {
+            excludedFromDiMe = false
+        }
+    }
 }
 
 func ==(lhs: BrowserHistItem, rhs: BrowserHistItem) -> Bool {
