@@ -27,6 +27,7 @@ class DocumentInformationElement: DiMeBase {
         // attempt to fetch plain text from url
         if let url = NSURL(string: histItem.url), urlData = NSData(contentsOfURL: url), atString = NSAttributedString(HTML: urlData, documentAttributes: nil) {
             theDictionary["plainTextContent"] = atString.string
+            theDictionary["contentHash"] = atString.string.sha1()
         }
         
         // set dime-required fields
@@ -56,6 +57,7 @@ class DocumentInformationElement: DiMeBase {
             let docUrl = NSURL(fileURLWithPath: histItem.path)
             if let pdfDoc = PDFDocument(URL: docUrl), plainString = pdfDoc.getText() {
                 id = plainString.sha1()
+                theDictionary["contentHash"] = plainString.sha1()
                 theDictionary["plainTextContent"] = plainString
             } else {
                 id = histItem.path.sha1()
