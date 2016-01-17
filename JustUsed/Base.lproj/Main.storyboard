@@ -879,8 +879,8 @@
                                 </tableHeaderView>
                             </scrollView>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Jpc-Gr-L7h">
-                                <rect key="frame" x="516" y="368" width="193" height="17"/>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Browser history (note: delayed)" id="47g-53-rVd">
+                                <rect key="frame" x="516" y="368" width="102" height="17"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Browser history " id="47g-53-rVd">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -986,8 +986,16 @@
                                     <action selector="quitButtonPress:" target="XfG-lQ-9wD" id="enk-pi-Jyv"/>
                                 </connections>
                             </button>
+                            <button translatesAutoresizingMaskIntoConstraints="NO" id="Hf7-NW-meL">
+                                <rect key="frame" x="705" y="368" width="290" height="18"/>
+                                <buttonCell key="cell" type="check" title="Send to DiMe (disable if you use extensions)" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="OVW-lN-kTD">
+                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                            </button>
                         </subviews>
                         <constraints>
+                            <constraint firstItem="Hf7-NW-meL" firstAttribute="centerY" secondItem="Jpc-Gr-L7h" secondAttribute="centerY" id="2xt-fb-fuv"/>
                             <constraint firstItem="wL0-Ce-Lef" firstAttribute="leading" secondItem="o36-kD-YAP" secondAttribute="leading" id="3Hh-yz-mrj"/>
                             <constraint firstItem="SPa-BH-yWy" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="33" id="AkG-x6-fLg"/>
                             <constraint firstItem="o36-kD-YAP" firstAttribute="top" secondItem="wL0-Ce-Lef" secondAttribute="bottom" constant="8" id="Cud-J2-hBQ"/>
@@ -1004,6 +1012,7 @@
                             <constraint firstItem="mYd-Je-soU" firstAttribute="width" secondItem="o36-kD-YAP" secondAttribute="width" id="Waf-wE-S9r"/>
                             <constraint firstItem="o36-kD-YAP" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="20" id="XFy-LD-OLX"/>
                             <constraint firstAttribute="bottom" secondItem="o36-kD-YAP" secondAttribute="bottom" constant="20" id="cOa-KP-lrm"/>
+                            <constraint firstItem="Hf7-NW-meL" firstAttribute="trailing" secondItem="eYq-zs-b34" secondAttribute="trailing" id="fsF-sd-kPW"/>
                             <constraint firstAttribute="trailing" secondItem="mYd-Je-soU" secondAttribute="trailing" constant="20" id="gux-2F-4lp"/>
                             <constraint firstItem="wL0-Ce-Lef" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="20" id="hZz-Qc-dhv"/>
                             <constraint firstItem="Jpc-Gr-L7h" firstAttribute="leading" secondItem="o36-kD-YAP" secondAttribute="trailing" constant="22" id="iKb-3z-kiV"/>
@@ -1016,6 +1025,7 @@
                     <connections>
                         <outlet property="browserTable" destination="Wy3-QN-NTT" id="Jfn-cO-xGz"/>
                         <outlet property="fileTable" destination="I6U-o7-KeD" id="a33-fG-aAI"/>
+                        <outlet property="sendBrowserToDiMe" destination="OVW-lN-kTD" id="Tg6-qi-OlN"/>
                         <outlet property="statusButton" destination="LLI-Z3-rF7" id="4D4-oO-wwQ"/>
                         <outlet property="statusImage" destination="01W-0J-B6x" id="bIB-gm-v8R"/>
                         <outlet property="statusLabel" destination="RPY-WB-ig2" id="cWl-tG-Qxa"/>
@@ -1031,11 +1041,11 @@
             <objects>
                 <viewController title="DiMe Desktop Tracker Preferences" showSeguePresentationStyle="single" id="g6d-pz-jYa" customClass="DiMePreferencesViewController" customModule="JustUsed" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="PRl-yO-RbZ">
-                        <rect key="frame" x="0.0" y="0.0" width="480" height="520"/>
+                        <rect key="frame" x="0.0" y="0.0" width="480" height="552"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="KpP-w5-qmb">
-                                <rect key="frame" x="18" y="483" width="106" height="17"/>
+                                <rect key="frame" x="18" y="515" width="106" height="17"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="DiMe server URL" id="sd4-Ic-HzJ">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -1043,7 +1053,7 @@
                                 </textFieldCell>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="JI2-4r-x6L">
-                                <rect key="frame" x="18" y="439" width="140" height="17"/>
+                                <rect key="frame" x="18" y="471" width="140" height="17"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="DiMe server username" id="Vup-XZ-x5l">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -1051,7 +1061,7 @@
                                 </textFieldCell>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="HlN-fD-X0z">
-                                <rect key="frame" x="19" y="396" width="139" height="17"/>
+                                <rect key="frame" x="19" y="428" width="139" height="17"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="DiMe server password" id="d3C-9j-gwm">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -1059,7 +1069,7 @@
                                 </textFieldCell>
                             </textField>
                             <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="icH-Jz-0QZ">
-                                <rect key="frame" x="142" y="478" width="318" height="22"/>
+                                <rect key="frame" x="142" y="510" width="318" height="22"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="281" id="heX-CN-A8p"/>
                                 </constraints>
@@ -1070,7 +1080,7 @@
                                 </textFieldCell>
                             </textField>
                             <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Vid-x1-33x">
-                                <rect key="frame" x="176" y="434" width="284" height="22"/>
+                                <rect key="frame" x="176" y="466" width="284" height="22"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="281" id="iMd-Mr-Fpa"/>
                                 </constraints>
@@ -1081,7 +1091,7 @@
                                 </textFieldCell>
                             </textField>
                             <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ufK-Jq-8JQ">
-                                <rect key="frame" x="176" y="391" width="284" height="22"/>
+                                <rect key="frame" x="176" y="423" width="284" height="22"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="281" id="jdb-jx-nxe"/>
                                 </constraints>
@@ -1092,7 +1102,7 @@
                                 </textFieldCell>
                             </textField>
                             <button translatesAutoresizingMaskIntoConstraints="NO" id="Awz-Ca-xPe">
-                                <rect key="frame" x="19" y="352" width="363" height="28"/>
+                                <rect key="frame" x="19" y="384" width="363" height="28"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="24" id="PbH-Kz-2H9"/>
                                     <constraint firstAttribute="width" constant="359" id="lHO-ho-wqC"/>
@@ -1103,30 +1113,29 @@
                                 </buttonCell>
                             </button>
                             <button translatesAutoresizingMaskIntoConstraints="NO" id="TJv-LC-lom">
-                                <rect key="frame" x="19" y="322" width="363" height="28"/>
+                                <rect key="frame" x="19" y="336" width="209" height="46"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="24" id="cud-qC-OR0"/>
-                                    <constraint firstAttribute="width" constant="359" id="fnB-S9-qDb"/>
+                                    <constraint firstAttribute="width" constant="205" id="fnB-S9-qDb"/>
                                 </constraints>
-                                <buttonCell key="cell" type="check" title="Send Safari history to DiMe" bezelStyle="regularSquare" imagePosition="left" inset="2" id="ef4-cu-NqE">
+                                <buttonCell key="cell" type="check" title="Send Browser history to DiMe." bezelStyle="regularSquare" imagePosition="left" inset="2" id="ef4-cu-NqE">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                             </button>
                             <box title="Domains which contain the following won't be sent to DiMe (Exclude)" borderType="line" translatesAutoresizingMaskIntoConstraints="NO" id="BLb-ME-2Qd">
-                                <rect key="frame" x="18" y="53" width="445" height="268"/>
+                                <rect key="frame" x="18" y="53" width="445" height="282"/>
                                 <view key="contentView" id="gml-Ir-df0">
-                                    <rect key="frame" x="1" y="1" width="443" height="249"/>
+                                    <rect key="frame" x="1" y="1" width="443" height="263"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <scrollView autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nXx-J1-n1y">
-                                            <rect key="frame" x="20" y="53" width="350" height="176"/>
+                                            <rect key="frame" x="20" y="53" width="350" height="190"/>
                                             <clipView key="contentView" id="KJ1-yz-Jvx">
-                                                <rect key="frame" x="1" y="23" width="348" height="152"/>
+                                                <rect key="frame" x="1" y="0.0" width="348" height="189"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" rowSizeStyle="automatic" headerView="DLq-CX-10P" viewBased="YES" id="p83-uu-LlX">
-                                                        <rect key="frame" x="0.0" y="0.0" width="348" height="152"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="348" height="166"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                         <size key="intercellSpacing" width="3" height="2"/>
                                                         <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -1165,10 +1174,10 @@
                                                 <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="350" id="tJe-Aq-KgL"/>
                                             </constraints>
                                             <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="F8r-Np-FaN">
-                                                <rect key="frame" x="1" y="225" width="348" height="16"/>
+                                                <rect key="frame" x="1" y="159" width="348" height="16"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                             </scroller>
-                                            <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="8uD-c5-opd">
+                                            <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="8uD-c5-opd">
                                                 <rect key="frame" x="224" y="17" width="15" height="102"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                             </scroller>
@@ -1203,7 +1212,7 @@
                                             </connections>
                                         </button>
                                         <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="rtY-ve-597">
-                                            <rect key="frame" x="393" y="129" width="22" height="24"/>
+                                            <rect key="frame" x="393" y="136" width="22" height="24"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="22" id="RgC-NZ-aSK"/>
                                                 <constraint firstAttribute="width" constant="22" id="rPd-XH-VtU"/>
@@ -1263,11 +1272,23 @@
                                 <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
                                 <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </box>
+                            <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="r7g-3I-iCc">
+                                <rect key="frame" x="238" y="338" width="224" height="42"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="220" id="EiT-mM-mzK"/>
+                                </constraints>
+                                <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Disable this option is you use extensions. Browser extensions are the preferred way to send data to DiMe." id="Spd-yV-C1Z">
+                                    <font key="font" metaFont="smallSystem"/>
+                                    <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
                         </subviews>
                         <constraints>
                             <constraint firstItem="Vid-x1-33x" firstAttribute="top" secondItem="icH-Jz-0QZ" secondAttribute="bottom" constant="22" id="0i7-gr-7wr"/>
                             <constraint firstItem="HlN-fD-X0z" firstAttribute="top" secondItem="JI2-4r-x6L" secondAttribute="bottom" constant="26" id="2CV-gN-2Vd"/>
                             <constraint firstItem="HlN-fD-X0z" firstAttribute="leading" secondItem="PRl-yO-RbZ" secondAttribute="leading" constant="21" id="7T2-KU-gIX"/>
+                            <constraint firstItem="r7g-3I-iCc" firstAttribute="height" secondItem="TJv-LC-lom" secondAttribute="height" id="872-uq-dGf"/>
                             <constraint firstItem="icH-Jz-0QZ" firstAttribute="leading" secondItem="KpP-w5-qmb" secondAttribute="trailing" constant="20" id="Bjr-95-FM9"/>
                             <constraint firstItem="JI2-4r-x6L" firstAttribute="leading" secondItem="PRl-yO-RbZ" secondAttribute="leading" constant="20" id="FJe-tO-DI5"/>
                             <constraint firstAttribute="trailing" secondItem="UrD-lB-bPv" secondAttribute="trailing" constant="20" symbolic="YES" id="Gee-Pm-OYh"/>
@@ -1284,6 +1305,7 @@
                             <constraint firstItem="ufK-Jq-8JQ" firstAttribute="top" secondItem="Vid-x1-33x" secondAttribute="bottom" constant="21" id="Y9R-rF-8MD"/>
                             <constraint firstAttribute="bottom" secondItem="UrD-lB-bPv" secondAttribute="bottom" constant="20" symbolic="YES" id="Z3m-Nh-pud"/>
                             <constraint firstItem="TJv-LC-lom" firstAttribute="top" secondItem="Awz-Ca-xPe" secondAttribute="bottom" constant="6" symbolic="YES" id="bEM-ke-zuK"/>
+                            <constraint firstAttribute="trailing" secondItem="r7g-3I-iCc" secondAttribute="trailing" constant="20" id="ehg-fp-vDG"/>
                             <constraint firstItem="Vid-x1-33x" firstAttribute="leading" secondItem="JI2-4r-x6L" secondAttribute="trailing" constant="20" id="fvX-Ep-ZqE"/>
                             <constraint firstItem="Awz-Ca-xPe" firstAttribute="top" secondItem="HlN-fD-X0z" secondAttribute="bottom" constant="18" id="gRO-el-O8u"/>
                             <constraint firstAttribute="trailing" secondItem="BLb-ME-2Qd" secondAttribute="trailing" constant="20" id="kGg-ky-5mS"/>
@@ -1291,6 +1313,7 @@
                             <constraint firstItem="TJv-LC-lom" firstAttribute="leading" secondItem="PRl-yO-RbZ" secondAttribute="leading" constant="21" id="kxr-zs-tZf"/>
                             <constraint firstItem="BLb-ME-2Qd" firstAttribute="top" secondItem="TJv-LC-lom" secondAttribute="bottom" constant="3" id="pUx-7r-BYg"/>
                             <constraint firstItem="KpP-w5-qmb" firstAttribute="leading" secondItem="PRl-yO-RbZ" secondAttribute="leading" constant="20" id="pkl-Z2-cLM"/>
+                            <constraint firstItem="r7g-3I-iCc" firstAttribute="centerY" secondItem="TJv-LC-lom" secondAttribute="centerY" id="sBU-jR-sGb"/>
                             <constraint firstItem="JI2-4r-x6L" firstAttribute="top" secondItem="KpP-w5-qmb" secondAttribute="bottom" constant="27" id="sBk-EX-lzJ"/>
                             <constraint firstItem="Vid-x1-33x" firstAttribute="top" secondItem="icH-Jz-0QZ" secondAttribute="bottom" constant="22" id="tFi-kg-iZv"/>
                             <constraint firstAttribute="trailing" secondItem="icH-Jz-0QZ" secondAttribute="trailing" constant="20" id="uj8-Xc-tcw"/>
@@ -1323,7 +1346,7 @@
                 </arrayController>
                 <userDefaultsController id="ab7-0k-UN4"/>
             </objects>
-            <point key="canvasLocation" x="1134" y="575"/>
+            <point key="canvasLocation" x="1134" y="591"/>
         </scene>
     </scenes>
     <resources>

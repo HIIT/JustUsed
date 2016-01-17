@@ -44,7 +44,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         let defaultExcludeDomains = ["localhost", "talkgadget.google.com"]
         defaultPrefs[JustUsedConstants.prefExcludeDomains] = defaultExcludeDomains
         defaultPrefs[JustUsedConstants.prefSendPlainTexts] = 1
-        defaultPrefs[JustUsedConstants.prefSendSafariHistory] = 1
+        defaultPrefs[JustUsedConstants.prefSendSafariHistory] = 0
         NSUserDefaults.standardUserDefaults().registerDefaults(defaultPrefs)
         NSUserDefaults.standardUserDefaults().synchronize()
         

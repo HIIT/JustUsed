@@ -25,8 +25,18 @@ class ViewController: NSViewController, RecentDocumentUpdateDelegate, BrowserHis
     @IBOutlet weak var statusLabel: NSTextField!
     @IBOutlet weak var statusImage: NSImageView!
     
+    // Send browser to dime option
+    @IBOutlet weak var sendBrowserToDiMe: NSButtonCell!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // binding browser table's enabled property to user defaults
+        let options: [String: AnyObject] = ["NSContinuouslyUpdatesValue": true]
+        browserTable.bind("enabled", toObject: NSUserDefaultsController.sharedUserDefaultsController(), withKeyPath: "values." + JustUsedConstants.prefSendSafariHistory, options: options)
+        
+        // binding browser to dime checkbox
+        sendBrowserToDiMe.bind("value", toObject: NSUserDefaultsController.sharedUserDefaultsController(), withKeyPath: "values." + JustUsedConstants.prefSendSafariHistory, options: options)
     }
     
     override func viewDidAppear() {
