@@ -1,6 +1,10 @@
 # JustUsed
 
-JustUsed currently tracks two things: “Used” files and Safari history
+JustUsed is the codename for DiMe's Mac Desktop Tracker. DiMe (DigitalMe) (part of the [Re:Know project](http://www.reknow.fi)), is a platform aimed at collecting user data, for the user, under full control of the user. More information, including DiMe's source code, can be found here: http://hiit.github.io/dime-server/.
+
+JustUsed is a Mac OS X Application which runs in the background, tracking used files and browser history (note: we are currently working on browser extensions which will replace this functionality). User activity is submitted to DiMe.
+
+# Implementation details
 
 ## Used files
 
@@ -8,16 +12,16 @@ Uses the Spotlight API (`NSMetadataQuery`) to detect `*.sfl` files which have a 
 
 This approach has drawbacks: if one opens the most recent document from within the same application multiple times, it will not be reported as recently opened. The alternative would be using Spotlight to find items which have a recent `kMDItemLastUsedDate`, however this approach doesn't work in two scenarios:
 
-1. When a file is downloaded from the internet (an attribute called `com.apple.quarantine` gets set on downloaded items).
-2. When a file is opened from within an application (i.e. without using Finder).
-
-These two bugs have been reported to Apple.
+1. When a file is downloaded from the internet (an attribute called `com.apple.quarantine` gets set on downloaded items). This bug has been reported to Apple, awaiting response.
+2. When a file is opened from within an application (i.e. without using Finder). Apple is currently working on this issue.
 
 ## Safari history
 
 Safari keeps history in SQLite database files in ```~/Library/Safari/History.db*```. This data can't be tracked by spotlight so JustUsed monitors for changes in these file every *x* seconds (defined in ```SafariHistoryFetcher.kSafariHistoryCheckTime```). Since FMDB can't read this data directly, if a modification was found the files are copied to a temporary directly in order to be read (and history data extracted). The temporary files are deleted immediately afterwards.
 
-JustUsed tracks the database 
+## Other browsers
+
+Chrome and Firefox are also tracked in a similar way.
 
 # Addional software
 
