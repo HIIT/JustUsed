@@ -4,6 +4,8 @@ JustUsed is the codename for DiMe's Mac Desktop Tracker. DiMe (DigitalMe) (part 
 
 JustUsed is a Mac OS X Application which runs in the background, tracking used files and browser history (note: we are currently working on browser extensions which will replace this functionality). User activity is submitted to DiMe.
 
+This version (1.0.2) requires gatekeeper to be disabled in order to run. Instructions on how to do this can be found [in the wiki](http://github.com/HIIT/JustUsed/wiki/Running))
+
 # Implementation details
 
 ## Used files
