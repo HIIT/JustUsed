@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15D21" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="9531"/>
         <capability name="box content view" minToolsVersion="7.0"/>
@@ -670,13 +670,13 @@
             <objects>
                 <viewController storyboardIdentifier="View Controller" id="XfG-lQ-9wD" userLabel="View Controller" customClass="ViewController" customModule="JustUsed" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="m2S-Jp-Qdl">
-                        <rect key="frame" x="0.0" y="0.0" width="1013" height="460"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1016" height="460"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <scrollView autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o36-kD-YAP" userLabel="Static table">
-                                <rect key="frame" x="20" y="20" width="476" height="340"/>
+                                <rect key="frame" x="20" y="20" width="477" height="340"/>
                                 <clipView key="contentView" id="fzG-n3-cuo">
-                                    <rect key="frame" x="1" y="0.0" width="474" height="339"/>
+                                    <rect key="frame" x="1" y="0.0" width="475" height="339"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" rowSizeStyle="automatic" headerView="L8r-Qc-W8z" viewBased="YES" id="I6U-o7-KeD">
@@ -756,8 +756,11 @@
                                     </subviews>
                                     <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </clipView>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="477" id="9XZ-K4-zob"/>
+                                </constraints>
                                 <scroller key="horizontalScroller" verticalHuggingPriority="750" horizontal="YES" id="w6A-F4-dVc">
-                                    <rect key="frame" x="1" y="323" width="474" height="16"/>
+                                    <rect key="frame" x="1" y="323" width="475" height="16"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                                 <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="hc6-dM-1ER">
@@ -770,9 +773,9 @@
                                 </tableHeaderView>
                             </scrollView>
                             <scrollView autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mYd-Je-soU" userLabel="Browser History Table">
-                                <rect key="frame" x="518" y="20" width="475" height="340"/>
+                                <rect key="frame" x="519" y="20" width="477" height="340"/>
                                 <clipView key="contentView" id="irK-8u-pqw">
-                                    <rect key="frame" x="1" y="0.0" width="473" height="339"/>
+                                    <rect key="frame" x="1" y="0.0" width="475" height="339"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" rowSizeStyle="automatic" headerView="sBH-je-YnF" viewBased="YES" id="Wy3-QN-NTT" userLabel="Browser Table">
@@ -866,7 +869,7 @@
                                     <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </clipView>
                                 <scroller key="horizontalScroller" verticalHuggingPriority="750" horizontal="YES" id="Qjw-sg-Q4c">
-                                    <rect key="frame" x="1" y="323" width="473" height="16"/>
+                                    <rect key="frame" x="1" y="323" width="475" height="16"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                                 <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="znY-Za-o1Q">
@@ -877,14 +880,28 @@
                                     <rect key="frame" x="0.0" y="0.0" width="1118" height="23"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableHeaderView>
+                                <connections>
+                                    <binding destination="mM7-iu-X8s" name="hidden" keyPath="values.dime.preferences.sendSafariHistory" id="GNn-iw-ZtS">
+                                        <dictionary key="options">
+                                            <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                        </dictionary>
+                                    </binding>
+                                </connections>
                             </scrollView>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Jpc-Gr-L7h">
-                                <rect key="frame" x="516" y="368" width="102" height="17"/>
+                                <rect key="frame" x="517" y="368" width="102" height="17"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Browser history " id="47g-53-rVd">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
+                                <connections>
+                                    <binding destination="mM7-iu-X8s" name="hidden" keyPath="values.dime.preferences.sendSafariHistory" id="mE1-Wg-A1A">
+                                        <dictionary key="options">
+                                            <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                        </dictionary>
+                                    </binding>
+                                </connections>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="wL0-Ce-Lef">
                                 <rect key="frame" x="18" y="368" width="99" height="17"/>
@@ -903,7 +920,7 @@
                                 </textFieldCell>
                             </textField>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="eYq-zs-b34">
-                                <rect key="frame" x="953" y="401" width="40" height="40"/>
+                                <rect key="frame" x="956" y="401" width="40" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="40" id="0Dn-fW-fuV"/>
                                     <constraint firstAttribute="height" constant="38" id="Py2-7t-rmT"/>
@@ -917,7 +934,7 @@
                                 </connections>
                             </button>
                             <box title="DiMe Connection" borderType="line" translatesAutoresizingMaskIntoConstraints="NO" id="29B-hB-gGR">
-                                <rect key="frame" x="353" y="391" width="306" height="59"/>
+                                <rect key="frame" x="355" y="391" width="306" height="59"/>
                                 <view key="contentView" id="cfY-mb-upo">
                                     <rect key="frame" x="1" y="1" width="304" height="40"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -986,16 +1003,8 @@
                                     <action selector="quitButtonPress:" target="XfG-lQ-9wD" id="enk-pi-Jyv"/>
                                 </connections>
                             </button>
-                            <button translatesAutoresizingMaskIntoConstraints="NO" id="Hf7-NW-meL">
-                                <rect key="frame" x="705" y="368" width="290" height="18"/>
-                                <buttonCell key="cell" type="check" title="Send to DiMe (disable if you use extensions)" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="OVW-lN-kTD">
-                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                </buttonCell>
-                            </button>
                         </subviews>
                         <constraints>
-                            <constraint firstItem="Hf7-NW-meL" firstAttribute="centerY" secondItem="Jpc-Gr-L7h" secondAttribute="centerY" id="2xt-fb-fuv"/>
                             <constraint firstItem="wL0-Ce-Lef" firstAttribute="leading" secondItem="o36-kD-YAP" secondAttribute="leading" id="3Hh-yz-mrj"/>
                             <constraint firstItem="SPa-BH-yWy" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="33" id="AkG-x6-fLg"/>
                             <constraint firstItem="o36-kD-YAP" firstAttribute="top" secondItem="wL0-Ce-Lef" secondAttribute="bottom" constant="8" id="Cud-J2-hBQ"/>
@@ -1004,18 +1013,15 @@
                             <constraint firstItem="29B-hB-gGR" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="10" id="ICv-IW-d0n"/>
                             <constraint firstItem="Jpc-Gr-L7h" firstAttribute="leading" secondItem="mYd-Je-soU" secondAttribute="leading" id="KC4-hr-zMk"/>
                             <constraint firstItem="mYd-Je-soU" firstAttribute="height" secondItem="o36-kD-YAP" secondAttribute="height" id="MLP-V7-O4b"/>
-                            <constraint firstItem="mYd-Je-soU" firstAttribute="leading" secondItem="o36-kD-YAP" secondAttribute="trailing" constant="22" id="Mna-mY-gfb"/>
                             <constraint firstItem="Jpc-Gr-L7h" firstAttribute="top" secondItem="SPa-BH-yWy" secondAttribute="bottom" constant="23" id="QFK-7f-srK"/>
                             <constraint firstItem="SPa-BH-yWy" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="20" id="Qo0-7v-kCd"/>
                             <constraint firstAttribute="bottom" secondItem="mYd-Je-soU" secondAttribute="bottom" constant="20" id="S8p-cy-k70"/>
                             <constraint firstItem="eYq-zs-b34" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="20" symbolic="YES" id="TI9-9c-9zG"/>
-                            <constraint firstItem="mYd-Je-soU" firstAttribute="width" secondItem="o36-kD-YAP" secondAttribute="width" id="Waf-wE-S9r"/>
+                            <constraint firstItem="mYd-Je-soU" firstAttribute="width" secondItem="o36-kD-YAP" secondAttribute="width" priority="750" id="Waf-wE-S9r"/>
                             <constraint firstItem="o36-kD-YAP" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="20" id="XFy-LD-OLX"/>
                             <constraint firstAttribute="bottom" secondItem="o36-kD-YAP" secondAttribute="bottom" constant="20" id="cOa-KP-lrm"/>
-                            <constraint firstItem="Hf7-NW-meL" firstAttribute="trailing" secondItem="eYq-zs-b34" secondAttribute="trailing" id="fsF-sd-kPW"/>
                             <constraint firstAttribute="trailing" secondItem="mYd-Je-soU" secondAttribute="trailing" constant="20" id="gux-2F-4lp"/>
                             <constraint firstItem="wL0-Ce-Lef" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="20" id="hZz-Qc-dhv"/>
-                            <constraint firstItem="Jpc-Gr-L7h" firstAttribute="leading" secondItem="o36-kD-YAP" secondAttribute="trailing" constant="22" id="iKb-3z-kiV"/>
                             <constraint firstItem="oRs-iK-2HR" firstAttribute="centerY" secondItem="SPa-BH-yWy" secondAttribute="centerY" id="mRi-BX-uVL"/>
                             <constraint firstItem="mYd-Je-soU" firstAttribute="top" secondItem="Jpc-Gr-L7h" secondAttribute="bottom" constant="8" id="qxL-3Q-5zY"/>
                             <constraint firstItem="wL0-Ce-Lef" firstAttribute="top" secondItem="SPa-BH-yWy" secondAttribute="bottom" constant="23" id="ypQ-9Q-rOI"/>
@@ -1025,7 +1031,7 @@
                     <connections>
                         <outlet property="browserTable" destination="Wy3-QN-NTT" id="Jfn-cO-xGz"/>
                         <outlet property="fileTable" destination="I6U-o7-KeD" id="a33-fG-aAI"/>
-                        <outlet property="sendBrowserToDiMe" destination="OVW-lN-kTD" id="Tg6-qi-OlN"/>
+                        <outlet property="fileTableWidth" destination="9XZ-K4-zob" id="tOt-uT-gJb"/>
                         <outlet property="statusButton" destination="LLI-Z3-rF7" id="4D4-oO-wwQ"/>
                         <outlet property="statusImage" destination="01W-0J-B6x" id="bIB-gm-v8R"/>
                         <outlet property="statusLabel" destination="RPY-WB-ig2" id="cWl-tG-Qxa"/>
