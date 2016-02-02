@@ -4,6 +4,22 @@ JustUsed is the codename for DiMe's Mac Desktop Tracker. DiMe (DigitalMe) (part 
 
 JustUsed is a Mac OS X Application which runs in the background, tracking used files and browser history (note: we are currently working on browser extensions which will replace this functionality). User activity is submitted to DiMe.
 
+## Installation
+
+To install the tracker, download the latest dmg from the [relases page](https://github.com/HIIT/JustUsed/releases).
+
+## Development
+
+You can clone the xcode project using git
+
+```
+git clone --recursive https://github.com/HIIT/JustUsed
+```
+
+(the recursive option automatically sets up the Alamofire submodule)
+
+Once cloned, you can run JustUsed by opening `JustUsed.xcodeproj` in xcode (version 7 or above recommended).
+
 # Implementation details
 
 ## Used files
@@ -29,7 +45,7 @@ Chrome and Firefox are also tracked in a similar way.
 
 The following GitHub projects are linked as git submodules.
 
-[Alamofire version 3.1.3](https://github.com/Alamofire/Alamofire/releases/tag/3.1.3) - For easier DiMe API calls. The correct version should be already checked out as a submodule (in case it's not, do `git checkout tags/3.1.3` in the Alamofire subfolder).
+[Alamofire version 3.1.3](https://github.com/Alamofire/Alamofire/releases/tag/3.1.3) - For easier DiMe API calls. The correct version should be already checked out as a submodule. `git status` in the Alamofire subfolder should return `HEAD detached at 268a22b`. (In case the Alamofire submodule was not cloned, do `git submodule init` followed by `git submodule update` in the JustUsed folder).
 
 ## Embedded
 
