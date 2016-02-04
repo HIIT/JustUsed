@@ -34,7 +34,7 @@ class DocumentInformationElement: DiMeBase {
         super.init()
         
         theDictionary["appId"] = "JustUsed_\(histItem.url.sha1())"
-        theDictionary["mimeType"] = "text/url"
+        theDictionary["mimeType"] = "text/html"
         theDictionary["uri"] = histItem.url
         if let title = histItem.title {
             theDictionary["title"] = title
@@ -48,7 +48,8 @@ class DocumentInformationElement: DiMeBase {
         
         // set dime-required fields
         theDictionary["@type"] = "Document"
-        theDictionary["type"] = "http://www.hiit.fi/ontologies/dime/#Document"
+        theDictionary["type"] = "http://www.semanticdesktop.org/ontologies/2007/03/22/nfo/#HtmlDocument"
+        theDictionary["isStoredAs"] = "http://www.semanticdesktop.org/ontologies/2007/03/22/nfo/#RemoteDataObject"
     }
     
     /// Creates a document from a Spotlight history element
@@ -91,7 +92,8 @@ class DocumentInformationElement: DiMeBase {
         
         // set dime-required fields
         theDictionary["@type"] = "Document"
-        theDictionary["type"] = "http://www.hiit.fi/ontologies/dime/#Document"
+        theDictionary["type"] = "http://www.semanticdesktop.org/ontologies/2007/03/22/nfo/#Document"
+        theDictionary["isStoredAs"] = "http://www.semanticdesktop.org/ontologies/2007/03/22/nfo/#LocalFileDataObject"
     }
     
 }
