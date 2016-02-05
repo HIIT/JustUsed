@@ -658,7 +658,7 @@
 				INFOPLIST_FILE = JustUsed/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
-				PRODUCT_BUNDLE_IDENTIFIER = HIIT.JustUsed;
+				PRODUCT_BUNDLE_IDENTIFIER = fi.hiit.JustUsed;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "JustUsed/Utils/JustUsed-Bridging-Header.h";
@@ -676,7 +676,7 @@
 				INFOPLIST_FILE = JustUsed/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
-				PRODUCT_BUNDLE_IDENTIFIER = HIIT.JustUsed;
+				PRODUCT_BUNDLE_IDENTIFIER = fi.hiit.JustUsed;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "JustUsed/Utils/JustUsed-Bridging-Header.h";
