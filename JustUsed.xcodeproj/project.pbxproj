@@ -9,6 +9,12 @@
 /* Begin PBXBuildFile section */
 		A914066E1C0348EF00C3C2E0 /* SpotlightDocumentTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = A914066D1C0348EF00C3C2E0 /* SpotlightDocumentTracker.swift */; };
 		A91406731C036D5500C3C2E0 /* FirefoxHistoryFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = A91406721C036D5500C3C2E0 /* FirefoxHistoryFetcher.swift */; };
+		A9200E7A1C64B67300A6AEEB /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9200E791C64B67300A6AEEB /* Cocoa.framework */; };
+		A9200E7F1C64B67300A6AEEB /* ExtensionCompanionRequestHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9200E7E1C64B67300A6AEEB /* ExtensionCompanionRequestHandler.swift */; };
+		A9200E831C64B67300A6AEEB /* fi.hiit.JustUsedCompanion.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = A9200E771C64B67300A6AEEB /* fi.hiit.JustUsedCompanion.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		A9200E901C64C81000A6AEEB /* CalendarManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9200E8F1C64C81000A6AEEB /* CalendarManager.swift */; };
+		A9200E911C64C81000A6AEEB /* CalendarManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9200E8F1C64C81000A6AEEB /* CalendarManager.swift */; };
+		A9200E921C64C81000A6AEEB /* CalendarManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9200E8F1C64C81000A6AEEB /* CalendarManager.swift */; };
 		A92574551BCF8F98004866B4 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = A92574541BCF8F98004866B4 /* Utils.swift */; };
 		A92574591BCF8FF9004866B4 /* XCGLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = A92574581BCF8FF9004866B4 /* XCGLogger.swift */; };
 		A925745B1BCF901D004866B4 /* JustUsedConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A925745A1BCF901D004866B4 /* JustUsedConstants.swift */; };
@@ -41,6 +47,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		A9200E811C64B67300A6AEEB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A9438DC71B7A3F0300F1A54B /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A9200E761C64B67300A6AEEB;
+			remoteInfo = fi.hiit.JustUsedCompanion;
+		};
 		A9438DE21B7A3F0400F1A54B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = A9438DC71B7A3F0300F1A54B /* Project object */;
@@ -107,6 +120,17 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		A9200E8D1C64B67300A6AEEB /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				A9200E831C64B67300A6AEEB /* fi.hiit.JustUsedCompanion.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		A9D894231BD00EED00314475 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -123,6 +147,12 @@
 /* Begin PBXFileReference section */
 		A914066D1C0348EF00C3C2E0 /* SpotlightDocumentTracker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpotlightDocumentTracker.swift; sourceTree = "<group>"; };
 		A91406721C036D5500C3C2E0 /* FirefoxHistoryFetcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirefoxHistoryFetcher.swift; sourceTree = "<group>"; };
+		A9200E771C64B67300A6AEEB /* fi.hiit.JustUsedCompanion.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = fi.hiit.JustUsedCompanion.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		A9200E791C64B67300A6AEEB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		A9200E7D1C64B67300A6AEEB /* fi_hiit_JustUsedCompanion.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = fi_hiit_JustUsedCompanion.entitlements; sourceTree = "<group>"; };
+		A9200E7E1C64B67300A6AEEB /* ExtensionCompanionRequestHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionCompanionRequestHandler.swift; sourceTree = "<group>"; };
+		A9200E801C64B67300A6AEEB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A9200E8F1C64C81000A6AEEB /* CalendarManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarManager.swift; sourceTree = "<group>"; };
 		A92574541BCF8F98004866B4 /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		A92574581BCF8FF9004866B4 /* XCGLogger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XCGLogger.swift; sourceTree = "<group>"; };
 		A925745A1BCF901D004866B4 /* JustUsedConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JustUsedConstants.swift; sourceTree = "<group>"; };
@@ -166,6 +196,14 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		A9200E741C64B67300A6AEEB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A9200E7A1C64B67300A6AEEB /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		A9438DCC1B7A3F0400F1A54B /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -184,6 +222,40 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A9200E781C64B67300A6AEEB /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				A9200E791C64B67300A6AEEB /* Cocoa.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		A9200E7B1C64B67300A6AEEB /* Companion */ = {
+			isa = PBXGroup;
+			children = (
+				A9200E7E1C64B67300A6AEEB /* ExtensionCompanionRequestHandler.swift */,
+				A9200E801C64B67300A6AEEB /* Info.plist */,
+				A9200E7C1C64B67300A6AEEB /* Supporting Files */,
+			);
+			path = Companion;
+			sourceTree = "<group>";
+		};
+		A9200E7C1C64B67300A6AEEB /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				A9200E7D1C64B67300A6AEEB /* fi_hiit_JustUsedCompanion.entitlements */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		A9200E8E1C64C7DA00A6AEEB /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				A9200E8F1C64C81000A6AEEB /* CalendarManager.swift */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
 		A925744C1BCF8EAA004866B4 /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -245,9 +317,12 @@
 		A9438DC61B7A3F0300F1A54B = {
 			isa = PBXGroup;
 			children = (
+				A9200E8E1C64C7DA00A6AEEB /* Shared */,
 				A9F507721BC7B8DE00275C6C /* Alamofire.xcodeproj */,
 				A9438DD11B7A3F0400F1A54B /* JustUsed */,
 				A9438DE41B7A3F0400F1A54B /* JustUsedTests */,
+				A9200E7B1C64B67300A6AEEB /* Companion */,
+				A9200E781C64B67300A6AEEB /* Frameworks */,
 				A9438DD01B7A3F0400F1A54B /* Products */,
 			);
 			sourceTree = "<group>";
@@ -257,6 +332,7 @@
 			children = (
 				A9438DCF1B7A3F0400F1A54B /* JustUsed.app */,
 				A9438DE11B7A3F0400F1A54B /* JustUsedTests.xctest */,
+				A9200E771C64B67300A6AEEB /* fi.hiit.JustUsedCompanion.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -342,6 +418,23 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		A9200E761C64B67300A6AEEB /* fi.hiit.JustUsedCompanion */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A9200E8C1C64B67300A6AEEB /* Build configuration list for PBXNativeTarget "fi.hiit.JustUsedCompanion" */;
+			buildPhases = (
+				A9200E731C64B67300A6AEEB /* Sources */,
+				A9200E741C64B67300A6AEEB /* Frameworks */,
+				A9200E751C64B67300A6AEEB /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = fi.hiit.JustUsedCompanion;
+			productName = fi.hiit.JustUsedCompanion;
+			productReference = A9200E771C64B67300A6AEEB /* fi.hiit.JustUsedCompanion.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		A9438DCE1B7A3F0400F1A54B /* JustUsed */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = A9438DEB1B7A3F0400F1A54B /* Build configuration list for PBXNativeTarget "JustUsed" */;
@@ -350,11 +443,13 @@
 				A9438DCC1B7A3F0400F1A54B /* Frameworks */,
 				A9438DCD1B7A3F0400F1A54B /* Resources */,
 				A9D894231BD00EED00314475 /* Embed Frameworks */,
+				A9200E8D1C64B67300A6AEEB /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 				A9D894221BD00EED00314475 /* PBXTargetDependency */,
+				A9200E821C64B67300A6AEEB /* PBXTargetDependency */,
 			);
 			name = JustUsed;
 			productName = JustUsed;
@@ -386,10 +481,14 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftMigration = 0700;
-				LastSwiftUpdateCheck = 0700;
+				LastSwiftUpdateCheck = 0720;
 				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = HIIT;
 				TargetAttributes = {
+					A9200E761C64B67300A6AEEB = {
+						CreatedOnToolsVersion = 7.2.1;
+						DevelopmentTeam = JYV3R5X7JQ;
+					};
 					A9438DCE1B7A3F0400F1A54B = {
 						CreatedOnToolsVersion = 6.4;
 						DevelopmentTeam = JYV3R5X7JQ;
@@ -421,6 +520,7 @@
 			targets = (
 				A9438DCE1B7A3F0400F1A54B /* JustUsed */,
 				A9438DE01B7A3F0400F1A54B /* JustUsedTests */,
+				A9200E761C64B67300A6AEEB /* fi.hiit.JustUsedCompanion */,
 			);
 		};
 /* End PBXProject section */
@@ -478,6 +578,13 @@
 /* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
+		A9200E751C64B67300A6AEEB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		A9438DCD1B7A3F0400F1A54B /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -497,6 +604,15 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		A9200E731C64B67300A6AEEB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A9200E7F1C64B67300A6AEEB /* ExtensionCompanionRequestHandler.swift in Sources */,
+				A9200E921C64C81000A6AEEB /* CalendarManager.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		A9438DCB1B7A3F0400F1A54B /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -513,6 +629,7 @@
 				A9F507891BC7BA4B00275C6C /* ViewController.swift in Sources */,
 				A914066E1C0348EF00C3C2E0 /* SpotlightDocumentTracker.swift in Sources */,
 				A9F3807B1C199E38009251AB /* GenericBrowserHistory.swift in Sources */,
+				A9200E901C64C81000A6AEEB /* CalendarManager.swift in Sources */,
 				A92574591BCF8FF9004866B4 /* XCGLogger.swift in Sources */,
 				A91406731C036D5500C3C2E0 /* FirefoxHistoryFetcher.swift in Sources */,
 				A92574641BCF906A004866B4 /* LocationSingleton.swift in Sources */,
@@ -535,12 +652,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				A9438DE81B7A3F0400F1A54B /* JustUsedTests.swift in Sources */,
+				A9200E911C64C81000A6AEEB /* CalendarManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		A9200E821C64B67300A6AEEB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A9200E761C64B67300A6AEEB /* fi.hiit.JustUsedCompanion */;
+			targetProxy = A9200E811C64B67300A6AEEB /* PBXContainerItemProxy */;
+		};
 		A9438DE31B7A3F0400F1A54B /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = A9438DCE1B7A3F0400F1A54B /* JustUsed */;
@@ -566,6 +689,36 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		A9200E841C64B67300A6AEEB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = fi.hiit.JustUsedCompanion/fi_hiit_JustUsedCompanion.entitlements;
+				CODE_SIGN_IDENTITY = "Developer ID Application";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Mac Developer";
+				INFOPLIST_FILE = fi.hiit.JustUsedCompanion/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @executable_path/../../../../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				PRODUCT_BUNDLE_IDENTIFIER = "fi.hiit.JustUsed.fi-hiit-JustUsedCompanion";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		A9200E851C64B67300A6AEEB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = fi.hiit.JustUsedCompanion/fi_hiit_JustUsedCompanion.entitlements;
+				CODE_SIGN_IDENTITY = "Developer ID Application";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Mac Developer";
+				INFOPLIST_FILE = fi.hiit.JustUsedCompanion/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @executable_path/../../../../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				PRODUCT_BUNDLE_IDENTIFIER = "fi.hiit.JustUsed.fi-hiit-JustUsedCompanion";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
 		A9438DE91B7A3F0400F1A54B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -724,6 +877,14 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		A9200E8C1C64B67300A6AEEB /* Build configuration list for PBXNativeTarget "fi.hiit.JustUsedCompanion" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A9200E841C64B67300A6AEEB /* Debug */,
+				A9200E851C64B67300A6AEEB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		A9438DCA1B7A3F0300F1A54B /* Build configuration list for PBXProject "JustUsed" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

@@ -27,7 +27,7 @@ import Cocoa
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
     
-    // View controller that will be displayed after pressing menubaar button
+    // View controller that will be displayed after pressing menubar button
     var viewController: ViewController?
     
     // Trackers
@@ -77,6 +77,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
         let storyboard = NSStoryboard(name: "Main", bundle: nil)
         popover.behavior = NSPopoverBehavior.Transient
+        
+        // fetch nothing to initialize calendar event monitor
+        // TODO: currently disabled, enable once we have tag support
+//        let _ = CalendarManager.sharedInstance.currentEventName
         
         // Prepare browser tracking for each browser
         browserManager.addFetcher(SafariHistoryFetcher())
