@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15D21" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="9531"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="9532"/>
         <capability name="box content view" minToolsVersion="7.0"/>
     </dependencies>
     <scenes>
@@ -759,7 +759,7 @@
                                 <constraints>
                                     <constraint firstAttribute="width" constant="477" id="9XZ-K4-zob"/>
                                 </constraints>
-                                <scroller key="horizontalScroller" verticalHuggingPriority="750" horizontal="YES" id="w6A-F4-dVc">
+                                <scroller key="horizontalScroller" verticalHuggingPriority="750" doubleValue="0.00089126559714795004" horizontal="YES" id="w6A-F4-dVc">
                                     <rect key="frame" x="1" y="323" width="475" height="16"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
@@ -1047,11 +1047,11 @@
             <objects>
                 <viewController title="DiMe Desktop Tracker Preferences" showSeguePresentationStyle="single" id="g6d-pz-jYa" customClass="DiMePreferencesViewController" customModule="JustUsed" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="PRl-yO-RbZ">
-                        <rect key="frame" x="0.0" y="0.0" width="480" height="552"/>
+                        <rect key="frame" x="0.0" y="0.0" width="480" height="739"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="KpP-w5-qmb">
-                                <rect key="frame" x="18" y="515" width="106" height="17"/>
+                                <rect key="frame" x="18" y="702" width="106" height="17"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="DiMe server URL" id="sd4-Ic-HzJ">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -1059,7 +1059,7 @@
                                 </textFieldCell>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="JI2-4r-x6L">
-                                <rect key="frame" x="18" y="471" width="140" height="17"/>
+                                <rect key="frame" x="18" y="658" width="140" height="17"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="DiMe server username" id="Vup-XZ-x5l">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -1067,7 +1067,7 @@
                                 </textFieldCell>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="HlN-fD-X0z">
-                                <rect key="frame" x="19" y="428" width="139" height="17"/>
+                                <rect key="frame" x="19" y="615" width="139" height="17"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="DiMe server password" id="d3C-9j-gwm">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -1075,7 +1075,7 @@
                                 </textFieldCell>
                             </textField>
                             <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="icH-Jz-0QZ">
-                                <rect key="frame" x="142" y="510" width="318" height="22"/>
+                                <rect key="frame" x="142" y="697" width="318" height="22"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="281" id="heX-CN-A8p"/>
                                 </constraints>
@@ -1086,7 +1086,7 @@
                                 </textFieldCell>
                             </textField>
                             <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Vid-x1-33x">
-                                <rect key="frame" x="176" y="466" width="284" height="22"/>
+                                <rect key="frame" x="176" y="653" width="284" height="22"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="281" id="iMd-Mr-Fpa"/>
                                 </constraints>
@@ -1097,7 +1097,7 @@
                                 </textFieldCell>
                             </textField>
                             <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ufK-Jq-8JQ">
-                                <rect key="frame" x="176" y="423" width="284" height="22"/>
+                                <rect key="frame" x="176" y="610" width="284" height="22"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="281" id="jdb-jx-nxe"/>
                                 </constraints>
@@ -1108,7 +1108,7 @@
                                 </textFieldCell>
                             </textField>
                             <button translatesAutoresizingMaskIntoConstraints="NO" id="Awz-Ca-xPe">
-                                <rect key="frame" x="19" y="384" width="363" height="28"/>
+                                <rect key="frame" x="19" y="571" width="363" height="28"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="24" id="PbH-Kz-2H9"/>
                                     <constraint firstAttribute="width" constant="359" id="lHO-ho-wqC"/>
@@ -1118,6 +1118,115 @@
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                             </button>
+                            <box horizontalHuggingPriority="249" verticalHuggingPriority="249" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" title="Calendar monitoring" borderType="line" translatesAutoresizingMaskIntoConstraints="NO" id="ihZ-QQ-J41">
+                                <rect key="frame" x="17" y="393" width="446" height="172"/>
+                                <view key="contentView" id="DZ0-WD-80y">
+                                    <rect key="frame" x="1" y="1" width="444" height="153"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="hbc-Bu-PjL">
+                                            <rect key="frame" x="18" y="128" width="122" height="17"/>
+                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Exclude calendars: " id="pli-7y-Sh7">
+                                                <font key="font" metaFont="system"/>
+                                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                        <scrollView autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="muE-TE-h1g">
+                                            <rect key="frame" x="146" y="10" width="278" height="135"/>
+                                            <clipView key="contentView" id="hua-x6-cD7">
+                                                <rect key="frame" x="1" y="23" width="276" height="111"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                <subviews>
+                                                    <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" headerView="5Cy-x5-Ex6" id="bLV-eX-WdG">
+                                                        <rect key="frame" x="0.0" y="0.0" width="276" height="111"/>
+                                                        <autoresizingMask key="autoresizingMask"/>
+                                                        <size key="intercellSpacing" width="3" height="2"/>
+                                                        <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                        <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
+                                                        <tableColumns>
+                                                            <tableColumn identifier="calExclTableCheck" width="66" minWidth="40" maxWidth="1000" id="iZX-4R-EEV">
+                                                                <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Exclude">
+                                                                    <font key="font" metaFont="smallSystem"/>
+                                                                    <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
+                                                                    <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
+                                                                </tableHeaderCell>
+                                                                <buttonCell key="dataCell" type="check" bezelStyle="regularSquare" imagePosition="only" alignment="center" inset="2" id="iwU-NL-8IG">
+                                                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                                    <font key="font" metaFont="system"/>
+                                                                </buttonCell>
+                                                                <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
+                                                            </tableColumn>
+                                                            <tableColumn identifier="calExclTableName" width="204" minWidth="40" maxWidth="1000" id="FSd-ek-T3g">
+                                                                <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Calendar name">
+                                                                    <font key="font" metaFont="smallSystem"/>
+                                                                    <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
+                                                                    <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
+                                                                </tableHeaderCell>
+                                                                <textFieldCell key="dataCell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" title="Text Cell" id="cdp-lE-4jw">
+                                                                    <font key="font" metaFont="system"/>
+                                                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                                    <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                                </textFieldCell>
+                                                                <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
+                                                            </tableColumn>
+                                                        </tableColumns>
+                                                    </tableView>
+                                                </subviews>
+                                                <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                            </clipView>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="135" id="8gT-q8-lnO"/>
+                                                <constraint firstAttribute="width" constant="278" id="wJu-ZY-z2z"/>
+                                            </constraints>
+                                            <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="iEQ-wV-jPw">
+                                                <rect key="frame" x="1" y="118" width="276" height="16"/>
+                                                <autoresizingMask key="autoresizingMask"/>
+                                            </scroller>
+                                            <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="MX6-gA-1le">
+                                                <rect key="frame" x="261" y="23" width="16" height="0.0"/>
+                                                <autoresizingMask key="autoresizingMask"/>
+                                            </scroller>
+                                            <tableHeaderView key="headerView" id="5Cy-x5-Ex6">
+                                                <rect key="frame" x="0.0" y="0.0" width="276" height="23"/>
+                                                <autoresizingMask key="autoresizingMask"/>
+                                            </tableHeaderView>
+                                        </scrollView>
+                                        <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="L6W-mq-zUe">
+                                            <rect key="frame" x="14" y="3" width="130" height="32"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="118" id="L5O-aI-ywA"/>
+                                            </constraints>
+                                            <buttonCell key="cell" type="push" title="Data mine" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Kss-nr-rHZ">
+                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                <font key="font" metaFont="system"/>
+                                            </buttonCell>
+                                        </button>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="bLV-eX-WdG" firstAttribute="leading" secondItem="L6W-mq-zUe" secondAttribute="trailing" constant="9" id="EjU-68-UX3"/>
+                                        <constraint firstItem="hbc-Bu-PjL" firstAttribute="top" secondItem="muE-TE-h1g" secondAttribute="top" id="KUp-m7-2Vo"/>
+                                        <constraint firstItem="hbc-Bu-PjL" firstAttribute="top" secondItem="DZ0-WD-80y" secondAttribute="top" constant="8" id="Nl9-oR-D22"/>
+                                        <constraint firstItem="muE-TE-h1g" firstAttribute="leading" secondItem="hbc-Bu-PjL" secondAttribute="trailing" constant="8" id="TPx-3c-IQB"/>
+                                        <constraint firstAttribute="trailing" secondItem="muE-TE-h1g" secondAttribute="trailing" constant="20" id="ft1-LP-AX4"/>
+                                        <constraint firstItem="muE-TE-h1g" firstAttribute="top" secondItem="DZ0-WD-80y" secondAttribute="top" constant="8" id="rsm-bV-Hhh"/>
+                                        <constraint firstAttribute="bottom" secondItem="L6W-mq-zUe" secondAttribute="bottom" constant="10" id="txX-1h-d1V"/>
+                                    </constraints>
+                                </view>
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="440" id="507-pd-Jwa"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="168" id="HaH-K7-uGT"/>
+                                </constraints>
+                                <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
+                                <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <font key="titleFont" metaFont="system"/>
+                            </box>
+                            <box verticalHuggingPriority="750" title="Box" boxType="separator" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="saE-4Q-KJ8">
+                                <rect key="frame" x="21" y="384" width="439" height="5"/>
+                                <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
+                                <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <font key="titleFont" metaFont="system"/>
+                            </box>
                             <button translatesAutoresizingMaskIntoConstraints="NO" id="TJv-LC-lom">
                                 <rect key="frame" x="19" y="336" width="209" height="46"/>
                                 <constraints>
@@ -1128,7 +1237,7 @@
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                             </button>
-                            <box title="Domains which contain the following won't be sent to DiMe (Exclude)" borderType="line" translatesAutoresizingMaskIntoConstraints="NO" id="BLb-ME-2Qd">
+                            <box verticalHuggingPriority="248" title="Domains which contain the following won't be sent to DiMe (Exclude)" borderType="line" translatesAutoresizingMaskIntoConstraints="NO" id="BLb-ME-2Qd">
                                 <rect key="frame" x="18" y="53" width="445" height="282"/>
                                 <view key="contentView" id="gml-Ir-df0">
                                     <rect key="frame" x="1" y="1" width="443" height="263"/>
@@ -1180,7 +1289,7 @@
                                                 <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="350" id="tJe-Aq-KgL"/>
                                             </constraints>
                                             <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="F8r-Np-FaN">
-                                                <rect key="frame" x="1" y="159" width="348" height="16"/>
+                                                <rect key="frame" x="1" y="173" width="348" height="16"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                             </scroller>
                                             <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="8uD-c5-opd">
@@ -1291,18 +1400,24 @@
                             </textField>
                         </subviews>
                         <constraints>
+                            <constraint firstItem="saE-4Q-KJ8" firstAttribute="leading" secondItem="PRl-yO-RbZ" secondAttribute="leading" constant="21" id="05y-hD-Z8c"/>
                             <constraint firstItem="Vid-x1-33x" firstAttribute="top" secondItem="icH-Jz-0QZ" secondAttribute="bottom" constant="22" id="0i7-gr-7wr"/>
                             <constraint firstItem="HlN-fD-X0z" firstAttribute="top" secondItem="JI2-4r-x6L" secondAttribute="bottom" constant="26" id="2CV-gN-2Vd"/>
                             <constraint firstItem="HlN-fD-X0z" firstAttribute="leading" secondItem="PRl-yO-RbZ" secondAttribute="leading" constant="21" id="7T2-KU-gIX"/>
+                            <constraint firstItem="saE-4Q-KJ8" firstAttribute="top" secondItem="ihZ-QQ-J41" secondAttribute="bottom" constant="10" id="83H-in-drh"/>
                             <constraint firstItem="r7g-3I-iCc" firstAttribute="height" secondItem="TJv-LC-lom" secondAttribute="height" id="872-uq-dGf"/>
+                            <constraint firstItem="TJv-LC-lom" firstAttribute="top" secondItem="saE-4Q-KJ8" secondAttribute="bottom" constant="6" id="9TJ-Y7-jPD"/>
                             <constraint firstItem="icH-Jz-0QZ" firstAttribute="leading" secondItem="KpP-w5-qmb" secondAttribute="trailing" constant="20" id="Bjr-95-FM9"/>
                             <constraint firstItem="JI2-4r-x6L" firstAttribute="leading" secondItem="PRl-yO-RbZ" secondAttribute="leading" constant="20" id="FJe-tO-DI5"/>
                             <constraint firstAttribute="trailing" secondItem="UrD-lB-bPv" secondAttribute="trailing" constant="20" symbolic="YES" id="Gee-Pm-OYh"/>
+                            <constraint firstAttribute="trailing" secondItem="saE-4Q-KJ8" secondAttribute="trailing" constant="20" id="JLv-fl-nFE"/>
                             <constraint firstItem="BLb-ME-2Qd" firstAttribute="leading" secondItem="PRl-yO-RbZ" secondAttribute="leading" constant="21" id="JrU-4D-mMH"/>
+                            <constraint firstItem="ihZ-QQ-J41" firstAttribute="leading" secondItem="PRl-yO-RbZ" secondAttribute="leading" constant="20" id="LCH-j1-7X5"/>
                             <constraint firstAttribute="trailing" secondItem="Vid-x1-33x" secondAttribute="trailing" constant="20" id="OCP-ca-0up"/>
                             <constraint firstItem="KpP-w5-qmb" firstAttribute="top" secondItem="PRl-yO-RbZ" secondAttribute="top" constant="20" id="OU4-kX-yvP"/>
                             <constraint firstItem="UrD-lB-bPv" firstAttribute="top" secondItem="BLb-ME-2Qd" secondAttribute="bottom" constant="8" id="PHf-xU-Lmf"/>
                             <constraint firstItem="ufK-Jq-8JQ" firstAttribute="top" secondItem="Vid-x1-33x" secondAttribute="bottom" constant="21" id="RsG-q4-Gyi"/>
+                            <constraint firstItem="ihZ-QQ-J41" firstAttribute="top" secondItem="Awz-Ca-xPe" secondAttribute="bottom" constant="8" id="SaH-Tz-ccA"/>
                             <constraint firstItem="Vid-x1-33x" firstAttribute="leading" secondItem="JI2-4r-x6L" secondAttribute="trailing" constant="20" id="Sje-zA-gXO"/>
                             <constraint firstAttribute="trailing" secondItem="ufK-Jq-8JQ" secondAttribute="trailing" constant="20" id="VQt-En-W5s"/>
                             <constraint firstItem="UrD-lB-bPv" firstAttribute="leading" secondItem="PRl-yO-RbZ" secondAttribute="leading" constant="20" symbolic="YES" id="WpD-TS-AYI"/>
@@ -1310,7 +1425,6 @@
                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Awz-Ca-xPe" secondAttribute="trailing" constant="20" id="Y54-vy-P10"/>
                             <constraint firstItem="ufK-Jq-8JQ" firstAttribute="top" secondItem="Vid-x1-33x" secondAttribute="bottom" constant="21" id="Y9R-rF-8MD"/>
                             <constraint firstAttribute="bottom" secondItem="UrD-lB-bPv" secondAttribute="bottom" constant="20" symbolic="YES" id="Z3m-Nh-pud"/>
-                            <constraint firstItem="TJv-LC-lom" firstAttribute="top" secondItem="Awz-Ca-xPe" secondAttribute="bottom" constant="6" symbolic="YES" id="bEM-ke-zuK"/>
                             <constraint firstAttribute="trailing" secondItem="r7g-3I-iCc" secondAttribute="trailing" constant="20" id="ehg-fp-vDG"/>
                             <constraint firstItem="Vid-x1-33x" firstAttribute="leading" secondItem="JI2-4r-x6L" secondAttribute="trailing" constant="20" id="fvX-Ep-ZqE"/>
                             <constraint firstItem="Awz-Ca-xPe" firstAttribute="top" secondItem="HlN-fD-X0z" secondAttribute="bottom" constant="18" id="gRO-el-O8u"/>
@@ -1328,6 +1442,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="calendarExcludeTable" destination="bLV-eX-WdG" id="EZT-6B-Ybx"/>
                         <outlet property="domainsTable" destination="p83-uu-LlX" id="mZ2-L7-v4m"/>
                         <outlet property="logsPathLabel" destination="7zs-OG-fCC" id="itP-8D-gRb"/>
                         <outlet property="newDomainField" destination="4rL-ld-KRq" id="pcw-FV-bf5"/>
@@ -1352,7 +1467,7 @@
                 </arrayController>
                 <userDefaultsController id="ab7-0k-UN4"/>
             </objects>
-            <point key="canvasLocation" x="1134" y="591"/>
+            <point key="canvasLocation" x="1134" y="684.5"/>
         </scene>
     </scenes>
     <resources>

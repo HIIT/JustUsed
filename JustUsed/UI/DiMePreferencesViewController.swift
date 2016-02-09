@@ -35,9 +35,14 @@ class DiMePreferencesViewController: NSViewController {
     
     @IBOutlet weak var logsPathLabel: NSTextField!
     
+    @IBOutlet weak var calendarExcludeTable: NSTableView!
+    let calendarExcludeDelegate = CalendarExcludeDelegate()
+    
     /// Create view and programmatically set-up bindings
     override func viewDidLoad() {
         super.viewDidLoad()
+        calendarExcludeTable.setDataSource(calendarExcludeDelegate)
+        calendarExcludeTable.setDelegate(calendarExcludeDelegate)
         
         let options: [String: AnyObject] = ["NSContinuouslyUpdatesValue": true]
         
@@ -78,6 +83,20 @@ class DiMePreferencesViewController: NSViewController {
                 userDefaultsAC.addObject(newVal)
             }
             newDomainField.stringValue = ""
+        }
+    }
+}
+
+class CalendarExcludeDelegate: NSObject, NSTableViewDataSource, NSTableViewDelegate {
+    @objc func numberOfRowsInTableView(tableView: NSTableView) -> Int {
+        return CalendarTracker.sharedInstance!.calendarNames()!.count
+    }
+    
+    @objc func tableView(tableView: NSTableView, objectValueForTableColumn tableColumn: NSTableColumn?, row: Int) -> AnyObject? {
+        if tableColumn!.identifier == "calExclTableCheck" {
+            return true
+        } else {
+            return CalendarTracker.sharedInstance!.calendarNames()![row]
         }
     }
 }

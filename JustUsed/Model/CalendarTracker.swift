@@ -52,19 +52,26 @@ public class CalendarTracker {
     
     private let store = EKEventStore()
     
+    /// If the user granted access to the calendar, this becomes true
+    private(set) var hasAccess: Bool = false
+    
     /// All events currently in dime
     private var dimeEvents = [CalendarEvent]()
     
     /// Where are new events fetched from or sent
     var calendarDelegate: CalendarHistoryDelegate
     
+    static var sharedInstance: CalendarTracker?
+    
     /// Creates a new calendar tracker, which uses the given object to fetch / update
     /// calendar events.
     init(calendarDelegate: CalendarHistoryDelegate) {
         self.calendarDelegate = calendarDelegate
         store.requestAccessToEntityType(.Event) {
-            result in
-            if result.0 {
+            (granted, error) in
+            if granted {
+                self.hasAccess = true
+                
                 // check calendar when an event is modified
                 NSNotificationCenter.defaultCenter().addObserver(self, selector: "getCurrentEvents:", name: EKEventStoreChangedNotification, object: self.store)
                 // check calendar regularly
@@ -78,8 +85,30 @@ public class CalendarTracker {
                     self.getCurrentEvents(nil)
                 }
             }
+            if let err = error {
+                AppSingleton.log.error("Error while asking permission to access calendars:\n\(err)")
+            }
+        }
+        CalendarTracker.sharedInstance = self
+    }
+    
+    // MARK: - Accessors
+    
+    /// Returns an array containing all calendars residing on the user's device.
+    /// Nil if we don't have permission to access them.
+    func calendarNames() -> [String]? {
+        if hasAccess {
+            var retVal = [String]()
+            for cal in store.calendarsForEntityType(.Event) {
+                retVal.append(cal.title)
+            }
+            return retVal
+        } else {
+            return nil
         }
     }
+    
+    // MARK: - Private
     
     /// Get events which just-passed. Current event is defined as the latest event that started from kBackLook seconds ago until now, in all calendars.
     /// - parameter hitObject: Whatever is calling this (notification or timer)
