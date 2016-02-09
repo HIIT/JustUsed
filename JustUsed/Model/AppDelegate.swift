@@ -41,6 +41,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
     }()
     
+    let calendarTracker = CalendarTracker(calendarDelegate: HistoryManager.sharedManager)
+    
     // Data sources to display tables in GUI
     let browHistoryDataSource = BrowserTrackerDataSource()
     let spoHistoryDataSource = RecentDocDataSource()
@@ -77,10 +79,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
         let storyboard = NSStoryboard(name: "Main", bundle: nil)
         popover.behavior = NSPopoverBehavior.Transient
-        
-        // fetch nothing to initialize calendar event monitor
-        // TODO: currently disabled, enable once we have tag support
-//        let _ = CalendarManager.sharedInstance.currentEventName
         
         // Prepare browser tracking for each browser
         browserManager.addFetcher(SafariHistoryFetcher())

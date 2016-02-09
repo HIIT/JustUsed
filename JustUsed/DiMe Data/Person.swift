@@ -11,10 +11,11 @@ import Foundation
 /// A person is represented by this struct (not a class)
 class Person: DiMeBase {
     
-    private(set) var firstName: String = "N/A"
-    private(set) var lastName: String = "N/A"
-    private(set) var middleNames: [String] = [String]()
-    private(set) var email: String?
+    var firstName: String = "N/A"
+    var lastName: String = "N/A"
+    var middleNames: [String] = [String]()
+    
+    var email: String?
     
     /// Returns the name in a string separated by spaces, such as "FistName MiddleName1 MiddleName2 LastName"
     override var description: String { get {
@@ -26,7 +27,20 @@ class Person: DiMeBase {
         }
         outVal += lastName
         return outVal
-        } }
+    } }
+    
+    /// Person's hash is based on the hash of all its fields, xorred together
+    override var hash: Int { get {
+        var outH = firstName.hash
+        outH ^= lastName.hash
+        for mn in middleNames {
+            outH ^= mn.hash
+        }
+        if let em = email {
+            outH ^= em.hash
+        }
+        return outH
+    } }
     
     /// Generates a person from a string. If there is a comma in the string, it is assumed that the first name after the comma, otherwise first name is the first non-whitespace separated string, and last name is the last. Middle names are assumed to all come after the first name if there was a comma, between first and last if there is no comma.
     /// **Fails (returns nil) if the string could not be parsed.**
@@ -92,19 +106,44 @@ class Person: DiMeBase {
     }
     
     override func getDict() -> [String : AnyObject] {
-        theDictionary["firstName"] = firstName
-        theDictionary["lastName"] = lastName
+        var retDict = theDictionary
+        retDict["firstName"] = firstName
+        retDict["lastName"] = lastName
         if middleNames.count > 0 {
-            theDictionary["middleNames"] = middleNames
+            retDict["middleNames"] = middleNames
         }
         if let em = self.email {
-            theDictionary["emailAccount"] = em
+            retDict["emailAccount"] = em
         }
         
         // dime-required
-        theDictionary["@type"] = "Person"
-        theDictionary["type"] = "http://www.hiit.fi/ontologies/dime/#Person"
+        retDict["@type"] = "Person"
+        retDict["type"] = "http://www.hiit.fi/ontologies/dime/#Person"
         
-        return theDictionary
+        return retDict
     }
+    
+    override func isEqual(object: AnyObject?) -> Bool {
+        if let otherPerson = object as? Person {
+            if self.firstName != otherPerson.firstName {
+                return false
+            }
+            if self.lastName != otherPerson.lastName {
+                return false
+            }
+            if self.middleNames != otherPerson.middleNames {
+                return false
+            }
+            if let em1 = self.email, em2 = otherPerson.email {
+                if em1 != em2 {
+                    return false
+                }
+            }
+            
+            return true
+        } else {
+            return false
+        }
+    }
+    
 }

@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		A914066E1C0348EF00C3C2E0 /* SpotlightDocumentTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = A914066D1C0348EF00C3C2E0 /* SpotlightDocumentTracker.swift */; };
 		A91406731C036D5500C3C2E0 /* FirefoxHistoryFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = A91406721C036D5500C3C2E0 /* FirefoxHistoryFetcher.swift */; };
-		A92411E71C69FAC900DD6449 /* CalendarManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A92411E61C69FAC900DD6449 /* CalendarManager.swift */; };
+		A92411E71C69FAC900DD6449 /* CalendarTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = A92411E61C69FAC900DD6449 /* CalendarTracker.swift */; };
 		A92411EF1C69FB3F00DD6449 /* CalendarEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A92411EE1C69FB3F00DD6449 /* CalendarEvent.swift */; };
 		A92411F11C69FD8F00DD6449 /* Person.swift in Sources */ = {isa = PBXBuildFile; fileRef = A92411F01C69FD8F00DD6449 /* Person.swift */; };
 		A92411F31C69FDCB00DD6449 /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = A92411F21C69FDCB00DD6449 /* SwiftyJSON.swift */; };
@@ -127,7 +127,7 @@
 /* Begin PBXFileReference section */
 		A914066D1C0348EF00C3C2E0 /* SpotlightDocumentTracker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpotlightDocumentTracker.swift; sourceTree = "<group>"; };
 		A91406721C036D5500C3C2E0 /* FirefoxHistoryFetcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirefoxHistoryFetcher.swift; sourceTree = "<group>"; };
-		A92411E61C69FAC900DD6449 /* CalendarManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarManager.swift; sourceTree = "<group>"; };
+		A92411E61C69FAC900DD6449 /* CalendarTracker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarTracker.swift; sourceTree = "<group>"; };
 		A92411EE1C69FB3F00DD6449 /* CalendarEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarEvent.swift; sourceTree = "<group>"; };
 		A92411F01C69FD8F00DD6449 /* Person.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Person.swift; sourceTree = "<group>"; };
 		A92411F21C69FDCB00DD6449 /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
@@ -195,7 +195,7 @@
 		A925744C1BCF8EAA004866B4 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				A92411E61C69FAC900DD6449 /* CalendarManager.swift */,
+				A92411E61C69FAC900DD6449 /* CalendarTracker.swift */,
 				A925745D1BCF906A004866B4 /* AppDelegate.swift */,
 				A925745E1BCF906A004866B4 /* AppSingleton.swift */,
 				A925745F1BCF906A004866B4 /* LocationSingleton.swift */,
@@ -528,7 +528,7 @@
 				A9F507891BC7BA4B00275C6C /* ViewController.swift in Sources */,
 				A914066E1C0348EF00C3C2E0 /* SpotlightDocumentTracker.swift in Sources */,
 				A9F3807B1C199E38009251AB /* GenericBrowserHistory.swift in Sources */,
-				A92411E71C69FAC900DD6449 /* CalendarManager.swift in Sources */,
+				A92411E71C69FAC900DD6449 /* CalendarTracker.swift in Sources */,
 				A92574591BCF8FF9004866B4 /* XCGLogger.swift in Sources */,
 				A91406731C036D5500C3C2E0 /* FirefoxHistoryFetcher.swift in Sources */,
 				A92574641BCF906A004866B4 /* LocationSingleton.swift in Sources */,

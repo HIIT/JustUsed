@@ -106,7 +106,8 @@ class HistoryManager: NSObject {
     }
     
     /// Send the given dictionary to DiMe (assumed to be in correct form due to the use of public callers of this method)
-    private func sendToDiMe(dimeData: DiMeBase) {
+    /// If given, calls the success block if request succeeded.
+    private func sendToDiMe(dimeData: DiMeBase, successBlock: (Void -> Void)? = nil) {
        
         if dimeAvailable {
             
@@ -141,7 +142,15 @@ class HistoryManager: NSObject {
                     self.dimeConnectState(false)
                     AppSingleton.log.error("Failure when submitting data to dime:\n\(response.result.error!)")
                 } else {
-                    // JSON(response.value!) to see what dime replied
+                    if let success = successBlock {
+                        let jres = JSON(response.result.value!)
+                        // check if there is an "error" in the response. If so, log it, otherwise report success
+                        if jres["error"] != nil {
+                            AppSingleton.log.error("DiMe reported error:\n\(jres["error"].stringValue)")
+                        } else {
+                            success()
+                        }
+                    }
                 }
             }
             
@@ -176,3 +185,41 @@ extension HistoryManager: RecentDocumentUpdateDelegate, BrowserHistoryUpdateDele
 }
 
 /// Protocol implementations for calendar updating
+extension HistoryManager: CalendarHistoryDelegate {
+    
+    func fetchCalendarEvents(block: [CalendarEvent] -> Void) {
+        
+        if dimeAvailable {
+            
+            let server_url: String = NSUserDefaults.standardUserDefaults().valueForKey(JustUsedConstants.prefDiMeServerURL) as! String
+            let user: String = NSUserDefaults.standardUserDefaults().valueForKey(JustUsedConstants.prefDiMeServerUserName) as! String
+            let password: String = NSUserDefaults.standardUserDefaults().valueForKey(JustUsedConstants.prefDiMeServerPassword) as! String
+            
+            let credentialData = "\(user):\(password)".dataUsingEncoding(NSUTF8StringEncoding)!
+            let base64Credentials = credentialData.base64EncodedStringWithOptions([])
+            
+            let headers = ["Authorization": "Basic \(base64Credentials)"]
+            
+            Alamofire.request(.GET, server_url + "/data/events?type=http://www.hiit.fi/ontologies/dime/%23CalendarEvent", headers: headers).responseJSON {
+                response in
+                if response.result.isFailure {
+                    AppSingleton.log.error("Failure when retrieving calendar events:\n\(response.result.error!)")
+                } else {
+                    let eventsPack = JSON(response.result.value!)
+                    var retVal = [CalendarEvent]()
+                    if let events = eventsPack.array {
+                        for ev in events {
+                            retVal.append(CalendarEvent(fromJSON: ev))
+                        }
+                    }
+                    block(retVal)
+                }
+            }
+            
+        }
+    }
+    
+    func sendCalendarEvent(newEvent: CalendarEvent, successBlock: Void -> Void) {
+        sendToDiMe(newEvent, successBlock: successBlock)
+    }
+}

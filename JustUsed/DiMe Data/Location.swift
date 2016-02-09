@@ -25,7 +25,7 @@
 import Foundation
 import CoreLocation
 
-struct Location: Dictionariable, Equatable {
+struct Location: Dictionariable, Equatable, Hashable {
     
     let latitude: Double
     let longitude: Double
@@ -35,6 +35,15 @@ struct Location: Dictionariable, Equatable {
     let bearing: Double?
     let speed: Double?
     var descriptionLine: String?  // not initialized, can be changed later
+    
+    var hashValue: Int { get {
+        var outH = latitude.hashValue
+        outH ^= longitude.hashValue
+        if let al = altitude {
+            outH ^= al.hashValue
+        }
+        return outH
+    } }
     
     init(fromCLLocation loc: CLLocation) {
         latitude = loc.coordinate.latitude
