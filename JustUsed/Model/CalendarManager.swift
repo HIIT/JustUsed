@@ -31,6 +31,9 @@ import EventKit
 /// To get the current event title: `CalendarManager.sharedInstance.currentEventName`
 public class CalendarManager {
     
+    /// Geocoder user to reverse location information
+    private let geoMan = CLGeocoder()
+    
     private let store = EKEventStore()
     
     static let sharedInstance = CalendarManager()

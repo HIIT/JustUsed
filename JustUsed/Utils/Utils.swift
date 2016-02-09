@@ -27,6 +27,7 @@
 import Foundation
 import Cocoa
 import Quartz
+import CoreLocation
 
 // MARK: - Extensions to standard types
 
@@ -128,4 +129,88 @@ extension String {
         let hexBytes = digest.map { String(format: "%02hhx", $0) }
         return hexBytes.joinWithSeparator("")
     }
+    
+    /// Trims whitespace and newlines using foundation
+    func trimmed() -> String {
+        let nss: NSString = self
+        return nss.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+    }
+    
+    /// Checks if this string contains the given character
+    func containsChar(theChar: Character) -> Bool {
+        for c in self.characters {
+            if c == theChar {
+                return true
+            }
+        }
+        return false
+    }
+    
+    /// Splits the string, trimming whitespaces, between the given characters (note: slow for very long strings)
+    func split(theChar: Character) -> [String]? {
+        var outVal = [String]()
+        var remainingString = self
+        while remainingString.containsChar(theChar) {
+            var outString = ""
+            var nextChar = remainingString.removeAtIndex(remainingString.startIndex)
+            while nextChar != theChar {
+                outString.append(nextChar)
+                nextChar = remainingString.removeAtIndex(remainingString.startIndex)
+            }
+            if !outString.trimmed().isEmpty {
+                outVal.append(outString.trimmed())
+            }
+        }
+        if !remainingString.trimmed().isEmpty {
+            outVal.append(remainingString.trimmed())
+        }
+        if outVal.count > 0 {
+            return outVal
+        } else {
+            return nil
+        }
+    }
+    
+    /// Skips the first x characters
+    func skipPrefix(nOfChars: Int) -> String {
+        return self.substringFromIndex(self.startIndex.advancedBy(nOfChars))
+    }
+    
+}
+
+extension CLGeocoder {
+    
+    /// Asynchronously creates a Location object by using a CLLocation and
+    /// reversing its location. Calls the given block with a Location that includes description.
+    func getDescription(fromLoc inLoc: CLLocation, block: (describedLocation: Location) -> Void) {
+        self.reverseGeocodeLocation(inLoc) {
+            placemarkA, error in
+            
+            var outLoc = Location(fromCLLocation: inLoc)
+            if let error = error {
+                outLoc.descriptionLine = "** Error reversing: \(error.description)"
+            } else {
+                let placemark = placemarkA![0]
+                var builtString = ""
+                if let country = placemark.country {
+                    builtString += "Country: \(country)"
+                }
+                if let locality = placemark.locality {
+                    builtString += ", Locality: \(locality)"
+                }
+                if let subLoc = placemark.subLocality {
+                    builtString += ", Neighborhood: \(subLoc)"
+                }
+                if let street = placemark.thoroughfare {
+                    builtString += ", Street: \(street)"
+                }
+                
+                outLoc.descriptionLine = builtString
+            }
+            
+            block(describedLocation: outLoc)
+            
+        }
+    }
+    
 }

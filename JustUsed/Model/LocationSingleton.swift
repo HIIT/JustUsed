@@ -69,32 +69,10 @@ class LocationController: NSObject, CLLocationManagerDelegate {
     }
     
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [AnyObject]) {
-        if let retLoc = locations[0] as? CLLocation {
-            geoMan.reverseGeocodeLocation(retLoc) {
-                placemarkA, error in
-            
-                self.location = Location(fromCLLocation: retLoc)
-                if let error = error {
-                    self.location?.descriptionLine = "** Error reversing: \(error.description)"
-                } else {
-                    let placemark = placemarkA![0]
-                    var builtString = ""
-                    if let country = placemark.country {
-                        builtString += "Country: \(country)"
-                    }
-                    if let locality = placemark.locality {
-                        builtString += ", Locality: \(locality)"
-                    }
-                    if let subLoc = placemark.subLocality {
-                        builtString += ", Neighborhood: \(subLoc)"
-                    }
-                    if let street = placemark.thoroughfare {
-                        builtString += ", Street: \(street)"
-                    }
-                    
-                    self.location?.descriptionLine = builtString
-                }
-                
+        if let loc = locations[0] as? CLLocation {
+            geoMan.getDescription(fromLoc: loc) {
+                describedLocation in
+                self.location = describedLocation
             }
         }
     }

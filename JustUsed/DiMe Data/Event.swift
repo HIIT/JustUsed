@@ -47,4 +47,9 @@ class Event: DiMeBase {
     func setEnd(endDate: NSDate) {
         theDictionary["end"] = JustUsedConstants.diMeDateFormatter.stringFromDate(endDate)
     }
+    
+    /// Set a start date for this item (updates old value)
+    func setStart(endDate: NSDate) {
+        theDictionary["start"] = JustUsedConstants.diMeDateFormatter.stringFromDate(endDate)
+    }
 }

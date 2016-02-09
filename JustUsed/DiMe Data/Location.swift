@@ -59,6 +59,17 @@ struct Location: Dictionariable, Equatable {
         }
     }
     
+    init(fromJSON json: JSON) {
+        latitude = json["latitude"].doubleValue
+        longitude = json["longitude"].doubleValue
+        altitude = json["altitude"].double
+        horizAccuracy = json["horizAccuracy"].doubleValue
+        vertAccuracy = json["vertAccuracy"].double
+        bearing = json["bearing"].double
+        speed = json["speed"].double
+        descriptionLine = json["descriptionLine"].string
+    }
+    
     /// Returns itself in a (json-able) dict
     func getDict() -> [String: AnyObject] {
         var retDict = [String: AnyObject]()

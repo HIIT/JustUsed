@@ -30,7 +30,7 @@
 import Foundation
 import Alamofire
 
-class HistoryManager: NSObject, RecentDocumentUpdateDelegate, BrowserHistoryUpdateDelegate {
+class HistoryManager: NSObject {
     
     /// Returns a shared instance of this class. This is the designed way of accessing the history manager.
     static let sharedManager = HistoryManager()
@@ -89,25 +89,6 @@ class HistoryManager: NSObject, RecentDocumentUpdateDelegate, BrowserHistoryUpda
     /// Disconnects from dime
     func dimeDisconnect() {
         self.dimeConnectState(false)
-    }
-    
-    // MARK: - Protocol implementation
-    
-    func newHistoryItems(newURLs: [BrowserHistItem]) {
-        for newURL in newURLs {
-            let sendingToBrowser = NSUserDefaults.standardUserDefaults().valueForKey(JustUsedConstants.prefSendSafariHistory) as! Bool
-            if !newURL.excludedFromDiMe && sendingToBrowser {
-                let infoElem = DocumentInformationElement(fromSafariHist: newURL)
-                let event = DesktopEvent(infoElem: infoElem, ofType: TrackingType.Browser(newURL.browser), withDate: newURL.date, andLocation: newURL.location)
-                sendToDiMe(event)
-            }
-        }
-    }
-    
-    func newRecentDocument(newItem: RecentDocItem) {
-        let infoElem = DocumentInformationElement(fromRecentDoc: newItem)
-        let event = DesktopEvent(infoElem: infoElem, ofType: TrackingType.Spotlight, withDate: newItem.lastAccessDate, andLocation: newItem.location)
-        sendToDiMe(event)
     }
     
     // MARK: - Internal functions
@@ -169,3 +150,29 @@ class HistoryManager: NSObject, RecentDocumentUpdateDelegate, BrowserHistoryUpda
     }
     
 }
+
+// MARK: - Protocol implementations
+
+/// Protocol implementations for browser and document history updates
+extension HistoryManager: RecentDocumentUpdateDelegate, BrowserHistoryUpdateDelegate {
+    
+    func newHistoryItems(newURLs: [BrowserHistItem]) {
+        for newURL in newURLs {
+            let sendingToBrowser = NSUserDefaults.standardUserDefaults().valueForKey(JustUsedConstants.prefSendSafariHistory) as! Bool
+            if !newURL.excludedFromDiMe && sendingToBrowser {
+                let infoElem = DocumentInformationElement(fromSafariHist: newURL)
+                let event = DesktopEvent(infoElem: infoElem, ofType: TrackingType.Browser(newURL.browser), withDate: newURL.date, andLocation: newURL.location)
+                sendToDiMe(event)
+            }
+        }
+    }
+    
+    func newRecentDocument(newItem: RecentDocItem) {
+        let infoElem = DocumentInformationElement(fromRecentDoc: newItem)
+        let event = DesktopEvent(infoElem: infoElem, ofType: TrackingType.Spotlight, withDate: newItem.lastAccessDate, andLocation: newItem.location)
+        sendToDiMe(event)
+    }
+    
+}
+
+/// Protocol implementations for calendar updating
