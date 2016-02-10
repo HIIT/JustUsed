@@ -2,7 +2,15 @@
 
 JustUsed is the codename for DiMe's Mac Desktop Tracker. DiMe (DigitalMe) (part of the [Re:Know project](http://www.reknow.fi)), is a platform aimed at collecting user data, for the user, under full control of the user. More information, including DiMe's source code, can be found here: http://hiit.github.io/dime-server/.
 
-JustUsed is a Mac OS X Application which runs in the background, tracking used files and browser history (note: we are currently working on browser extensions which will replace this functionality). User activity is submitted to DiMe.
+## Tracking
+
+JustUsed tracks the following items and sends their information to DiMe:
+
+- Opened files
+- Calendar
+- Browser activity (deprecated in favour of Browser extension, which can be found [here](http://hiit.github.io/dime-server/))
+
+Calendar tracking requires permission to access your calendar and on Contacts on OS X >= El Capitan (to retrieve details regarding participants to events, such as email).
 
 ## Installation
 
