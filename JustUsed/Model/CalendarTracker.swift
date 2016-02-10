@@ -37,31 +37,28 @@ protocol CalendarHistoryDelegate: class {
     func sendCalendarEvent(newEvent: CalendarEvent, successBlock: Void -> Void)
 }
 
-/// Calendar manager monitors the calendar and sends events found within kBackLook seconds to DiMe.
-/// It checks every kInterval, or every time the calendar is updated.
+/// Tracks calendars event this way: it checks for events that are stored in the calendar
+/// ±24 hours from now. Sends all of them, if not in the calendar exclusion list, to dime, updating
+/// old events. Repeats this procedure every hour, or every time the calendar is modified externally.
+/// Also does a check 90 seconds from initialisation.
 public class CalendarTracker {
     
     /// How often we look for events
-    public static let kInterval: NSTimeInterval = 9 * 60  // min * 60 sec
-    
-    /// How often we look for events already stored in dime (current implementation does not overwrite events which are already present)
-    public static let kDiMeFetchInterval: NSTimeInterval = CalendarTracker.kInterval / 2
+    public static let kInterval: NSTimeInterval = 60 * 60  // one hour
     
     /// When looking for events in the past, cover this time interval
-    public static let kBackLook: NSTimeInterval = CalendarTracker.kBackLook * 2
+    public static let kLookBack: NSTimeInterval = 24 * 60 * 60  // 24 hours back
+    
+    /// When looking for events in the future, cover this time interval
+    public static let kLookAhead: NSTimeInterval = 24 * 60 * 60  // 24 hours ahead
     
     private let store = EKEventStore()
     
     /// If the user granted access to the calendar, this becomes true
     private(set) var hasAccess: Bool = false
     
-    /// All events currently in dime
-    private var dimeEvents = [CalendarEvent]()
-    
     /// Where are new events fetched from or sent
     var calendarDelegate: CalendarHistoryDelegate
-    
-    static var sharedInstance: CalendarTracker?
     
     /// Creates a new calendar tracker, which uses the given object to fetch / update
     /// calendar events.
@@ -73,34 +70,32 @@ public class CalendarTracker {
                 self.hasAccess = true
                 
                 // check calendar when an event is modified
-                NSNotificationCenter.defaultCenter().addObserver(self, selector: "getCurrentEvents:", name: EKEventStoreChangedNotification, object: self.store)
+                NSNotificationCenter.defaultCenter().addObserver(self, selector: "submitCurrentEvents:", name: EKEventStoreChangedNotification, object: self.store)
                 // check calendar regularly
-                NSTimer.scheduledTimerWithTimeInterval(CalendarTracker.kInterval, target: self, selector: "getCurrentEvents:", userInfo: nil, repeats: true)
-                // repeatedly fetch all events from dime to avoid sending too many
-                NSTimer.scheduledTimerWithTimeInterval(CalendarTracker.kDiMeFetchInterval, target: self, selector: "getDiMeEvents:", userInfo: nil, repeats: true)
-                // fetch the current events in 5 seconds, to allow dime to come online
+                NSTimer.scheduledTimerWithTimeInterval(CalendarTracker.kInterval, target: self, selector: "submitCurrentEvents:", userInfo: nil, repeats: true)
+                // fetch the current events in 90 seconds, to allow dime to come online and the user to set preferences
                 let callTime = dispatch_time(DISPATCH_TIME_NOW,
-                                     Int64(5 * Double(NSEC_PER_SEC)))
+                                     Int64(90 * Double(NSEC_PER_SEC)))
                 dispatch_after(callTime, dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0)) {
-                    self.getCurrentEvents(nil)
+                    self.submitCurrentEvents(nil)
                 }
             }
             if let err = error {
                 AppSingleton.log.error("Error while asking permission to access calendars:\n\(err)")
             }
         }
-        CalendarTracker.sharedInstance = self
     }
     
-    // MARK: - Accessors
+    // MARK: - External functions
     
     /// Returns an array containing all calendars residing on the user's device.
     /// Nil if we don't have permission to access them.
+    /// Calendar names are in the format account.title (e.g. iCloud.work)
     func calendarNames() -> [String]? {
         if hasAccess {
             var retVal = [String]()
             for cal in store.calendarsForEntityType(.Event) {
-                retVal.append(cal.title)
+                retVal.append("\(cal.source.title).\(cal.title)")
             }
             return retVal
         } else {
@@ -108,33 +103,95 @@ public class CalendarTracker {
         }
     }
     
-    // MARK: - Private
-    
-    /// Get events which just-passed. Current event is defined as the latest event that started from kBackLook seconds ago until now, in all calendars.
-    /// - parameter hitObject: Whatever is calling this (notification or timer)
-    @objc private func getCurrentEvents(hitObject: AnyObject?) {
-        let sinceTime: NSTimeInterval = CalendarTracker.kBackLook
+    /// Sets the exclude value for a given calendar. Returns an updated exclude list (only
+    /// (calendars which actually exist can be excluded). Updates NSUserDefaults.
+    func setExcludeValue(exclude exclude: Bool, calendar: String) -> [String] {
+        var currentExcludes = NSUserDefaults.standardUserDefaults().valueForKey(JustUsedConstants.prefExcludeCalendars) as! [String]
+        let _calendars = calendarNames()
+        guard let calendars = _calendars else {
+            return []
+        }
         
-        let allCalendars = store.calendarsForEntityType(.Event)
-        let predicate = store.predicateForEventsWithStartDate(NSDate().dateByAddingTimeInterval(-sinceTime), endDate: NSDate(), calendars: allCalendars)
+        // Exclude / include only if not duplicate
+        if exclude {
+            if !currentExcludes.contains(calendar) {
+                currentExcludes.append(calendar)
+            }
+        } else {
+            if currentExcludes.contains(calendar) {
+                let i = currentExcludes.indexOf(calendar)!
+                currentExcludes.removeAtIndex(i)
+            }
+        }
+        
+        // Create new list of things that actually exist and are excluded
+        var actualExcludes = [String]()
+        for excl in currentExcludes {
+            if calendars.contains(excl) && !actualExcludes.contains(excl) {
+                actualExcludes.append(excl)
+            }
+        }
+        
+        NSUserDefaults.standardUserDefaults().setValue(actualExcludes, forKey: JustUsedConstants.prefExcludeCalendars)
+        NSUserDefaults.standardUserDefaults().synchronize()
+        
+        return actualExcludes
+    }
+    
+    /// Returns a dictionary, one entry per calendar, where the value is whether the
+    /// calendar is excluded
+    /// Returns nil if there are no valid calendars
+    func getExcludeCalendars() -> [String: Bool]? {
+        let currentExcludes = NSUserDefaults.standardUserDefaults().valueForKey(JustUsedConstants.prefExcludeCalendars) as! [String]
+        let _calendars = calendarNames()
+        guard let calendars = _calendars else {
+            return nil
+        }
+        var retVal = [String: Bool]()
+        for cal in calendars {
+            retVal[cal] = currentExcludes.contains(cal)
+        }
+        
+        return retVal
+    }
+    
+    /// Submits calendar events to dime.
+    /// - parameter dataMine: if true, looks for all possible events two years before and after now.
+    func submitEvents(dataMine dataMine: Bool = false) {
+        guard let excludeCalendars = getExcludeCalendars() else {
+            return
+        }
+        
+        let sinceDate: NSDate
+        let thenDate: NSDate
+        
+        if dataMine {
+            sinceDate = NSDate().yearOffset(-2)
+            thenDate = NSDate().yearOffset(2)
+        } else {
+            let sinceTime: NSTimeInterval = CalendarTracker.kLookBack
+            let thenTime: NSTimeInterval = CalendarTracker.kLookAhead
+            sinceDate = NSDate().dateByAddingTimeInterval(-sinceTime)
+            thenDate = NSDate().dateByAddingTimeInterval(+thenTime)
+        }
+        
+        var fetchCalendars = store.calendarsForEntityType(.Event)
+        fetchCalendars = fetchCalendars.filter({excludeCalendars[$0.compositeName] == false})
+        let predicate = store.predicateForEventsWithStartDate(sinceDate, endDate: thenDate, calendars: fetchCalendars)
         let allEvents = store.eventsMatchingPredicate(predicate)
         for event in allEvents {
             let calEvent = CalendarEvent(fromEKEvent: event)
-            if !dimeEvents.contains(calEvent) {
                 calendarDelegate.sendCalendarEvent(calEvent) {
-                    // if successful, this block is called. Add given event to list.
-                    self.dimeEvents.append(calEvent)
-                }
             }
         }
     }
     
-    /// Get events found in dime
-    @objc private func getDiMeEvents(timer: NSTimer?) {
-        calendarDelegate.fetchCalendarEvents() {
-            events in
-            self.dimeEvents = events
-        }
+    // MARK: - Timer / notification callbacks
+    
+    /// Submits events which just-passed. Current event is defined as the latest event that started from kLookBack until kLookAhead.
+    /// - parameter hitObject: Whatever is calling this (notification or timer)
+    @objc private func submitCurrentEvents(hitObject: AnyObject?) {
+        submitEvents()
     }
     
 }

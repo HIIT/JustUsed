@@ -759,7 +759,7 @@
                                 <constraints>
                                     <constraint firstAttribute="width" constant="477" id="9XZ-K4-zob"/>
                                 </constraints>
-                                <scroller key="horizontalScroller" verticalHuggingPriority="750" doubleValue="0.00089126559714795004" horizontal="YES" id="w6A-F4-dVc">
+                                <scroller key="horizontalScroller" verticalHuggingPriority="750" horizontal="YES" id="w6A-F4-dVc">
                                     <rect key="frame" x="1" y="323" width="475" height="16"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
@@ -1135,7 +1135,7 @@
                                         <scrollView autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="muE-TE-h1g">
                                             <rect key="frame" x="146" y="10" width="278" height="135"/>
                                             <clipView key="contentView" id="hua-x6-cD7">
-                                                <rect key="frame" x="1" y="23" width="276" height="111"/>
+                                                <rect key="frame" x="1" y="0.0" width="276" height="134"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" headerView="5Cy-x5-Ex6" id="bLV-eX-WdG">
@@ -1157,7 +1157,7 @@
                                                                 </buttonCell>
                                                                 <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                             </tableColumn>
-                                                            <tableColumn identifier="calExclTableName" width="204" minWidth="40" maxWidth="1000" id="FSd-ek-T3g">
+                                                            <tableColumn identifier="calExclTableName" editable="NO" width="204" minWidth="40" maxWidth="1000" id="FSd-ek-T3g">
                                                                 <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Calendar name">
                                                                     <font key="font" metaFont="smallSystem"/>
                                                                     <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -1177,13 +1177,12 @@
                                             </clipView>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="135" id="8gT-q8-lnO"/>
-                                                <constraint firstAttribute="width" constant="278" id="wJu-ZY-z2z"/>
                                             </constraints>
                                             <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="iEQ-wV-jPw">
                                                 <rect key="frame" x="1" y="118" width="276" height="16"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                             </scroller>
-                                            <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="MX6-gA-1le">
+                                            <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="MX6-gA-1le">
                                                 <rect key="frame" x="261" y="23" width="16" height="0.0"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                             </scroller>
@@ -1201,14 +1200,32 @@
                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                 <font key="font" metaFont="system"/>
                                             </buttonCell>
+                                            <connections>
+                                                <action selector="calendarDataMine:" target="g6d-pz-jYa" id="Zvt-9a-0mp"/>
+                                            </connections>
                                         </button>
+                                        <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZF8-1g-OYZ">
+                                            <rect key="frame" x="18" y="37" width="122" height="81"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="81" id="UYD-bD-00f"/>
+                                                <constraint firstAttribute="width" constant="118" id="awh-oU-S9g"/>
+                                            </constraints>
+                                            <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" title="Selected calendars will not be used neither in background nor data mine" id="nsy-W0-8EI">
+                                                <font key="font" metaFont="smallSystem"/>
+                                                <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="bLV-eX-WdG" firstAttribute="leading" secondItem="L6W-mq-zUe" secondAttribute="trailing" constant="9" id="EjU-68-UX3"/>
+                                        <constraint firstItem="ZF8-1g-OYZ" firstAttribute="centerX" secondItem="hbc-Bu-PjL" secondAttribute="centerX" id="JqE-4e-9yt"/>
                                         <constraint firstItem="hbc-Bu-PjL" firstAttribute="top" secondItem="muE-TE-h1g" secondAttribute="top" id="KUp-m7-2Vo"/>
                                         <constraint firstItem="hbc-Bu-PjL" firstAttribute="top" secondItem="DZ0-WD-80y" secondAttribute="top" constant="8" id="Nl9-oR-D22"/>
                                         <constraint firstItem="muE-TE-h1g" firstAttribute="leading" secondItem="hbc-Bu-PjL" secondAttribute="trailing" constant="8" id="TPx-3c-IQB"/>
+                                        <constraint firstItem="hbc-Bu-PjL" firstAttribute="leading" secondItem="DZ0-WD-80y" secondAttribute="leading" constant="20" id="boB-ox-bgb"/>
                                         <constraint firstAttribute="trailing" secondItem="muE-TE-h1g" secondAttribute="trailing" constant="20" id="ft1-LP-AX4"/>
+                                        <constraint firstItem="ZF8-1g-OYZ" firstAttribute="centerY" secondItem="muE-TE-h1g" secondAttribute="centerY" id="lNf-TE-qJu"/>
                                         <constraint firstItem="muE-TE-h1g" firstAttribute="top" secondItem="DZ0-WD-80y" secondAttribute="top" constant="8" id="rsm-bV-Hhh"/>
                                         <constraint firstAttribute="bottom" secondItem="L6W-mq-zUe" secondAttribute="bottom" constant="10" id="txX-1h-d1V"/>
                                     </constraints>
@@ -1439,6 +1456,7 @@
                             <constraint firstAttribute="trailing" secondItem="icH-Jz-0QZ" secondAttribute="trailing" constant="20" id="uj8-Xc-tcw"/>
                             <constraint firstItem="icH-Jz-0QZ" firstAttribute="top" secondItem="PRl-yO-RbZ" secondAttribute="top" constant="20" id="yF2-zA-Gbc"/>
                             <constraint firstItem="JI2-4r-x6L" firstAttribute="top" secondItem="KpP-w5-qmb" secondAttribute="bottom" constant="27" id="yUf-Dm-TjD"/>
+                            <constraint firstAttribute="trailing" secondItem="ihZ-QQ-J41" secondAttribute="trailing" constant="20" id="zFV-yz-7fq"/>
                         </constraints>
                     </view>
                     <connections>

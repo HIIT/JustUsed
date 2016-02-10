@@ -61,6 +61,9 @@ class JustUsedConstants {
     /// Wheter we send Safari history events to DiMe
     static let prefSendSafariHistory = "dime.preferences.sendSafariHistory"
     
+    /// String list of calendars we want to exclude from monitoring
+    static let prefExcludeCalendars = "dime.preferences.excludeCalendars"
+    
     // MARK: - Notifications
     
     /// String notifying that something changed in the dime connection.

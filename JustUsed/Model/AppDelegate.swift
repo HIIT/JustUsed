@@ -60,6 +60,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         defaultPrefs[JustUsedConstants.prefDiMeServerUserName] = "Test1"
         defaultPrefs[JustUsedConstants.prefDiMeServerPassword] = "123456"
         let defaultExcludeDomains = ["localhost", "talkgadget.google.com"]
+        let defaultExcludeCalendars: [String] = []
+        defaultPrefs[JustUsedConstants.prefExcludeCalendars] = defaultExcludeCalendars
         defaultPrefs[JustUsedConstants.prefExcludeDomains] = defaultExcludeDomains
         defaultPrefs[JustUsedConstants.prefSendPlainTexts] = 1
         defaultPrefs[JustUsedConstants.prefSendSafariHistory] = 0

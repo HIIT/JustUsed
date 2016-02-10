@@ -85,18 +85,51 @@ class DiMePreferencesViewController: NSViewController {
             newDomainField.stringValue = ""
         }
     }
+    
+    @IBAction func calendarDataMine(sender: NSButton) {
+        let myAl = NSAlert()
+        myAl.messageText = "Attention: this will fetch ALL events, ± 2 years from now (unless they belong to an excluded calendar). Are you sure?"
+        myAl.addButtonWithTitle("Yes")
+        myAl.addButtonWithTitle("No")
+        myAl.beginSheetModalForWindow(self.view.window!) {
+            response in
+            
+            if response == NSAlertFirstButtonReturn {
+                dispatch_async(dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0)) {
+                    let appDel = NSApplication.sharedApplication().delegate! as! AppDelegate
+                    appDel.calendarTracker.submitEvents(dataMine: true)
+                }
+            }
+            
+        }
+    }
+    
 }
 
 class CalendarExcludeDelegate: NSObject, NSTableViewDataSource, NSTableViewDelegate {
+    let calendarTracker: CalendarTracker = {
+        let appDel = NSApplication.sharedApplication().delegate! as! AppDelegate
+        return appDel.calendarTracker
+    }()
+    
     @objc func numberOfRowsInTableView(tableView: NSTableView) -> Int {
-        return CalendarTracker.sharedInstance!.calendarNames()!.count
+        return calendarTracker.calendarNames()!.count
     }
     
     @objc func tableView(tableView: NSTableView, objectValueForTableColumn tableColumn: NSTableColumn?, row: Int) -> AnyObject? {
         if tableColumn!.identifier == "calExclTableCheck" {
-            return true
+            let cal = calendarTracker.calendarNames()![row]
+            return calendarTracker.getExcludeCalendars()![cal]
         } else {
-            return CalendarTracker.sharedInstance!.calendarNames()![row]
+            return calendarTracker.calendarNames()![row]
+        }
+    }
+    
+    @objc func tableView(tableView: NSTableView, setObjectValue object: AnyObject?, forTableColumn tableColumn: NSTableColumn?, row: Int) {
+        if tableColumn!.identifier == "calExclTableCheck" {
+            let exclude = object! as! Bool
+            calendarTracker.setExcludeValue(exclude: exclude, calendar: calendarTracker.calendarNames()![row])
+            tableView.reloadData()
         }
     }
 }

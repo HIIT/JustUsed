@@ -148,6 +148,12 @@ class HistoryManager: NSObject {
                         if jres["error"] != nil {
                             AppSingleton.log.error("DiMe reported error:\n\(jres["error"].stringValue)")
                         } else {
+                            // TODO: remove this debugging check
+                            let dimeResp = JSON(response.result.value!)
+                            let duration = dimeResp["duration"].doubleValue
+                            if duration == 0 {
+                                AppSingleton.log.debug("Event has 0 returned duration:\n\(dimeResp)")
+                            }
                             success()
                         }
                     }

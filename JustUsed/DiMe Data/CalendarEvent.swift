@@ -59,7 +59,7 @@ class CalendarEvent: Event {
         
         self.id = event.eventIdentifier
         self.name = event.title
-        self.calendar = event.calendar.title
+        self.calendar = event.calendar.compositeName
         self.notes = event.notes
         if #available(OSX 10.11, *) {
             if let structLoc = event.structuredLocation, clloc = structLoc.geoLocation {

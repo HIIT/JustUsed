@@ -13,7 +13,6 @@
 		A92411EF1C69FB3F00DD6449 /* CalendarEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A92411EE1C69FB3F00DD6449 /* CalendarEvent.swift */; };
 		A92411F11C69FD8F00DD6449 /* Person.swift in Sources */ = {isa = PBXBuildFile; fileRef = A92411F01C69FD8F00DD6449 /* Person.swift */; };
 		A92411F31C69FDCB00DD6449 /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = A92411F21C69FDCB00DD6449 /* SwiftyJSON.swift */; };
-		A92574551BCF8F98004866B4 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = A92574541BCF8F98004866B4 /* Utils.swift */; };
 		A92574591BCF8FF9004866B4 /* XCGLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = A92574581BCF8FF9004866B4 /* XCGLogger.swift */; };
 		A925745B1BCF901D004866B4 /* JustUsedConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A925745A1BCF901D004866B4 /* JustUsedConstants.swift */; };
 		A92574621BCF906A004866B4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A925745D1BCF906A004866B4 /* AppDelegate.swift */; };
@@ -31,6 +30,12 @@
 		A9438DDC1B7A3F0400F1A54B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A9438DDA1B7A3F0400F1A54B /* Main.storyboard */; };
 		A9438DE81B7A3F0400F1A54B /* JustUsedTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9438DE71B7A3F0400F1A54B /* JustUsedTests.swift */; };
 		A9647CDB1C03853D00485837 /* ChromeHistoryFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9647CDA1C03853D00485837 /* ChromeHistoryFetcher.swift */; };
+		A9BD83B81C6B505C00D62A61 /* PDFDocument+getText.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9BD83B71C6B505C00D62A61 /* PDFDocument+getText.swift */; };
+		A9BD83BA1C6B508600D62A61 /* NSURL+getMime.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9BD83B91C6B508600D62A61 /* NSURL+getMime.swift */; };
+		A9BD83BC1C6B50BA00D62A61 /* NSDate+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9BD83BB1C6B50BA00D62A61 /* NSDate+Extensions.swift */; };
+		A9BD83BE1C6B50F900D62A61 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9BD83BD1C6B50F900D62A61 /* String+Extensions.swift */; };
+		A9BD83C01C6B512600D62A61 /* CLGeoCoder+getDescription.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9BD83BF1C6B512600D62A61 /* CLGeoCoder+getDescription.swift */; };
+		A9BD83C21C6B516100D62A61 /* EKCalendar+getCompositeName.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9BD83C11C6B516100D62A61 /* EKCalendar+getCompositeName.swift */; };
 		A9D4A2D51B7B9B3400EC1D68 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A9D4A2D41B7B9B3400EC1D68 /* libsqlite3.dylib */; };
 		A9D894201BD00EED00314475 /* Alamofire.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A9F5077D1BC7B8DE00275C6C /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		A9F3807B1C199E38009251AB /* GenericBrowserHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9F3807A1C199E38009251AB /* GenericBrowserHistory.swift */; };
@@ -131,7 +136,6 @@
 		A92411EE1C69FB3F00DD6449 /* CalendarEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarEvent.swift; sourceTree = "<group>"; };
 		A92411F01C69FD8F00DD6449 /* Person.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Person.swift; sourceTree = "<group>"; };
 		A92411F21C69FDCB00DD6449 /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
-		A92574541BCF8F98004866B4 /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		A92574581BCF8FF9004866B4 /* XCGLogger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XCGLogger.swift; sourceTree = "<group>"; };
 		A925745A1BCF901D004866B4 /* JustUsedConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JustUsedConstants.swift; sourceTree = "<group>"; };
 		A925745C1BCF9047004866B4 /* JustUsed-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "JustUsed-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -160,6 +164,12 @@
 		A9438DE61B7A3F0400F1A54B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A9438DE71B7A3F0400F1A54B /* JustUsedTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JustUsedTests.swift; sourceTree = "<group>"; };
 		A9647CDA1C03853D00485837 /* ChromeHistoryFetcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChromeHistoryFetcher.swift; sourceTree = "<group>"; };
+		A9BD83B71C6B505C00D62A61 /* PDFDocument+getText.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PDFDocument+getText.swift"; sourceTree = "<group>"; };
+		A9BD83B91C6B508600D62A61 /* NSURL+getMime.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSURL+getMime.swift"; sourceTree = "<group>"; };
+		A9BD83BB1C6B50BA00D62A61 /* NSDate+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSDate+Extensions.swift"; sourceTree = "<group>"; };
+		A9BD83BD1C6B50F900D62A61 /* String+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
+		A9BD83BF1C6B512600D62A61 /* CLGeoCoder+getDescription.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CLGeoCoder+getDescription.swift"; sourceTree = "<group>"; };
+		A9BD83C11C6B516100D62A61 /* EKCalendar+getCompositeName.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "EKCalendar+getCompositeName.swift"; sourceTree = "<group>"; };
 		A9D4A2D41B7B9B3400EC1D68 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		A9F3807A1C199E38009251AB /* GenericBrowserHistory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenericBrowserHistory.swift; sourceTree = "<group>"; };
 		A9F507721BC7B8DE00275C6C /* Alamofire.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Alamofire.xcodeproj; path = Alamofire/Alamofire.xcodeproj; sourceTree = "<group>"; };
@@ -227,7 +237,6 @@
 			isa = PBXGroup;
 			children = (
 				A925745C1BCF9047004866B4 /* JustUsed-Bridging-Header.h */,
-				A92574541BCF8F98004866B4 /* Utils.swift */,
 				A925745A1BCF901D004866B4 /* JustUsedConstants.swift */,
 			);
 			name = Utils;
@@ -274,6 +283,7 @@
 		A9438DD11B7A3F0400F1A54B /* JustUsed */ = {
 			isa = PBXGroup;
 			children = (
+				A9BD83B01C6B500000D62A61 /* Extensions */,
 				A92574531BCF8F69004866B4 /* Utils */,
 				A92574521BCF8EC3004866B4 /* Libraries */,
 				A925744C1BCF8EAA004866B4 /* Model */,
@@ -308,6 +318,19 @@
 				A9438DE61B7A3F0400F1A54B /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		A9BD83B01C6B500000D62A61 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				A9BD83B71C6B505C00D62A61 /* PDFDocument+getText.swift */,
+				A9BD83B91C6B508600D62A61 /* NSURL+getMime.swift */,
+				A9BD83BB1C6B50BA00D62A61 /* NSDate+Extensions.swift */,
+				A9BD83BD1C6B50F900D62A61 /* String+Extensions.swift */,
+				A9BD83BF1C6B512600D62A61 /* CLGeoCoder+getDescription.swift */,
+				A9BD83C11C6B516100D62A61 /* EKCalendar+getCompositeName.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		A9F5076C1BC7B6F000275C6C /* DiMe Data */ = {
@@ -514,9 +537,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				A92574621BCF906A004866B4 /* AppDelegate.swift in Sources */,
+				A9BD83BE1C6B50F900D62A61 /* String+Extensions.swift in Sources */,
 				A92574631BCF906A004866B4 /* AppSingleton.swift in Sources */,
 				A9F507921BC7BF5900275C6C /* DocumentInformationElement.swift in Sources */,
 				A92411F31C69FDCB00DD6449 /* SwiftyJSON.swift in Sources */,
+				A9BD83BC1C6B50BA00D62A61 /* NSDate+Extensions.swift in Sources */,
 				A92574761BCF9190004866B4 /* FMDatabaseAdditions.m in Sources */,
 				A9F507881BC7BA4B00275C6C /* DiMePreferencesViewController.swift in Sources */,
 				A9F507901BC7BF5900275C6C /* DesktopEvent.swift in Sources */,
@@ -532,12 +557,15 @@
 				A92574591BCF8FF9004866B4 /* XCGLogger.swift in Sources */,
 				A91406731C036D5500C3C2E0 /* FirefoxHistoryFetcher.swift in Sources */,
 				A92574641BCF906A004866B4 /* LocationSingleton.swift in Sources */,
+				A9BD83BA1C6B508600D62A61 /* NSURL+getMime.swift in Sources */,
 				A9F782071BCFCCE900516E55 /* Location.swift in Sources */,
 				A9F507931BC7BF5900275C6C /* Event.swift in Sources */,
+				A9BD83C01C6B512600D62A61 /* CLGeoCoder+getDescription.swift in Sources */,
 				A92574791BCF9190004866B4 /* FMResultSet.m in Sources */,
 				A92574771BCF9190004866B4 /* FMDatabasePool.m in Sources */,
-				A92574551BCF8F98004866B4 /* Utils.swift in Sources */,
+				A9BD83B81C6B505C00D62A61 /* PDFDocument+getText.swift in Sources */,
 				A92C0AD31BE40EF000F93915 /* RecentDocumentsTracker.swift in Sources */,
+				A9BD83C21C6B516100D62A61 /* EKCalendar+getCompositeName.swift in Sources */,
 				A9F507911BC7BF5900275C6C /* DiMeData.swift in Sources */,
 				A925745B1BCF901D004866B4 /* JustUsedConstants.swift in Sources */,
 				A9647CDB1C03853D00485837 /* ChromeHistoryFetcher.swift in Sources */,
@@ -674,7 +702,7 @@
 				INFOPLIST_FILE = JustUsed/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
-				PRODUCT_BUNDLE_IDENTIFIER = fi.hiit.JustUsed;
+				PRODUCT_BUNDLE_IDENTIFIER = fi.aalto.org.JustUsed;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "JustUsed/Utils/JustUsed-Bridging-Header.h";
@@ -692,7 +720,7 @@
 				INFOPLIST_FILE = JustUsed/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
-				PRODUCT_BUNDLE_IDENTIFIER = fi.hiit.JustUsed;
+				PRODUCT_BUNDLE_IDENTIFIER = fi.aalto.org.JustUsed;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "JustUsed/Utils/JustUsed-Bridging-Header.h";
