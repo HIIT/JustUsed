@@ -43,7 +43,6 @@ class DiMeBase: NSObject, Dictionariable {
     var theDictionary = [String: AnyObject]()
     
     override init() {
-        theDictionary["actor"] = "JustUsed"
         super.init()
     }
     

@@ -39,6 +39,7 @@ class Event: DiMeBase {
         }
     
         // set dime-required fields (can be overwritten by subclasses)
+        theDictionary["actor"] = "JustUsed"
         theDictionary["@type"] = "Event"
         theDictionary["type"] = "http://www.hiit.fi/ontologies/dime/#Event"
     }

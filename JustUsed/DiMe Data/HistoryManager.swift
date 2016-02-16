@@ -147,6 +147,9 @@ class HistoryManager: NSObject {
                         // check if there is an "error" in the response. If so, log it, otherwise report success
                         if jres["error"] != nil {
                             AppSingleton.log.error("DiMe reported error:\n\(jres["error"].stringValue)")
+                            if let mes = jres["message"].string {
+                                AppSingleton.log.error("DiMe's error message:\n\(mes)")
+                            }
                         } else {
                             // TODO: remove this debugging check
                             let dimeResp = JSON(response.result.value!)

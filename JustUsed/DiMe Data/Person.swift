@@ -116,10 +116,6 @@ class Person: DiMeBase {
             retDict["emailAccount"] = em
         }
         
-        // dime-required
-        retDict["@type"] = "Person"
-        retDict["type"] = "http://www.hiit.fi/ontologies/dime/#Person"
-        
         return retDict
     }
     

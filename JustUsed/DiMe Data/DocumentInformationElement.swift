@@ -91,6 +91,7 @@ class DocumentInformationElement: DiMeBase {
         theDictionary["title"] = NSURL(fileURLWithPath: histItem.path).lastPathComponent!
         
         // set dime-required fields
+        theDictionary["actor"] = "JustUsed"
         theDictionary["@type"] = "Document"
         theDictionary["type"] = "http://www.semanticdesktop.org/ontologies/2007/03/22/nfo/#Document"
         theDictionary["isStoredAs"] = "http://www.semanticdesktop.org/ontologies/2007/03/22/nfo/#LocalFileDataObject"
