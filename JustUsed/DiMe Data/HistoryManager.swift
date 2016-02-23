@@ -187,6 +187,13 @@ extension HistoryManager: RecentDocumentUpdateDelegate, BrowserHistoryUpdateDele
     
     func newRecentDocument(newItem: RecentDocItem) {
         let infoElem = DocumentInformationElement(fromRecentDoc: newItem)
+        if infoElem.isPdf {
+            // TODO: create scientific document if possible
+            // createScidoc creates a new scidoc from the info elem, copying its fields
+            // if let sciDoc = PDFDocument.createScidoc(infoElem) {
+            //     infoElem = sciDoc
+            // }
+        }
         let event = DesktopEvent(infoElem: infoElem, ofType: TrackingType.Spotlight, withDate: newItem.lastAccessDate, andLocation: newItem.location)
         sendToDiMe(event)
     }

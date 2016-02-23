@@ -27,6 +27,10 @@ import Quartz
 
 class DocumentInformationElement: DiMeBase {
     
+    var isPdf: Bool { get {
+        return theDictionary["mimeType"] as! String == "application/pdf"
+    }  }
+    
     let kMaxPlainTextLength: Int = 1000
     
     /// Creates a document from a Safari history element
