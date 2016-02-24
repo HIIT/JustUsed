@@ -25,6 +25,7 @@
 import Foundation
 import Quartz
 
+/// Represents dime' Document **and ScientificDocument** classes
 class DocumentInformationElement: DiMeBase {
     
     var isPdf: Bool { get {
@@ -95,10 +96,56 @@ class DocumentInformationElement: DiMeBase {
         theDictionary["title"] = NSURL(fileURLWithPath: histItem.path).lastPathComponent!
         
         // set dime-required fields
-        theDictionary["actor"] = "JustUsed"
         theDictionary["@type"] = "Document"
         theDictionary["type"] = "http://www.semanticdesktop.org/ontologies/2007/03/22/nfo/#Document"
         theDictionary["isStoredAs"] = "http://www.semanticdesktop.org/ontologies/2007/03/22/nfo/#LocalFileDataObject"
+    }
+    
+    /// Converts to scientific document by updating dictionary using crossref metadata. Also accepts keywords (from pdf's metadata).
+    func convertToSciDoc(fromCrossRef json: JSON, keywords: [String]?) {
+        // dime-required
+        theDictionary["@type"] = "ScientificDocument"
+        theDictionary["type"] = "http://www.hiit.fi/ontologies/dime/#ScientificDocument"
+        
+        if let status = json["status"].string where status == "ok" {
+            if let title = json["message"]["title"][0].string {
+                theDictionary["title"] = title
+            }
+            if let keywords = keywords {
+                theDictionary["keywords"] = keywords
+            }
+            if let subj = json["message"]["container-title"][0].string {
+                theDictionary["booktitle"] = subj
+            }
+            if let auths = json["message"]["author"].array {
+                var authArray = [[String: AnyObject]]()
+                for auth in auths {
+                    let authString = auth["given"].stringValue + " " + auth["family"].stringValue
+                    if let p = Person(fromString: authString) {
+                        authArray.append(p.getDict())
+                    }
+                }
+                theDictionary["authors"] = authArray
+            }
+            if let doi = json["message"]["DOI"].string {
+                theDictionary["doi"] = doi
+            }
+            if let year = json["message"]["issued"]["date-parts"][0][0].int {
+                theDictionary["year"] = year
+            }
+            if let ps = json["message"]["page"].string, words = ps.words() {
+                theDictionary["firstPage"] = Int(words[0])
+                if words.count > 1 {
+                    theDictionary["lastPage"] = Int(words[1])
+                }
+            }
+            if let publisher = json["message"]["publisher"].string {
+                theDictionary["publisher"] = publisher
+            }
+            if let volume = json["message"]["volume"].string {
+                theDictionary["volume"] = Int(volume)
+            }
+        }
     }
     
 }

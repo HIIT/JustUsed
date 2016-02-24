@@ -29,6 +29,7 @@
 
 import Foundation
 import Alamofire
+import Quartz
 
 class HistoryManager: NSObject {
     
@@ -142,31 +143,20 @@ class HistoryManager: NSObject {
                     self.dimeConnectState(false)
                     AppSingleton.log.error("Failure when submitting data to dime:\n\(response.result.error!)")
                 } else {
-                    if let success = successBlock {
-                        let jres = JSON(response.result.value!)
-                        // check if there is an "error" in the response. If so, log it, otherwise report success
-                        if jres["error"] != nil {
-                            AppSingleton.log.error("DiMe reported error:\n\(jres["error"].stringValue)")
-                            if let mes = jres["message"].string {
-                                AppSingleton.log.error("DiMe's error message:\n\(mes)")
-                            }
-                        } else {
-                            // TODO: remove this debugging check
-                            let dimeResp = JSON(response.result.value!)
-                            let duration = dimeResp["duration"].doubleValue
-                            if duration == 0 {
-                                AppSingleton.log.debug("Event has 0 returned duration:\n\(dimeResp)")
-                            }
-                            success()
+                    let jres = JSON(response.result.value!)
+                    // check if there is an "error" in the response. If so, log it, otherwise report success
+                    if jres["error"] != nil {
+                        AppSingleton.log.error("DiMe reported error:\n\(jres["error"].stringValue)")
+                        if let mes = jres["message"].string {
+                            AppSingleton.log.error("DiMe's error message:\n\(mes)")
                         }
+                    } else {
+                        successBlock?()
                     }
                 }
             }
-            
         }
-        
     }
-    
 }
 
 // MARK: - Protocol implementations
@@ -186,16 +176,18 @@ extension HistoryManager: RecentDocumentUpdateDelegate, BrowserHistoryUpdateDele
     }
     
     func newRecentDocument(newItem: RecentDocItem) {
-        let infoElem = DocumentInformationElement(fromRecentDoc: newItem)
-        if infoElem.isPdf {
-            // TODO: create scientific document if possible
-            // createScidoc creates a new scidoc from the info elem, copying its fields
-            // if let sciDoc = PDFDocument.createScidoc(infoElem) {
-            //     infoElem = sciDoc
-            // }
+        // do all fetching on the utility queue (especially since pdfDoc.getMetadata() blocks)
+        dispatch_async(dispatch_get_global_queue(QOS_CLASS_UTILITY, 0)) {
+            let infoElem = DocumentInformationElement(fromRecentDoc: newItem)
+            if infoElem.isPdf {
+                let docUrl = NSURL(fileURLWithPath: newItem.path)
+                if let pdfDoc = PDFDocument(URL: docUrl), json = pdfDoc.getMetadata() {
+                    infoElem.convertToSciDoc(fromCrossRef: json, keywords: pdfDoc.getKeywordsAsArray())
+                }
+            }
+            let event = DesktopEvent(infoElem: infoElem, ofType: TrackingType.Spotlight, withDate: newItem.lastAccessDate, andLocation: newItem.location)
+            self.sendToDiMe(event)
         }
-        let event = DesktopEvent(infoElem: infoElem, ofType: TrackingType.Spotlight, withDate: newItem.lastAccessDate, andLocation: newItem.location)
-        sendToDiMe(event)
     }
     
 }
