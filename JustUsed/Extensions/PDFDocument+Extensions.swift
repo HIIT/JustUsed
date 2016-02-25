@@ -28,6 +28,31 @@ import Alamofire
 
 extension PDFDocument {
     
+    /// Returns the string corresponding to the block with the largest font on the first page.
+    /// Returns nil if no information could be found or if two or more blocks have the same largest size.
+    func guessTitle() -> String? {
+        let astring = pageAtIndex(0).attributedString()
+        
+        let fullRange = NSMakeRange(0, astring.length)
+        
+        var textInfo = [(size: CGFloat, range: NSRange)]()
+        
+        astring.enumerateAttribute(NSFontAttributeName, inRange: fullRange, options: NSAttributedStringEnumerationOptions()) {
+            obj, range, stop in
+            if let font = obj as? NSFont {
+                textInfo.append(size: font.pointSize, range: range)
+            }
+        }
+        
+        textInfo.sortInPlace({$0.size > $1.size})
+        
+        if textInfo.count >= 2 && textInfo[0].size > textInfo[1].size {
+            return (astring.string as NSString).substringWithRange(textInfo[0].range)
+        } else {
+            return nil
+        }
+    }
+    
     /// Returns all keywords in an array, useful for DiMe.
     /// Keywords can be separated by ";" or ","
     func getKeywordsAsArray() -> [String]? {

@@ -32,6 +32,17 @@ class DocumentInformationElement: DiMeBase {
         return theDictionary["mimeType"] as! String == "application/pdf"
     }  }
     
+    var title: String? {
+        get {
+            return theDictionary["title"] as? String
+        }
+        set(title) {
+            if let t = title {
+                theDictionary["title"] = t
+            }
+        }
+    }
+    
     let kMaxPlainTextLength: Int = 1000
     
     /// Creates a document from a Safari history element

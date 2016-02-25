@@ -181,8 +181,12 @@ extension HistoryManager: RecentDocumentUpdateDelegate, BrowserHistoryUpdateDele
             let infoElem = DocumentInformationElement(fromRecentDoc: newItem)
             if infoElem.isPdf {
                 let docUrl = NSURL(fileURLWithPath: newItem.path)
-                if let pdfDoc = PDFDocument(URL: docUrl), json = pdfDoc.getMetadata() {
-                    infoElem.convertToSciDoc(fromCrossRef: json, keywords: pdfDoc.getKeywordsAsArray())
+                if let pdfDoc = PDFDocument(URL: docUrl) {
+                    if let json = pdfDoc.getMetadata() {
+                        infoElem.convertToSciDoc(fromCrossRef: json, keywords: pdfDoc.getKeywordsAsArray())
+                    } else if let tit = pdfDoc.guessTitle() {
+                        infoElem.title = tit
+                    }
                 }
             }
             let event = DesktopEvent(infoElem: infoElem, ofType: TrackingType.Spotlight, withDate: newItem.lastAccessDate, andLocation: newItem.location)
