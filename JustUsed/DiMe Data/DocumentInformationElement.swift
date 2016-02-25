@@ -129,14 +129,7 @@ class DocumentInformationElement: DiMeBase {
                 theDictionary["booktitle"] = subj
             }
             if let auths = json["message"]["author"].array {
-                var authArray = [[String: AnyObject]]()
-                for auth in auths {
-                    let authString = auth["given"].stringValue + " " + auth["family"].stringValue
-                    if let p = Person(fromString: authString) {
-                        authArray.append(p.getDict())
-                    }
-                }
-                theDictionary["authors"] = authArray
+                theDictionary["authors"] = auths.flatMap({Person(fromCrossRef: $0)?.getDict()})
             }
             if let doi = json["message"]["DOI"].string {
                 theDictionary["doi"] = doi
