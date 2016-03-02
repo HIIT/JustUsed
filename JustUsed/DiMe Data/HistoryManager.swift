@@ -182,8 +182,11 @@ extension HistoryManager: RecentDocumentUpdateDelegate, BrowserHistoryUpdateDele
             if infoElem.isPdf {
                 let docUrl = NSURL(fileURLWithPath: newItem.path)
                 if let pdfDoc = PDFDocument(URL: docUrl) {
+                    // try to get metadata from crossref, otherwise get title from pdf's metadata, and as a last resort guess it
                     if let json = pdfDoc.getMetadata() {
                         infoElem.convertToSciDoc(fromCrossRef: json, keywords: pdfDoc.getKeywordsAsArray())
+                    } else if let tit = pdfDoc.getTitle() {
+                        infoElem.title = tit
                     } else if let tit = pdfDoc.guessTitle() {
                         infoElem.title = tit
                     }
