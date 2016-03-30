@@ -47,7 +47,7 @@ Safari keeps history in SQLite database files in ```~/Library/Safari/History.db*
 
 Chrome and Firefox are also tracked in a similar way.
 
-# Addional software
+# Additional software
 
 ## Git submodules
 
