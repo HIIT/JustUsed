@@ -70,9 +70,9 @@ public class CalendarTracker {
                 self.hasAccess = true
                 
                 // check calendar when an event is modified
-                NSNotificationCenter.defaultCenter().addObserver(self, selector: "submitCurrentEvents:", name: EKEventStoreChangedNotification, object: self.store)
+                NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.submitCurrentEvents(_:)), name: EKEventStoreChangedNotification, object: self.store)
                 // check calendar regularly
-                NSTimer.scheduledTimerWithTimeInterval(CalendarTracker.kInterval, target: self, selector: "submitCurrentEvents:", userInfo: nil, repeats: true)
+                NSTimer.scheduledTimerWithTimeInterval(CalendarTracker.kInterval, target: self, selector: #selector(self.submitCurrentEvents(_:)), userInfo: nil, repeats: true)
                 // fetch the current events in 90 seconds, to allow dime to come online and the user to set preferences
                 let callTime = dispatch_time(DISPATCH_TIME_NOW,
                                      Int64(90 * Double(NSEC_PER_SEC)))

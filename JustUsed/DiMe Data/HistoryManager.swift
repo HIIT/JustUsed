@@ -46,7 +46,7 @@ class HistoryManager: NSObject {
     
     override init() {
         super.init()
-        let connectTimer = NSTimer(timeInterval: HistoryManager.kConnectionCheckTime, target: self, selector: "connectionTimerCheck:", userInfo: nil, repeats: true)
+        let connectTimer = NSTimer(timeInterval: HistoryManager.kConnectionCheckTime, target: self, selector: #selector(connectionTimerCheck(_:)), userInfo: nil, repeats: true)
         NSRunLoop.currentRunLoop().addTimer(connectTimer, forMode: NSRunLoopCommonModes)
     }
     
@@ -121,18 +121,11 @@ class HistoryManager: NSObject {
             
             let headers = ["Authorization": "Basic \(base64Credentials)"]
             
-            let error = NSErrorPointer()
             let options = NSJSONWritingOptions.PrettyPrinted
 
-            let jsonData: NSData?
             do {
-                jsonData = try NSJSONSerialization.dataWithJSONObject(dimeData.getDict(), options: options)
-            } catch let error1 as NSError {
-                error.memory = error1
-                jsonData = nil
-            }
-            
-            if jsonData == nil {
+                try NSJSONSerialization.dataWithJSONObject(dimeData.getDict(), options: options)
+            } catch {
                 AppSingleton.log.error("Error while deserializing json! This should never happen. \(error)")
                 return
             }

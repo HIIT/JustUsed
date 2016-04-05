@@ -235,7 +235,7 @@ class BrowserHistoryManager: NSObject {
     
     /// Timer used for checking database file(s)
     private lazy var checkTimer: NSTimer = {
-        return NSTimer(timeInterval: BrowserHistoryManager.kCheckTimeInterval, target: self, selector: "timerFire:", userInfo: nil, repeats: true)
+        return NSTimer(timeInterval: BrowserHistoryManager.kCheckTimeInterval, target: self, selector: #selector(timerFire(_:)), userInfo: nil, repeats: true)
     }()
     
     override init() {

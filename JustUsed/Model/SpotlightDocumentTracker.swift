@@ -42,7 +42,7 @@ class SpotlightDocumentTracker: RecentDocumentsTracker {
         
         query = NSMetadataQuery()
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "queryUpdated:", name: NSMetadataQueryDidUpdateNotification, object: query)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(queryUpdated(_:)), name: NSMetadataQueryDidUpdateNotification, object: query)
         
         query?.searchScopes = [NSMetadataQueryUserHomeScope]
         
@@ -124,22 +124,22 @@ class SpotlightDocumentTracker: RecentDocumentsTracker {
     /// - returns: A spotlight hist item representing the most recent opened document in the sfl
     private func fetchMostRecentDoc(fromFile filePath: NSURL, date: NSDate) -> RecentDocItem? {
         
-        guard let sfl = NSDictionary(contentsOfURL: filePath), objects = sfl["$objects"] else {
+        guard let sfl = NSDictionary(contentsOfURL: filePath), objects = sfl["$objects"] as? [AnyObject] else {
             return nil
         }
         
         // create tuples for each element in the sharedfilelist, first item is count, second path
         var tuples = [(count: Int, path: String)]()
         var i = 0
-        while i < objects.count! {
+        while i < objects.count {
             // seek order (int) which comes before bookmark
             if let odict = objects[i] as? NSDictionary, order = odict["order"] {
                 if let cnt = order as? Int {
                     
                     // seek bookmark and associate it to previously found order
-                    while i < objects.count! - 1 {
+                    while i < objects.count - 1 {
                         
-                        i++
+                        i += 1
                         
                         if let possiblebook = objects[i] as? NSData, abookdict = NSURL.resourceValuesForKeys([NSURLPathKey], fromBookmarkData: possiblebook) {
                             
@@ -149,7 +149,7 @@ class SpotlightDocumentTracker: RecentDocumentsTracker {
                     }
                 }
             }
-            i++
+            i += 1
         }
         if tuples.count > 0 {
             // sort tuples by count in ascending order, take first item

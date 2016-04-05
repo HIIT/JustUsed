@@ -53,14 +53,14 @@ Chrome and Firefox are also tracked in a similar way.
 
 The following GitHub projects are linked as git submodules.
 
-[Alamofire version 3.1.3](https://github.com/Alamofire/Alamofire/releases/tag/3.1.3) - For easier DiMe API calls. The correct version should be already checked out as a submodule. `git status` in the Alamofire subfolder should return `HEAD detached at 268a22b`. (In case the Alamofire submodule was not cloned, do `git submodule init` followed by `git submodule update` in the JustUsed folder).
+[Alamofire version 3.3.0](https://github.com/Alamofire/Alamofire/releases/tag/3.3.0) - For easier DiMe API calls. The correct version should be already checked out as a submodule. `git status` in the Alamofire subfolder should return `HEAD detached at 268a22b`. (In case the Alamofire submodule was not cloned, do `git submodule init` followed by `git submodule update` in the JustUsed folder).
 
 ## Embedded
 
 The following GitHub projects are incorporated into JustUsed (no additional download needed). Both were released under the MIT license.
 
-- [Swifty JSON version 2.3.0](https://github.com/SwiftyJSON/SwiftyJSON/releases/tag/2.3.0) - To easily parse and manage JSON objects pushed to DiMe.
+- [Swifty JSON version 2.3.1](https://github.com/SwiftyJSON/SwiftyJSON/releases/tag/2.3.1) - To easily parse and manage JSON objects pushed to DiMe.
 
 - [FMDB version 2.5](https://github.com/ccgus/fmdb/releases/tag/v2.5) - to track Safari's SQLite database
 
-- [XCGLogger version 3.0](https://github.com/DaveWoodCom/XCGLogger/releases/tag/Version_3.0) - To output logs to terminal and files
+- [XCGLogger version 3.3](https://github.com/DaveWoodCom/XCGLogger/releases/tag/Version_3.3) - To output logs to terminal and files

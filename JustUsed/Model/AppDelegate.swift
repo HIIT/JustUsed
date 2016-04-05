@@ -70,14 +70,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         // Starts dime
         HistoryManager.sharedManager.dimeConnect()
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "diMeConnectionChanged:", name: JustUsedConstants.diMeConnectionNotification, object: HistoryManager.sharedManager)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(diMeConnectionChanged(_:)), name: JustUsedConstants.diMeConnectionNotification, object: HistoryManager.sharedManager)
         
         if let _ = LocationSingleton.getCurrentLocation() {
             // just fetch nothing to initialise location
         }
         if let button = statusItem.button {
             button.image = NSImage(named: JustUsedConstants.kMenuImageName)
-            button.action = Selector("togglePopover:")
+            button.action = #selector(togglePopover(_:))
         }
         let storyboard = NSStoryboard(name: "Main", bundle: nil)
         popover.behavior = NSPopoverBehavior.Transient

@@ -59,7 +59,7 @@ class ViewController: NSViewController, RecentDocumentUpdateDelegate, BrowserHis
     }
     
     override func viewDidAppear() {
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "dimeConnectionChanged:", name: JustUsedConstants.diMeConnectionNotification, object: HistoryManager.sharedManager)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(dimeConnectionChanged(_:)), name: JustUsedConstants.diMeConnectionNotification, object: HistoryManager.sharedManager)
         updateDiMeStatus()
         
         fileTable.setDataSource(spotlightSource)

@@ -46,7 +46,7 @@ class RecentPlistTracker: RecentDocumentsTracker {
         }
         
         // Start timer
-        let checkTimer = NSTimer(timeInterval: kPlistCheckTime, target: self, selector: "timerHit:", userInfo: nil, repeats: true)
+        let checkTimer = NSTimer(timeInterval: kPlistCheckTime, target: self, selector: #selector(timerHit(_:)), userInfo: nil, repeats: true)
         NSRunLoop.currentRunLoop().addTimer(checkTimer, forMode: NSRunLoopCommonModes)
     }
     
