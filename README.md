@@ -61,6 +61,6 @@ The following GitHub projects are incorporated into JustUsed (no additional down
 
 - [Swifty JSON version 2.3.1](https://github.com/SwiftyJSON/SwiftyJSON/releases/tag/2.3.1) - To easily parse and manage JSON objects pushed to DiMe.
 
-- [FMDB version 2.5](https://github.com/ccgus/fmdb/releases/tag/v2.5) - to track Safari's SQLite database
+- [FMDB version 2.6.2](https://github.com/ccgus/fmdb/releases/tag/2.6.2) - to track Safari's SQLite database
 
 - [XCGLogger version 3.3](https://github.com/DaveWoodCom/XCGLogger/releases/tag/Version_3.3) - To output logs to terminal and files
