@@ -58,7 +58,8 @@ class DiMePreferencesViewController: NSViewController {
         sendPlainTextCell.bind("value", toObject: NSUserDefaultsController.sharedUserDefaultsController(), withKeyPath: "values." + JustUsedConstants.prefSendPlainTexts, options: options)
         
         // similar set here
-        sendSafariHistCell.bind("value", toObject: NSUserDefaultsController.sharedUserDefaultsController(), withKeyPath: "values." + JustUsedConstants.prefSendSafariHistory, options: options)
+        // Browser history disabled in favour of extension
+        // sendSafariHistCell.bind("value", toObject: NSUserDefaultsController.sharedUserDefaultsController(), withKeyPath: "values." + JustUsedConstants.prefSendSafariHistory, options: options)
         
         logsPathLabel.stringValue = AppSingleton.logsURL.path ?? "<Nothing logged so far>"
         

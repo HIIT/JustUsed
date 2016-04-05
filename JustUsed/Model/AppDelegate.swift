@@ -31,7 +31,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     var viewController: ViewController?
     
     // Trackers
-    let browserManager = BrowserHistoryManager()
+    
+    // Browser history tracking disabled in favour of extension
+    // let browserManager = BrowserHistoryManager()
     
     let recentDocTracker: RecentDocumentsTracker = {
         if AppSingleton.isElCapitan {
@@ -82,21 +84,23 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         let storyboard = NSStoryboard(name: "Main", bundle: nil)
         popover.behavior = NSPopoverBehavior.Transient
         
-        // Prepare browser tracking for each browser
-        browserManager.addFetcher(SafariHistoryFetcher())
-        browserManager.addFetcher(FirefoxHistoryFetcher())
-        browserManager.addFetcher(ChromeHistoryFetcher())
-        
         // View controller and its delegation
         self.viewController = (storyboard.instantiateControllerWithIdentifier("View Controller") as! ViewController)
         viewController!.setSources(spoHistoryDataSource, browserSource: browHistoryDataSource)
         popover.contentViewController = self.viewController!
-        browserManager.addUpdateDelegate(self.viewController!)
         recentDocTracker.addRecentDocumentUpdateDelegate(self.viewController!)
         
         // History manager and its delegation
-        browserManager.addUpdateDelegate(HistoryManager.sharedManager)
         recentDocTracker.addRecentDocumentUpdateDelegate(HistoryManager.sharedManager)
+        
+        // Browser history tracking (disabled in favour of extension)
+        /*
+        browserManager.addFetcher(SafariHistoryFetcher())
+        browserManager.addFetcher(FirefoxHistoryFetcher())
+        browserManager.addFetcher(ChromeHistoryFetcher())
+        browserManager.addUpdateDelegate(self.viewController!)
+        browserManager.addUpdateDelegate(HistoryManager.sharedManager)
+        */
         
         diMeConnectionChanged(nil)
         
