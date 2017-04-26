@@ -51,7 +51,7 @@ class ViewController: NSViewController, RecentDocumentUpdateDelegate, BrowserHis
     }
     
     override func viewWillAppear() {
-        if (NSUserDefaults.standardUserDefaults().valueForKey(JustUsedConstants.prefSendSafariHistory) as! Bool) {
+        if (UserDefaults.standard.value(forKey: JustUsedConstants.prefSendSafariHistory) as! Bool) {
             fileTableWidth.constant = fileTableWidthForBoth
         } else {
             fileTableWidth.constant = self.view.bounds.width - 40
@@ -59,36 +59,36 @@ class ViewController: NSViewController, RecentDocumentUpdateDelegate, BrowserHis
     }
     
     override func viewDidAppear() {
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(dimeConnectionChanged(_:)), name: JustUsedConstants.diMeConnectionNotification, object: HistoryManager.sharedManager)
+        NotificationCenter.default.addObserver(self, selector: #selector(dimeConnectionChanged(_:)), name: JustUsedConstants.diMeConnectionNotification, object: HistoryManager.sharedManager)
         updateDiMeStatus()
         
-        fileTable.setDataSource(spotlightSource)
-        browserTable.setDataSource(browserSource)
+        fileTable.dataSource = spotlightSource
+        browserTable.dataSource = browserSource
     }
     
     override func viewDidDisappear() {
-        NSNotificationCenter.defaultCenter().removeObserver(self, name: JustUsedConstants.diMeConnectionNotification, object: HistoryManager.sharedManager)
+        NotificationCenter.default.removeObserver(self, name: JustUsedConstants.diMeConnectionNotification, object: HistoryManager.sharedManager)
     }
     
     /// Must call this function to set-up delegates and data sources
-    func setSources(spotlightSource: RecentDocDataSource, browserSource: BrowserTrackerDataSource) {
+    func setSources(_ spotlightSource: RecentDocDataSource, browserSource: BrowserTrackerDataSource) {
         self.spotlightSource = spotlightSource
         self.browserSource = browserSource
     }
     
-    func newRecentDocument(newItem: RecentDocItem) {
+    func newRecentDocument(_ newItem: RecentDocItem) {
         spotlightSource!.addData(newItem)
         fileTable?.reloadData()
     }
     
-    func newHistoryItems(newURLs: [BrowserHistItem]) {
+    func newHistoryItems(_ newURLs: [BrowserHistItem]) {
         browserSource!.insertNewData(newURLs)
         browserTable?.reloadData()
     }
     
     /// Checks dime status and updates view accordingly
-    private func updateDiMeStatus() {
-        if HistoryManager.sharedManager.isDiMeAvailable() {
+    fileprivate func updateDiMeStatus() {
+        if DiMeSession.dimeAvailable {
             statusImage.image = NSImage(named: "NSStatusAvailable")
             statusButton.tag = kTagDisconnect
             statusButton.title = "Disconnect"
@@ -101,20 +101,22 @@ class ViewController: NSViewController, RecentDocumentUpdateDelegate, BrowserHis
         }
     }
     
-    @IBAction func connectButtonPress(sender: NSButton) {
+    @IBAction func connectButtonPress(_ sender: NSButton) {
         if sender.tag == kTagDisconnect {
-            HistoryManager.sharedManager.dimeDisconnect()
+            HistoryManager.forceDisconnect = true
+            DiMeSession.dimeDisconnect()
         } else if sender.tag == kTagConnect {
-            HistoryManager.sharedManager.dimeConnect()
+            HistoryManager.forceDisconnect = false
+            DiMeSession.dimeConnect()
         }
     }
     
-    @objc private func dimeConnectionChanged(notification: NSNotification) {
+    @objc fileprivate func dimeConnectionChanged(_ notification: Notification) {
         updateDiMeStatus()
     }
     
-    @IBAction func quitButtonPress(sender: NSButton) {
-        let delegate = NSApplication.sharedApplication().delegate! as! AppDelegate
+    @IBAction func quitButtonPress(_ sender: NSButton) {
+        let delegate = NSApplication.shared().delegate! as! AppDelegate
         delegate.quit()
     }
 }
@@ -124,7 +126,7 @@ class BrowserTrackerDataSource: NSObject, NSTableViewDataSource  {
     var allHistory = [BrowserHistItem]()
     
     // Insert data avoiding duplicates
-    func insertNewData(newURLs: [BrowserHistItem]) {
+    func insertNewData(_ newURLs: [BrowserHistItem]) {
         for newUrl in newURLs {
             if !allHistory.contains(newUrl) {
                 allHistory.append(newUrl)
@@ -133,15 +135,15 @@ class BrowserTrackerDataSource: NSObject, NSTableViewDataSource  {
     }
     
     /// MARK: - Table data source
-    func numberOfRowsInTableView(aTableView: NSTableView) -> Int {
+    func numberOfRows(in aTableView: NSTableView) -> Int {
         return allHistory.count
     }
     
     
-    func tableView(tableView: NSTableView, objectValueForTableColumn tableColumn: NSTableColumn?, row: Int) -> AnyObject? {
+    func tableView(_ tableView: NSTableView, objectValueFor tableColumn: NSTableColumn?, row: Int) -> Any? {
         if tableColumn!.identifier == JustUsedConstants.kBHistoryDate {
             let date = allHistory[row].date
-            return date.descriptionWithLocale(NSLocale.currentLocale())
+            return date.description(with: Locale.current)
         } else if tableColumn!.identifier == JustUsedConstants.kBHistoryBrowser {
             return allHistory[row].browser.rawValue
         } else if tableColumn!.identifier == JustUsedConstants.kBHistoryTitle {
@@ -173,8 +175,8 @@ class RecentDocDataSource: NSObject, NSTableViewDataSource {
     var locations = [String]()
     var mimes = [String]()
     
-    func addData(newItem: RecentDocItem) {
-        lutimes.append(newItem.lastAccessDate.descriptionWithLocale(NSLocale.currentLocale()))
+    func addData(_ newItem: RecentDocItem) {
+        lutimes.append(newItem.lastAccessDate.description(with: Locale.current))
         lupaths.append(newItem.path)
         sources.append(newItem.source)
         if let locString = newItem.location?.descriptionLine {
@@ -187,11 +189,11 @@ class RecentDocDataSource: NSObject, NSTableViewDataSource {
     
     
     /// MARK: Static table data source
-    func numberOfRowsInTableView(aTableView: NSTableView) -> Int {
+    func numberOfRows(in aTableView: NSTableView) -> Int {
         return lutimes.count
     }
     
-    func tableView(tableView: NSTableView, objectValueForTableColumn tableColumn: NSTableColumn?, row: Int) -> AnyObject? {
+    func tableView(_ tableView: NSTableView, objectValueFor tableColumn: NSTableColumn?, row: Int) -> Any? {
         if tableColumn!.identifier == JustUsedConstants.kLastUsedDateTitle {
             return lutimes[row]
         } else if tableColumn!.identifier == JustUsedConstants.kPathTitle {

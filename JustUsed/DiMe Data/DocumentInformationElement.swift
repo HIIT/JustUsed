@@ -38,7 +38,7 @@ class DocumentInformationElement: DiMeBase {
         }
         set(title) {
             if let t = title {
-                theDictionary["title"] = t
+                theDictionary["title"] = t as AnyObject
             }
         }
     }
@@ -49,23 +49,28 @@ class DocumentInformationElement: DiMeBase {
     init(fromSafariHist histItem: BrowserHistItem) {
         super.init()
         
-        theDictionary["appId"] = "JustUsed_\(histItem.url.sha1())"
-        theDictionary["mimeType"] = "text/html"
-        theDictionary["uri"] = histItem.url
+        theDictionary["appId"] = "JustUsed_\(histItem.url.sha1())" as AnyObject
+        theDictionary["mimeType"] = "text/html" as AnyObject
+        theDictionary["uri"] = histItem.url as AnyObject
         if let title = histItem.title {
-            theDictionary["title"] = title
+            theDictionary["title"] = title as AnyObject
         }
         
         // attempt to fetch plain text from url
-        if let url = NSURL(string: histItem.url), urlData = NSData(contentsOfURL: url), atString = NSAttributedString(HTML: urlData, documentAttributes: nil) {
-            theDictionary["plainTextContent"] = atString.string
-            theDictionary["contentHash"] = atString.string.sha1()
+        if let url = URL(string: histItem.url), let urlData = try? Data(contentsOf: url) {
+            do {
+                let atString = try NSAttributedString(data: urlData, options: [NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType,  NSCharacterEncodingDocumentAttribute: String.Encoding.utf8.rawValue], documentAttributes: nil)
+                theDictionary["plainTextContent"] = atString.string
+                theDictionary["contentHash"] = atString.string.sha1()
+            } catch {
+                AppSingleton.log.warning("Failed to convert url contents to string: \(error)")
+            }
         }
         
         // set dime-required fields
-        theDictionary["@type"] = "Document"
-        theDictionary["type"] = "http://www.semanticdesktop.org/ontologies/2007/03/22/nfo/#HtmlDocument"
-        theDictionary["isStoredAs"] = "http://www.semanticdesktop.org/ontologies/2007/03/22/nfo/#RemoteDataObject"
+        theDictionary["@type"] = "Document" as AnyObject
+        theDictionary["type"] = "http://www.semanticdesktop.org/ontologies/2007/03/22/nfo/#HtmlDocument" as AnyObject
+        theDictionary["isStoredAs"] = "http://www.semanticdesktop.org/ontologies/2007/03/22/nfo/#RemoteDataObject" as AnyObject
     }
     
     /// Creates a document from a Spotlight history element
@@ -74,24 +79,24 @@ class DocumentInformationElement: DiMeBase {
         var id: String
         
         // check if the histItem contains plain text, if so use for hash and set id
-        let mt: NSString = histItem.mime
-        if mt.substringToIndex(4) == "text" {
+        let mt: NSString = histItem.mime as NSString
+        if mt.substring(to: 4) == "text" {
             do {
-                let plainText: NSString = try String(contentsOfFile: histItem.path)
+                let plainText: NSString = try String(contentsOfFile: histItem.path) as NSString
                 let plainTextString: String = plainText as String
                 id = plainTextString.sha1()
-                theDictionary["plainTextContent"] = plainTextString
+                theDictionary["plainTextContent"] = plainTextString as AnyObject
             } catch (let exception) {
                 id = histItem.path.sha1()
                 AppSingleton.log.error("Error while fetching plain text from \(histItem.path): \(exception)")
             }
         } else if mt == "application/pdf" {
             // attempt to fetch plain text from pdf
-            let docUrl = NSURL(fileURLWithPath: histItem.path)
-            if let pdfDoc = PDFDocument(URL: docUrl), plainString = pdfDoc.getText() {
+            let docUrl = URL(fileURLWithPath: histItem.path)
+            if let pdfDoc = PDFDocument(url: docUrl), let plainString = pdfDoc.getText() {
                 id = plainString.sha1()
-                theDictionary["contentHash"] = plainString.sha1()
-                theDictionary["plainTextContent"] = plainString
+                theDictionary["contentHash"] = plainString.sha1() as AnyObject
+                theDictionary["plainTextContent"] = plainString as AnyObject
             } else {
                 id = histItem.path.sha1()
             }
@@ -99,55 +104,55 @@ class DocumentInformationElement: DiMeBase {
             id = histItem.path.sha1()
         }
         
-        theDictionary["appId"] = "JustUsed_\(id)"
+        theDictionary["appId"] = "JustUsed_\(id)" as AnyObject
         
         // set everything else apart from plain text and id
-        theDictionary["mimeType"] = histItem.mime
-        theDictionary["uri"] = "file://" + histItem.path
-        theDictionary["title"] = NSURL(fileURLWithPath: histItem.path).lastPathComponent!
+        theDictionary["mimeType"] = histItem.mime as AnyObject
+        theDictionary["uri"] = "file://" + histItem.path as AnyObject
+        theDictionary["title"] = URL(fileURLWithPath: histItem.path).lastPathComponent as AnyObject
         
         // set dime-required fields
-        theDictionary["@type"] = "Document"
-        theDictionary["type"] = "http://www.semanticdesktop.org/ontologies/2007/03/22/nfo/#Document"
-        theDictionary["isStoredAs"] = "http://www.semanticdesktop.org/ontologies/2007/03/22/nfo/#LocalFileDataObject"
+        theDictionary["@type"] = "Document" as AnyObject
+        theDictionary["type"] = "http://www.semanticdesktop.org/ontologies/2007/03/22/nfo/#Document" as AnyObject
+        theDictionary["isStoredAs"] = "http://www.semanticdesktop.org/ontologies/2007/03/22/nfo/#LocalFileDataObject" as AnyObject
     }
     
     /// Converts to scientific document by updating dictionary using crossref metadata. Also accepts keywords (from pdf's metadata).
     func convertToSciDoc(fromCrossRef json: JSON, keywords: [String]?) {
         // dime-required
-        theDictionary["@type"] = "ScientificDocument"
-        theDictionary["type"] = "http://www.hiit.fi/ontologies/dime/#ScientificDocument"
+        theDictionary["@type"] = "ScientificDocument" as AnyObject
+        theDictionary["type"] = "http://www.hiit.fi/ontologies/dime/#ScientificDocument" as AnyObject
         
-        if let status = json["status"].string where status == "ok" {
+        if let status = json["status"].string, status == "ok" {
             if let title = json["message"]["title"][0].string {
-                theDictionary["title"] = title
+                theDictionary["title"] = title as AnyObject
             }
             if let keywords = keywords {
-                theDictionary["keywords"] = keywords
+                theDictionary["keywords"] = keywords as AnyObject
             }
             if let subj = json["message"]["container-title"][0].string {
-                theDictionary["booktitle"] = subj
+                theDictionary["booktitle"] = subj as AnyObject
             }
             if let auths = json["message"]["author"].array {
                 theDictionary["authors"] = auths.flatMap({Person(fromCrossRef: $0)?.getDict()})
             }
             if let doi = json["message"]["DOI"].string {
-                theDictionary["doi"] = doi
+                theDictionary["doi"] = doi as AnyObject
             }
             if let year = json["message"]["issued"]["date-parts"][0][0].int {
-                theDictionary["year"] = year
+                theDictionary["year"] = year as AnyObject
             }
-            if let ps = json["message"]["page"].string, words = ps.words() {
-                theDictionary["firstPage"] = Int(words[0])
+            if let ps = json["message"]["page"].string, let words = ps.words() {
+                theDictionary["firstPage"] = Int(words[0]) as AnyObject
                 if words.count > 1 {
-                    theDictionary["lastPage"] = Int(words[1])
+                    theDictionary["lastPage"] = Int(words[1]) as AnyObject
                 }
             }
             if let publisher = json["message"]["publisher"].string {
-                theDictionary["publisher"] = publisher
+                theDictionary["publisher"] = publisher as AnyObject
             }
             if let volume = json["message"]["volume"].string {
-                theDictionary["volume"] = Int(volume)
+                theDictionary["volume"] = Int(volume) as AnyObject
             }
         }
     }

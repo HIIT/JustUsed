@@ -80,8 +80,8 @@ struct Location: Dictionariable, Equatable, Hashable {
     }
     
     /// Returns itself in a (json-able) dict
-    func getDict() -> [String: AnyObject] {
-        var retDict = [String: AnyObject]()
+    func getDict() -> [String: Any] {
+        var retDict = [String: Any]()
         
         retDict["latitude"] = latitude
         retDict["longitude"] = longitude
@@ -104,7 +104,7 @@ struct Location: Dictionariable, Equatable, Hashable {
 }
 
 func ==(rhs: Location, lhs: Location) -> Bool {
-    if let ralt = rhs.altitude, lalt = lhs.altitude {
+    if let ralt = rhs.altitude, let lalt = lhs.altitude {
         return ralt == lalt && rhs.latitude == lhs.latitude && rhs.longitude == lhs.longitude
     } else {
         return rhs.latitude == lhs.latitude && rhs.longitude == lhs.longitude

@@ -27,28 +27,28 @@ import Foundation
 /// Used to send the first-time file opening event
 class DesktopEvent: Event {
     
-    init(infoElem: DocumentInformationElement, ofType type: TrackingType, withDate date: NSDate, andLocation location: Location?) {
+    init(infoElem: DocumentInformationElement, ofType type: TrackingType, withDate date: Date, andLocation location: Location?) {
         super.init()
         
-        theDictionary["targettedResource"] = infoElem.getDict()
+        theDictionary["targettedResource"] = infoElem.getDict() as AnyObject
         switch type {
-        case .Spotlight:
-            theDictionary["actor"] = "JustUsed_Spotlight"
-        case let .Browser(browser):
-            theDictionary["actor"] = "JustUsed_\(browser)"
+        case .spotlight:
+            theDictionary["actor"] = "JustUsed_Spotlight" as AnyObject
+        case let .browser(browser):
+            theDictionary["actor"] = "JustUsed_\(browser)" as AnyObject
         }
-        theDictionary["start"] = JustUsedConstants.diMeDateFormatter.stringFromDate(date)
+        theDictionary["start"] = JustUsedConstants.diMeDateFormatter.string(from: date)
         
         if let loc = location {
-            theDictionary["location"] = loc.getDict()
+            theDictionary["location"] = loc.getDict() as AnyObject
         }
         
-        theDictionary["@type"] = "DesktopEvent"
-        theDictionary["type"] = "http://www.hiit.fi/ontologies/dime/#DesktopEvent"
+        theDictionary["@type"] = "DesktopEvent" as AnyObject
+        theDictionary["type"] = "http://www.hiit.fi/ontologies/dime/#DesktopEvent" as AnyObject
     }
 }
 
 enum TrackingType {
-    case Browser(BrowserType)
-    case Spotlight
+    case browser(BrowserType)
+    case spotlight
 }

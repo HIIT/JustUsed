@@ -28,13 +28,13 @@ extension CLGeocoder {
     
     /// Asynchronously creates a Location object by using a CLLocation and
     /// reversing its location. Calls the given block with a Location that includes description.
-    func getDescription(fromLoc inLoc: CLLocation, block: (describedLocation: Location) -> Void) {
+    func getDescription(fromLoc inLoc: CLLocation, block: @escaping (_ describedLocation: Location) -> Void) {
         self.reverseGeocodeLocation(inLoc) {
             placemarkA, error in
             
             var outLoc = Location(fromCLLocation: inLoc)
             if let error = error {
-                outLoc.descriptionLine = "** Error reversing: \(error.description)"
+                outLoc.descriptionLine = "** Error reversing: \(error)"
             } else {
                 let placemark = placemarkA![0]
                 var builtString = ""
@@ -54,7 +54,7 @@ extension CLGeocoder {
                 outLoc.descriptionLine = builtString
             }
             
-            block(describedLocation: outLoc)
+            block(outLoc)
             
         }
     }

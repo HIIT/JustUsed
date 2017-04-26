@@ -27,15 +27,15 @@ import Cocoa
 
 class ChromeHistoryFetcher: BrowserHistoryFetcher {
     
-    private(set) var lastHistoryEntry: NSDate
-    var lastDBFileUpdate: NSDate
+    fileprivate(set) var lastHistoryEntry: Date
+    var lastDBFileUpdate: Date
     let browserType: BrowserType = .Safari
     
     required init?() {
         
         // initializes dates and performs first history check to update them
-        lastHistoryEntry = NSDate()
-        lastDBFileUpdate = NSDate.distantPast() // Initialise to be as early as possible.
+        lastHistoryEntry = Date()
+        lastDBFileUpdate = Date.distantPast // Initialise to be as early as possible.
         
         // If no valid urls exist, fail initialization
         if getDBURLs().count == 0 {
@@ -43,51 +43,51 @@ class ChromeHistoryFetcher: BrowserHistoryFetcher {
         }
         
         // initialization succeeded, do first history check
-        historyCheck()
+        _ = historyCheck()
         
     }
     
-    func getNewHistoryItemsFromDB(dbPath: String) -> [BrowserHistItem] {
+    func getNewHistoryItemsFromDB(_ dbPath: String) -> [BrowserHistItem] {
         
         // Perform database read
         var new_urls = [BrowserHistItem]()
         let db = FMDatabase(path: dbPath)
-        db.open()
+        db?.open()
         let lastTime = self.lastHistoryEntry.ldapTime
         let urls_query = "SELECT url, title, last_visit_time FROM urls WHERE last_visit_time > ? ORDER BY last_visit_time asc"
-        if let urls_result = db.executeQuery(urls_query, withArgumentsInArray: ["\(lastTime)"]) {
+        if let urls_result = db?.executeQuery(urls_query, withArgumentsIn: ["\(lastTime)"]) {
             while urls_result.next() {
                 let urls_dict = urls_result.resultDictionary()
-                let url = urls_dict["url"] as! String
-                let title = urls_dict["title"] as? String
-                let visit_time = urls_dict["last_visit_time"] as! Int
-                let visit_date = NSDate(fromLdapTime: visit_time)
+                let url = urls_dict!["url"] as! String
+                let title = urls_dict!["title"] as! String
+                let visit_time = urls_dict!["last_visit_time"] as! Int
+                let visit_date = Date(fromLdapTime: visit_time)
                 self.lastHistoryEntry = visit_date
                 let location = LocationSingleton.getCurrentLocation()
                 new_urls.append(BrowserHistItem(browser: .Chrome, date: visit_date, url: url, title: title, location: location))
             }
         }
-        db.close()
+        db?.close()
         
         return new_urls
     }
     
     /// Chrome implementation: return "History"
-    func getDBURLs() -> [NSURL] {
-        let appSupportDir = NSFileManager.defaultManager().URLsForDirectory(.ApplicationSupportDirectory, inDomains: .UserDomainMask)[0]
+    func getDBURLs() -> [URL] {
+        let appSupportDir = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask)[0]
         
-        let chromeDefaultDir = appSupportDir.URLByAppendingPathComponent("Google/Chrome/Default")
+        let chromeDefaultDir = appSupportDir.appendingPathComponent("Google/Chrome/Default")
         
         let filenames: [String] = ["History"]
         
-        var retVal = [NSURL]()
+        var retVal = [URL]()
         for filename in filenames {
-            retVal.append(chromeDefaultDir.URLByAppendingPathComponent(filename))
+            retVal.append(chromeDefaultDir.appendingPathComponent(filename))
         }
         
         // If History does not exist, assume chrome is not being used
-        if !AppSingleton.fileManager.fileExistsAtPath(retVal[0].path!) {
-            return [NSURL]()
+        if !AppSingleton.fileManager.fileExists(atPath: retVal[0].path) {
+            return [URL]()
         }
         
         return retVal

@@ -41,27 +41,27 @@ class DiMePreferencesViewController: NSViewController {
     /// Create view and programmatically set-up bindings
     override func viewDidLoad() {
         super.viewDidLoad()
-        calendarExcludeTable.setDataSource(calendarExcludeDelegate)
-        calendarExcludeTable.setDelegate(calendarExcludeDelegate)
+        calendarExcludeTable.dataSource = calendarExcludeDelegate
+        calendarExcludeTable.delegate = calendarExcludeDelegate
         
-        let options: [String: AnyObject] = ["NSContinuouslyUpdatesValue": true]
+        let options: [String: AnyObject] = ["NSContinuouslyUpdatesValue": true as AnyObject]
         
-        urlField.bind("value", toObject: NSUserDefaultsController.sharedUserDefaultsController(), withKeyPath: "values." + JustUsedConstants.prefDiMeServerURL, options: options)
+        urlField.bind("value", to: NSUserDefaultsController.shared(), withKeyPath: "values." + JustUsedConstants.prefDiMeServerURL, options: options)
         
-        usernameField.bind("value", toObject: NSUserDefaultsController.sharedUserDefaultsController(), withKeyPath: "values." + JustUsedConstants.prefDiMeServerUserName, options: options)
+        usernameField.bind("value", to: NSUserDefaultsController.shared(), withKeyPath: "values." + JustUsedConstants.prefDiMeServerUserName, options: options)
         
-        passwordField.bind("value", toObject: NSUserDefaultsController.sharedUserDefaultsController(), withKeyPath: "values." + JustUsedConstants.prefDiMeServerPassword, options: options)
+        passwordField.bind("value", to: NSUserDefaultsController.shared(), withKeyPath: "values." + JustUsedConstants.prefDiMeServerPassword, options: options)
         
         // the following will set
         // (PeyeConstants.prefSendEventOnFocusSwitch)
         // to optional int 0 when off and nonzero (1) when on
-        sendPlainTextCell.bind("value", toObject: NSUserDefaultsController.sharedUserDefaultsController(), withKeyPath: "values." + JustUsedConstants.prefSendPlainTexts, options: options)
+        sendPlainTextCell.bind("value", to: NSUserDefaultsController.shared(), withKeyPath: "values." + JustUsedConstants.prefSendPlainTexts, options: options)
         
         // similar set here
         // Browser history disabled in favour of extension
         // sendSafariHistCell.bind("value", toObject: NSUserDefaultsController.sharedUserDefaultsController(), withKeyPath: "values." + JustUsedConstants.prefSendSafariHistory, options: options)
         
-        logsPathLabel.stringValue = AppSingleton.logsURL.path ?? "<Nothing logged so far>"
+        logsPathLabel.stringValue = AppSingleton.logsURL?.path ?? "<Nothing logged so far>"
         
     }
     
@@ -70,54 +70,54 @@ class DiMePreferencesViewController: NSViewController {
     @IBOutlet weak var domainsTable: NSTableView!
     @IBOutlet weak var newDomainField: NSTextField!
     
-    @IBAction func removeButtonPress(sender: NSButton) {
+    @IBAction func removeButtonPress(_ sender: NSButton) {
         if domainsTable.selectedRow != -1 {
-            userDefaultsAC.removeObjectAtArrangedObjectIndex(domainsTable.selectedRow)
+            userDefaultsAC.remove(atArrangedObjectIndex: domainsTable.selectedRow)
         }
     }
     
-    @IBAction func addButtonPress(sender: NSButton) {
-        let newVal = newDomainField.stringValue.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+    @IBAction func addButtonPress(_ sender: NSButton) {
+        let newVal = newDomainField.stringValue.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
         if newVal.characters.count > 0 {
             let cont = userDefaultsAC.content as! [String]
-            if cont.indexOf(newVal) == nil {
+            if cont.index(of: newVal) == nil {
                 userDefaultsAC.addObject(newVal)
             }
             newDomainField.stringValue = ""
         }
     }
     
-    @IBAction func calendarDataMine(sender: NSButton) {
+    @IBAction func calendarDataMine(_ sender: NSButton) {
         let myAl = NSAlert()
         myAl.messageText = "Attention: this will fetch ALL events, ± 2 years from now (unless they belong to an excluded calendar). Are you sure?"
-        myAl.addButtonWithTitle("Yes")
-        myAl.addButtonWithTitle("No")
-        myAl.beginSheetModalForWindow(self.view.window!) {
+        myAl.addButton(withTitle: "Yes")
+        myAl.addButton(withTitle: "No")
+        myAl.beginSheetModal(for: self.view.window!, completionHandler: {
             response in
             
             if response == NSAlertFirstButtonReturn {
-                dispatch_async(dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0)) {
-                    let appDel = NSApplication.sharedApplication().delegate! as! AppDelegate
+                DispatchQueue.global(qos: DispatchQoS.QoSClass.background).async {
+                    let appDel = NSApplication.shared().delegate! as! AppDelegate
                     appDel.calendarTracker.submitEvents(dataMine: true)
                 }
             }
             
-        }
+        }) 
     }
     
 }
 
 class CalendarExcludeDelegate: NSObject, NSTableViewDataSource, NSTableViewDelegate {
     let calendarTracker: CalendarTracker = {
-        let appDel = NSApplication.sharedApplication().delegate! as! AppDelegate
+        let appDel = NSApplication.shared().delegate! as! AppDelegate
         return appDel.calendarTracker
     }()
     
-    @objc func numberOfRowsInTableView(tableView: NSTableView) -> Int {
+    @objc func numberOfRows(in tableView: NSTableView) -> Int {
         return calendarTracker.calendarNames()!.count
     }
     
-    @objc func tableView(tableView: NSTableView, objectValueForTableColumn tableColumn: NSTableColumn?, row: Int) -> AnyObject? {
+    @objc func tableView(_ tableView: NSTableView, objectValueFor tableColumn: NSTableColumn?, row: Int) -> Any? {
         if tableColumn!.identifier == "calExclTableCheck" {
             let cal = calendarTracker.calendarNames()![row]
             return calendarTracker.getExcludeCalendars()![cal]
@@ -126,10 +126,10 @@ class CalendarExcludeDelegate: NSObject, NSTableViewDataSource, NSTableViewDeleg
         }
     }
     
-    @objc func tableView(tableView: NSTableView, setObjectValue object: AnyObject?, forTableColumn tableColumn: NSTableColumn?, row: Int) {
+    @objc func tableView(_ tableView: NSTableView, setObjectValue object: Any?, for tableColumn: NSTableColumn?, row: Int) {
         if tableColumn!.identifier == "calExclTableCheck" {
             let exclude = object! as! Bool
-            calendarTracker.setExcludeValue(exclude: exclude, calendar: calendarTracker.calendarNames()![row])
+            _ = calendarTracker.setExcludeValue(exclude: exclude, calendar: calendarTracker.calendarNames()![row])
             tableView.reloadData()
         }
     }

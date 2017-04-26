@@ -29,12 +29,12 @@ import Contacts
 /// Represents an calendar event, as understood by dime
 class CalendarEvent: Event {
     
-    private(set) var participants: [Person] = [Person]()
-    private(set) var name: String
-    private(set) var calendar: String
-    private(set) var location: Location?
-    private(set) var locString: String?
-    private(set) var notes: String?
+    fileprivate(set) var participants: [Person] = [Person]()
+    fileprivate(set) var name: String
+    fileprivate(set) var calendar: String
+    fileprivate(set) var location: Location?
+    fileprivate(set) var locString: String?
+    fileprivate(set) var notes: String?
     let id: String
     
     override var hash: Int { get {
@@ -62,7 +62,7 @@ class CalendarEvent: Event {
         self.calendar = event.calendar.compositeName
         self.notes = event.notes
         if #available(OSX 10.11, *) {
-            if let structLoc = event.structuredLocation, clloc = structLoc.geoLocation {
+            if let structLoc = event.structuredLocation, let clloc = structLoc.geoLocation {
                 location = Location(fromCLLocation: clloc)
             }
         }
@@ -72,14 +72,14 @@ class CalendarEvent: Event {
         
         if event.hasAttendees, let attendees = event.attendees {
             for attendee in attendees {
-                if let name = attendee.name, part = Person(fromString: name) {
+                if let name = attendee.name, let part = Person(fromString: name) {
                     // if possible, fetch more data for this person
                     if #available(OSX 10.11, *) {
-                        if CNContactStore.authorizationStatusForEntityType(.Contacts) == .Authorized {
+                        if CNContactStore.authorizationStatus(for: .contacts) == .authorized {
                             do {
                                 let store: CNContactStore = AppSingleton.contactStore as! CNContactStore
                                 let predicate = attendee.contactPredicate
-                                let contacts = try store.unifiedContactsMatchingPredicate(predicate, keysToFetch: [CNContactEmailAddressesKey,CNContactMiddleNameKey, CNContactGivenNameKey, CNContactFamilyNameKey])
+                                let contacts = try store.unifiedContacts(matching: predicate, keysToFetch: [CNContactEmailAddressesKey as CNKeyDescriptor,CNContactMiddleNameKey as CNKeyDescriptor, CNContactGivenNameKey as CNKeyDescriptor, CNContactFamilyNameKey as CNKeyDescriptor])
                                 // put in data from the first returned contact
                                 if contacts.count >= 1 {
                                     part.firstName = contacts[0].givenName
@@ -88,7 +88,7 @@ class CalendarEvent: Event {
                                     if midName != "" {
                                         part.middleNames = [midName]
                                     }
-                                    part.email = (contacts[0].emailAddresses[0].value as! String)
+                                    part.email = (contacts[0].emailAddresses[0].value as String)
                                 }
                             } catch {
                                 AppSingleton.log.error("Error while fetching an individual contact for \(self.name):\n\(error)")
@@ -117,7 +117,7 @@ class CalendarEvent: Event {
             if participants.count > 0 {
                 self.participants = [Person]()
                 for participant in participants {
-                    self.participants.append(Person(fromJson: participant))
+                    self.participants.append(Person(fromDime: participant))
                 }
             }
         }
@@ -128,22 +128,22 @@ class CalendarEvent: Event {
         
         super.init()
         
-        let start = NSDate(timeIntervalSince1970: NSTimeInterval(json["start"].intValue / 1000))
-        let end = NSDate(timeIntervalSince1970: NSTimeInterval(json["end"].intValue / 1000))
+        let start = Date(timeIntervalSince1970: TimeInterval(json["start"].intValue / 1000))
+        let end = Date(timeIntervalSince1970: TimeInterval(json["end"].intValue / 1000))
         setStart(start)
         setEnd(end)
         
     }
     
     /// getDict for calendar is overridden to update return value with internal state.
-    override func getDict() -> [String : AnyObject] {
+    override func getDict() -> [String : Any] {
         var retDict = theDictionary  // fetch current values
         
         // update values
         retDict["calendar"] = calendar
         retDict["name"] = name
         if participants.count > 0 {
-            var partArray = [[String: AnyObject]]()
+            var partArray = [[String: Any]]()
             for participant in participants {
                 partArray.append(participant.getDict())
             }
@@ -170,7 +170,7 @@ class CalendarEvent: Event {
     }
     
     /// Compares two calendar events, which are equal only if all their fields are equal
-    override func isEqual(object: AnyObject?) -> Bool {
+    override func isEqual(_ object: Any?) -> Bool {
         if let otherEvent = object as? CalendarEvent {
             if name != otherEvent.name || calendar != otherEvent.calendar || notes != otherEvent.notes {
                 return false

@@ -25,51 +25,52 @@
 import Foundation
 import Cocoa
 import Contacts
+import XCGLogger
 
 class AppSingleton {
     /// Returns true if OS X version is greater than 10.10
-    static let isElCapitan = NSProcessInfo.processInfo().operatingSystemVersion.majorVersion == 10 &&
-                             NSProcessInfo.processInfo().operatingSystemVersion.minorVersion == 11
+    static let aboveYosemite = ProcessInfo.processInfo.operatingSystemVersion.majorVersion == 10 &&
+                             ProcessInfo.processInfo.operatingSystemVersion.minorVersion >= 11
     
     /// The contact store used to fetch contacts (to fill out calendar events).
     /// Is nil if we can't / are not allowed to access it.
     /// If allowed, the object is not nil and should be cast to a CNContactStore (only for
     /// el capitan and above).
-    static private(set) var contactStore: AnyObject? = AppSingleton.initiateContactsRequest()
+    static fileprivate(set) var contactStore: AnyObject? = AppSingleton.initiateContactsRequest()
     
     static let log = AppSingleton.createLog()
-    static private(set) var logsURL = NSURL()
+    static fileprivate(set) var logsURL: URL?
     
     /// Ref to filemanager for convenience
-    static let fileManager = NSFileManager.defaultManager()
+    static let fileManager = FileManager.default
     
     static func createLog() -> XCGLogger {
         let dateFormat = "Y'-'MM'-'d'T'HH':'mm':'ssZ"  // date format for string appended to log
-        let dateFormatter = NSDateFormatter()
+        let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = dateFormat
-        let appString = dateFormatter.stringFromDate(NSDate())
+        let appString = dateFormatter.string(from: Date())
         
         var firstLine: String = "Log directory succesfully created / present"
-        let tempURL = NSURL(fileURLWithPath: NSTemporaryDirectory()).URLByAppendingPathComponent(NSBundle.mainBundle().bundleIdentifier!)
+        let tempURL = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(Bundle.main.bundleIdentifier!)
         do {
-            try NSFileManager.defaultManager().createDirectoryAtURL(tempURL, withIntermediateDirectories: true, attributes: nil)
+            try FileManager.default.createDirectory(at: tempURL, withIntermediateDirectories: true, attributes: nil)
         } catch {
             firstLine = "Error creating log directory: \(error)"
         }
         AppSingleton.logsURL = tempURL
-        let logFilePath = tempURL.URLByAppendingPathComponent("XCGLog_\(appString).log")
-        let newLog = XCGLogger.defaultInstance()
-        newLog.setup(.Debug, showThreadName: true, showLogLevel: true, showFileNames: true, showLineNumbers: true, writeToFile: logFilePath, fileLogLevel: .Debug)
+        let logFilePath = tempURL.appendingPathComponent("XCGLog_\(appString).log")
+        let newLog = XCGLogger.default
+        newLog.setup(level: .debug, showThreadName: true, showLevel: true, showFileNames: true, showLineNumbers: true, writeToFile: logFilePath, fileLevel: .debug)
         newLog.debug(firstLine)
         return newLog
     }
     
     /// Returns true if we are on el capitan (or another supported platform)
     /// and we can access the user's contacts
-    private static func initiateContactsRequest() -> AnyObject? {
+    fileprivate static func initiateContactsRequest() -> AnyObject? {
         if #available(OSX 10.11, *) {
             let store = CNContactStore()
-            store.requestAccessForEntityType(.Contacts) {
+            store.requestAccess(for: .contacts) {
                 granted, error in
                 if let err = error {
                     AppSingleton.log.error("Error while accessing contact store:\n\(err)")

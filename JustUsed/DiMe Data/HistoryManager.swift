@@ -28,10 +28,12 @@
 // See https://github.com/HIIT/PeyeDF/wiki/Data-Format for more information
 
 import Foundation
-import Alamofire
 import Quartz
 
 class HistoryManager: NSObject {
+    
+    /// Set to true to prevent automatic connection checks
+    static var forceDisconnect = false
     
     /// Returns a shared instance of this class. This is the designed way of accessing the history manager.
     static let sharedManager = HistoryManager()
@@ -40,116 +42,25 @@ class HistoryManager: NSObject {
     static let kConnectionCheckTime = 5.0
     
     /// Is true if there is a connection to DiMe, and can be used
-    private var dimeAvailable: Bool = false
+    fileprivate var dimeAvailable: Bool = false
     
     // MARK: - Initialization
     
     override init() {
         super.init()
-        let connectTimer = NSTimer(timeInterval: HistoryManager.kConnectionCheckTime, target: self, selector: #selector(connectionTimerCheck(_:)), userInfo: nil, repeats: true)
-        NSRunLoop.currentRunLoop().addTimer(connectTimer, forMode: NSRunLoopCommonModes)
+        let connectTimer = Timer(timeInterval: HistoryManager.kConnectionCheckTime, target: self, selector: #selector(connectionTimerCheck(_:)), userInfo: nil, repeats: true)
+        RunLoop.current.add(connectTimer, forMode: RunLoopMode.commonModes)
     }
     
     /// Callback for connection timer
-    func connectionTimerCheck(aTimer: NSTimer) {
-        dimeConnect()
+    func connectionTimerCheck(_ aTimer: Timer) {
+        if !HistoryManager.forceDisconnect {
+            DiMeSession.dimeConnect()
+        }
     }
     
     // MARK: - External functions
-    
-    /// Returns true if dime is available
-    func isDiMeAvailable() -> Bool {
-        return dimeAvailable
-    }
-    
-    /// Attempts to connect to dime. Sends a notification if we succeeded / failed
-    func dimeConnect() {
-        let server_url: String = NSUserDefaults.standardUserDefaults().valueForKey(JustUsedConstants.prefDiMeServerURL) as! String
-        let user: String = NSUserDefaults.standardUserDefaults().valueForKey(JustUsedConstants.prefDiMeServerUserName) as! String
-        let password: String = NSUserDefaults.standardUserDefaults().valueForKey(JustUsedConstants.prefDiMeServerPassword) as! String
-        
-        let credentialData = "\(user):\(password)".dataUsingEncoding(NSUTF8StringEncoding)!
-        let base64Credentials = credentialData.base64EncodedStringWithOptions([])
-        
-        let headers = ["Authorization": "Basic \(base64Credentials)"]
-        
-        let dictionaryObject = ["test": "test"]
-        
-        Alamofire.request(Alamofire.Method.POST, server_url + "/ping", parameters: dictionaryObject, encoding: Alamofire.ParameterEncoding.JSON, headers: headers).responseJSON {
-            response in
-            if response.result.isFailure {
-                // connection failed
-                self.dimeConnectState(false)
-            } else {
-                // succesfully connected
-                self.dimeConnectState(true)
-            }
-        }
-    }
-    
-    /// Disconnects from dime
-    func dimeDisconnect() {
-        self.dimeConnectState(false)
-    }
-    
-    // MARK: - Internal functions
-    
-    /// Connection to dime successful / failed
-    private func dimeConnectState(success: Bool) {
-        if !success {
-            self.dimeAvailable = false
-            NSNotificationCenter.defaultCenter().postNotificationName(JustUsedConstants.diMeConnectionNotification, object: self, userInfo: nil)
-        } else {
-            // succesfully connected
-            self.dimeAvailable = true
-            NSNotificationCenter.defaultCenter().postNotificationName(JustUsedConstants.diMeConnectionNotification, object: self, userInfo: nil)
-        }
-    }
-    
-    /// Send the given dictionary to DiMe (assumed to be in correct form due to the use of public callers of this method)
-    /// If given, calls the success block if request succeeded.
-    private func sendToDiMe(dimeData: DiMeBase, successBlock: (Void -> Void)? = nil) {
-       
-        if dimeAvailable {
-            
-            let server_url: String = NSUserDefaults.standardUserDefaults().valueForKey(JustUsedConstants.prefDiMeServerURL) as! String
-            let user: String = NSUserDefaults.standardUserDefaults().valueForKey(JustUsedConstants.prefDiMeServerUserName) as! String
-            let password: String = NSUserDefaults.standardUserDefaults().valueForKey(JustUsedConstants.prefDiMeServerPassword) as! String
-            
-            let credentialData = "\(user):\(password)".dataUsingEncoding(NSUTF8StringEncoding)!
-            let base64Credentials = credentialData.base64EncodedStringWithOptions([])
-            
-            let headers = ["Authorization": "Basic \(base64Credentials)"]
-            
-            let options = NSJSONWritingOptions.PrettyPrinted
 
-            do {
-                try NSJSONSerialization.dataWithJSONObject(dimeData.getDict(), options: options)
-            } catch {
-                AppSingleton.log.error("Error while deserializing json! This should never happen. \(error)")
-                return
-            }
-            
-            Alamofire.request(Alamofire.Method.POST, server_url + "/data/event", parameters: dimeData.getDict(), encoding: Alamofire.ParameterEncoding.JSON, headers: headers).responseJSON {
-                response in
-                if response.result.isFailure {
-                    self.dimeConnectState(false)
-                    AppSingleton.log.error("Failure when submitting data to dime:\n\(response.result.error!)")
-                } else {
-                    let jres = JSON(response.result.value!)
-                    // check if there is an "error" in the response. If so, log it, otherwise report success
-                    if jres["error"] != nil {
-                        AppSingleton.log.error("DiMe reported error:\n\(jres["error"].stringValue)")
-                        if let mes = jres["message"].string {
-                            AppSingleton.log.error("DiMe's error message:\n\(mes)")
-                        }
-                    } else {
-                        successBlock?()
-                    }
-                }
-            }
-        }
-    }
 }
 
 // MARK: - Protocol implementations
@@ -157,26 +68,26 @@ class HistoryManager: NSObject {
 /// Protocol implementations for browser and document history updates
 extension HistoryManager: RecentDocumentUpdateDelegate, BrowserHistoryUpdateDelegate {
     
-    func newHistoryItems(newURLs: [BrowserHistItem]) {
+    func newHistoryItems(_ newURLs: [BrowserHistItem]) {
         for newURL in newURLs {
-            let sendingToBrowser = NSUserDefaults.standardUserDefaults().valueForKey(JustUsedConstants.prefSendSafariHistory) as! Bool
+            let sendingToBrowser = UserDefaults.standard.value(forKey: JustUsedConstants.prefSendSafariHistory) as! Bool
             if !newURL.excludedFromDiMe && sendingToBrowser {
                 let infoElem = DocumentInformationElement(fromSafariHist: newURL)
-                let event = DesktopEvent(infoElem: infoElem, ofType: TrackingType.Browser(newURL.browser), withDate: newURL.date, andLocation: newURL.location)
-                sendToDiMe(event)
+                let event = DesktopEvent(infoElem: infoElem, ofType: TrackingType.browser(newURL.browser), withDate: newURL.date, andLocation: newURL.location)
+                DiMePusher.sendToDiMe(event)
             }
         }
     }
     
-    func newRecentDocument(newItem: RecentDocItem) {
+    func newRecentDocument(_ newItem: RecentDocItem) {
         // do all fetching on the utility queue (especially since pdfDoc.getMetadata() blocks)
-        dispatch_async(dispatch_get_global_queue(QOS_CLASS_UTILITY, 0)) {
+        DispatchQueue.global(qos: DispatchQoS.QoSClass.utility).async {
             let infoElem = DocumentInformationElement(fromRecentDoc: newItem)
             if infoElem.isPdf {
-                let docUrl = NSURL(fileURLWithPath: newItem.path)
-                if let pdfDoc = PDFDocument(URL: docUrl) {
+                let docUrl = URL(fileURLWithPath: newItem.path)
+                if let pdfDoc = PDFDocument(url: docUrl) {
                     // try to get metadata from crossref, otherwise get title from pdf's metadata, and as a last resort guess it
-                    if let json = pdfDoc.getMetadata() {
+                    if let json = pdfDoc.autoCrossref() {
                         infoElem.convertToSciDoc(fromCrossRef: json, keywords: pdfDoc.getKeywordsAsArray())
                     } else if let tit = pdfDoc.getTitle() {
                         infoElem.title = tit
@@ -185,49 +96,9 @@ extension HistoryManager: RecentDocumentUpdateDelegate, BrowserHistoryUpdateDele
                     }
                 }
             }
-            let event = DesktopEvent(infoElem: infoElem, ofType: TrackingType.Spotlight, withDate: newItem.lastAccessDate, andLocation: newItem.location)
-            self.sendToDiMe(event)
+            let event = DesktopEvent(infoElem: infoElem, ofType: TrackingType.spotlight, withDate: newItem.lastAccessDate, andLocation: newItem.location)
+            DiMePusher.sendToDiMe(event)
         }
     }
     
-}
-
-/// Protocol implementations for calendar updating
-extension HistoryManager: CalendarHistoryDelegate {
-    
-    func fetchCalendarEvents(block: [CalendarEvent] -> Void) {
-        
-        if dimeAvailable {
-            
-            let server_url: String = NSUserDefaults.standardUserDefaults().valueForKey(JustUsedConstants.prefDiMeServerURL) as! String
-            let user: String = NSUserDefaults.standardUserDefaults().valueForKey(JustUsedConstants.prefDiMeServerUserName) as! String
-            let password: String = NSUserDefaults.standardUserDefaults().valueForKey(JustUsedConstants.prefDiMeServerPassword) as! String
-            
-            let credentialData = "\(user):\(password)".dataUsingEncoding(NSUTF8StringEncoding)!
-            let base64Credentials = credentialData.base64EncodedStringWithOptions([])
-            
-            let headers = ["Authorization": "Basic \(base64Credentials)"]
-            
-            Alamofire.request(.GET, server_url + "/data/events?type=http://www.hiit.fi/ontologies/dime/%23CalendarEvent", headers: headers).responseJSON {
-                response in
-                if response.result.isFailure {
-                    AppSingleton.log.error("Failure when retrieving calendar events:\n\(response.result.error!)")
-                } else {
-                    let eventsPack = JSON(response.result.value!)
-                    var retVal = [CalendarEvent]()
-                    if let events = eventsPack.array {
-                        for ev in events {
-                            retVal.append(CalendarEvent(fromJSON: ev))
-                        }
-                    }
-                    block(retVal)
-                }
-            }
-            
-        }
-    }
-    
-    func sendCalendarEvent(newEvent: CalendarEvent, successBlock: Void -> Void) {
-        sendToDiMe(newEvent, successBlock: successBlock)
-    }
 }

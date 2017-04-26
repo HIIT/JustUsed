@@ -43,20 +43,7 @@ class Person: DiMeBase {
         }
         outVal += lastName
         return outVal
-    } }
-    
-    /// Person's hash is based on the hash of all its fields, xorred together
-    override var hash: Int { get {
-        var outH = firstName.hash
-        outH ^= lastName.hash
-        for mn in middleNames {
-            outH ^= mn.hash
-        }
-        if let em = email {
-            outH ^= em.hash
-        }
-        return outH
-    } }
+        } }
     
     /// Generates a person from a string. If there is a comma in the string, it is assumed that the first name after the comma, otherwise first name is the first non-whitespace separated string, and last name is the last. Middle names are assumed to all come after the first name if there was a comma, between first and last if there is no comma.
     /// **Fails (returns nil) if the string could not be parsed.**
@@ -74,7 +61,7 @@ class Person: DiMeBase {
                 // check if there are middle names in the following part
                 if spl[1].containsChar(" ") {
                     var resplitted = spl[1].split(" ")
-                    self.firstName = resplitted!.removeAtIndex(0)
+                    self.firstName = resplitted!.remove(at: 0)
                     if resplitted!.count > 0 {
                         for remName in resplitted! {
                             middleNames.append(remName)
@@ -111,21 +98,20 @@ class Person: DiMeBase {
     /// Crossref has an array of dicts with "given", "family" keys.
     /// "family" values can contain middle names separated by " "
     init?(fromCrossRef json: JSON) {
-        email = nil  // crossref doesn't support emails
         super.init()
-        guard let fnamesS = json["given"].string, lname = json["family"].string,
+        guard let fnamesS = json["given"].string, let lname = json["family"].string,
               var fnames = fnamesS.split(" ")
-              where fnames.count >= 1 else {
+              , fnames.count >= 1 else {
                 AppSingleton.log.warning("Couldn't parse author with dictionary: \(json)")
                 return nil
         }
-        self.firstName = fnames.removeAtIndex(0)
+        self.firstName = fnames.remove(at: 0)
         self.lastName = lname
         self.middleNames = fnames
     }
     
     /// Creates a person from dime's json
-    init(fromJson json: JSON) {
+    init(fromDime json: JSON) {
         self.firstName = json["firstName"].stringValue
         self.lastName = json["lastName"].stringValue
         if let midnames = json["middleNames"].array {
@@ -138,41 +124,16 @@ class Person: DiMeBase {
         }
     }
     
-    override func getDict() -> [String : AnyObject] {
-        var retDict = theDictionary
-        retDict["firstName"] = firstName
-        retDict["lastName"] = lastName
+    override func getDict() -> [String : Any] {
+        theDictionary["firstName"] = firstName
+        theDictionary["lastName"] = lastName
         if middleNames.count > 0 {
-            retDict["middleNames"] = middleNames
+            theDictionary["middleNames"] = middleNames
         }
         if let em = self.email {
-            retDict["emailAccount"] = em
+            theDictionary["emailAccount"] = em
         }
         
-        return retDict
+        return theDictionary
     }
-    
-    override func isEqual(object: AnyObject?) -> Bool {
-        if let otherPerson = object as? Person {
-            if self.firstName != otherPerson.firstName {
-                return false
-            }
-            if self.lastName != otherPerson.lastName {
-                return false
-            }
-            if self.middleNames != otherPerson.middleNames {
-                return false
-            }
-            if let em1 = self.email, em2 = otherPerson.email {
-                if em1 != em2 {
-                    return false
-                }
-            }
-            
-            return true
-        } else {
-            return false
-        }
-    }
-    
 }

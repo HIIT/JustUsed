@@ -69,7 +69,7 @@ class JustUsedConstants {
     /// String notifying that something changed in the dime connection.
     /// Calls to HistoryManager can verify what is the current status of dime
     /// using isDimeAvailable().
-    static let diMeConnectionNotification = "hiit.JustUsed.diMeConnectionChange"
+    static let diMeConnectionNotification = Notification.Name("hiit.JustUsed.diMeConnectionChange")
     
     // MARK: - General constants
     
@@ -87,8 +87,8 @@ class JustUsedConstants {
     
     // MARK: - Static functions
     
-    private static func makeDateFormatter() -> NSDateFormatter {
-        let dateFormatter = NSDateFormatter()
+    fileprivate static func makeDateFormatter() -> DateFormatter {
+        let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = JustUsedConstants.diMeDateFormat
         return dateFormatter
     }

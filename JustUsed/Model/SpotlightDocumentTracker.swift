@@ -34,7 +34,7 @@ class SpotlightDocumentTracker: RecentDocumentsTracker {
     dynamic var query: NSMetadataQuery?
     
     /// Stores all recent documents found. Items are stored in order, so item 0 in this list correponds to the first item found after starting the application
-    private var allItems = [RecentDocItem]()
+    fileprivate var allItems = [RecentDocItem]()
     
     
     required init() {
@@ -42,18 +42,18 @@ class SpotlightDocumentTracker: RecentDocumentsTracker {
         
         query = NSMetadataQuery()
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(queryUpdated(_:)), name: NSMetadataQueryDidUpdateNotification, object: query)
+        NotificationCenter.default.addObserver(self, selector: #selector(queryUpdated(_:)), name: NSNotification.Name.NSMetadataQueryDidUpdate, object: query)
         
         query?.searchScopes = [NSMetadataQueryUserHomeScope]
         
-        let startDate = NSDate()
+        let startDate = Date()
         let predicateFormat = "kMDItemFSContentChangeDate >= %@"
         var predicateToRun = NSPredicate(format: predicateFormat, argumentArray: [startDate])
         
         // Now, we don't want to include email messages in the result set, so add in an AND that excludes them
         let emailExclusionPredicate = NSPredicate(format: "(kMDItemContentType != 'com.apple.mail.emlx') && (kMDItemContentType != 'public.vcard')", argumentArray: nil)
         
-        if AppSingleton.isElCapitan {
+        if AppSingleton.aboveYosemite {
             
             // Only look for files that end in .sfl
             let extensionPredicate = NSPredicate(format: "%K ENDSWITH %@", NSMetadataItemFSNameKey, ".sfl")
@@ -82,19 +82,19 @@ class SpotlightDocumentTracker: RecentDocumentsTracker {
         }
         
         query?.predicate = predicateToRun
-        query?.startQuery()
+        query?.start()
     }
     
-    @objc func queryUpdated(notification: NSNotification) {
-        query?.enumerateResultsUsingBlock(updateBlock)
+    @objc func queryUpdated(_ notification: Notification) {
+        query?.enumerateResults(updateBlock)
     }
     
-    func updateBlock(input: AnyObject!, index: Int, boolPoint: UnsafeMutablePointer<ObjCBool>) {
+    func updateBlock(_ input: Any, index: Int, boolPoint: UnsafeMutablePointer<ObjCBool>) {
         let inputVal = input as! NSMetadataItem
-        guard let path = inputVal.valueForKey(kMDItemPath as String),
-                  date = inputVal.valueForKey(NSMetadataItemFSContentChangeDateKey as String),
-                  newHistItem = fetchMostRecentDoc(fromFile: NSURL(fileURLWithPath: path as! String),
-                  date: date as! NSDate)
+        guard let path = inputVal.value(forKey: kMDItemPath as String),
+                  let date = inputVal.value(forKey: NSMetadataItemFSContentChangeDateKey as String),
+                  let newHistItem = fetchMostRecentDoc(fromFile: URL(fileURLWithPath: path as! String),
+                  date: date as! Date)
                   else {
             return
         }
@@ -104,12 +104,12 @@ class SpotlightDocumentTracker: RecentDocumentsTracker {
             }
             allItems.append(newHistItem)
         } else {
-            let previousItemIndex = allItems.indexOf(newHistItem)!
+            let previousItemIndex = allItems.index(of: newHistItem)!
             // Only re-add items if first time that it was opened was before kMinSeconds from now
-            let shiftedDate = NSDate().dateByAddingTimeInterval(-kMinSeconds)
+            let shiftedDate = Date().addingTimeInterval(-kMinSeconds)
             let previousDate = allItems[previousItemIndex].lastAccessDate
-            if shiftedDate.compare(previousDate) == NSComparisonResult.OrderedDescending {
-                allItems[previousItemIndex].lastAccessDate = NSDate()
+            if shiftedDate.compare(previousDate as Date) == ComparisonResult.orderedDescending {
+                allItems[previousItemIndex].lastAccessDate = Date()
                 for delegate in recentDocumentUpdateDelegates {
                     delegate.newRecentDocument(newHistItem)
                 }
@@ -122,9 +122,9 @@ class SpotlightDocumentTracker: RecentDocumentsTracker {
     /// - parameter fromFile: The path of the sfl file on disk
     /// - parameter date: The date on which the recend document was added
     /// - returns: A spotlight hist item representing the most recent opened document in the sfl
-    private func fetchMostRecentDoc(fromFile filePath: NSURL, date: NSDate) -> RecentDocItem? {
+    fileprivate func fetchMostRecentDoc(fromFile filePath: URL, date: Date) -> RecentDocItem? {
         
-        guard let sfl = NSDictionary(contentsOfURL: filePath), objects = sfl["$objects"] as? [AnyObject] else {
+        guard let sfl = NSDictionary(contentsOf: filePath), let objects = sfl["$objects"] as? [AnyObject] else {
             return nil
         }
         
@@ -133,7 +133,7 @@ class SpotlightDocumentTracker: RecentDocumentsTracker {
         var i = 0
         while i < objects.count {
             // seek order (int) which comes before bookmark
-            if let odict = objects[i] as? NSDictionary, order = odict["order"] {
+            if let odict = objects[i] as? NSDictionary, let order = odict["order"] {
                 if let cnt = order as? Int {
                     
                     // seek bookmark and associate it to previously found order
@@ -141,9 +141,9 @@ class SpotlightDocumentTracker: RecentDocumentsTracker {
                         
                         i += 1
                         
-                        if let possiblebook = objects[i] as? NSData, abookdict = NSURL.resourceValuesForKeys([NSURLPathKey], fromBookmarkData: possiblebook) {
+                        if let possiblebook = objects[i] as? Data, let abookdict = URL.resourceValues(forKeys: [URLResourceKey.pathKey], fromBookmarkData: possiblebook) {
                             
-                            tuples.append((count: cnt, path: abookdict[NSURLPathKey]! as! String))
+                            tuples.append((count: cnt, path: abookdict.path!))
                             break
                         }
                     }
@@ -153,13 +153,13 @@ class SpotlightDocumentTracker: RecentDocumentsTracker {
         }
         if tuples.count > 0 {
             // sort tuples by count in ascending order, take first item
-            tuples = tuples.sort {$0.0 < $1.0}
+            tuples = tuples.sorted {$0.0 < $1.0}
             // most recent document URL
-            let docUrl = NSURL(fileURLWithPath: tuples[0].path)
+            let docUrl = URL(fileURLWithPath: tuples[0].path)
             // get application name by removing extension
-            let docSource = filePath.URLByDeletingPathExtension!.lastPathComponent!
+            let docSource = filePath.deletingPathExtension().lastPathComponent
             let location = LocationSingleton.getCurrentLocation()
-            return RecentDocItem(lastAccessDate: date, path: docUrl.path!, location: location, mime: docUrl.getMime()!, source: docSource)
+            return RecentDocItem(lastAccessDate: date, path: docUrl.path, location: location, mime: docUrl.getMime()!, source: docSource)
         } else {
             return nil
         }

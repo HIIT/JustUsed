@@ -28,7 +28,7 @@ import Cocoa
 /// New recent document items are represented by this struct
 struct RecentDocItem: Equatable {
     /// Date that this item was last accessed
-    var lastAccessDate: NSDate
+    var lastAccessDate: Date
     /// Path of this file on disk
     let path: String
     /// Location when this file was last opened, if available
@@ -47,7 +47,7 @@ func ==(lhs:RecentDocItem, rhs: RecentDocItem) -> Bool {
 protocol RecentDocumentUpdateDelegate {
     
     /// Tells the delegate that new data is available
-    func newRecentDocument(newItem: RecentDocItem)
+    func newRecentDocument(_ newItem: RecentDocItem)
 }
 
 /// This class should be subclassed by all items that find recent documents, such as SpotlightTracker or RecentPlistTracker
@@ -55,7 +55,7 @@ class RecentDocumentsTracker: NSObject {
     
     internal var recentDocumentUpdateDelegates = [RecentDocumentUpdateDelegate]()
     
-    func addRecentDocumentUpdateDelegate(newRecentDocDelegate: RecentDocumentUpdateDelegate) {
+    func addRecentDocumentUpdateDelegate(_ newRecentDocDelegate: RecentDocumentUpdateDelegate) {
         recentDocumentUpdateDelegates.append(newRecentDocDelegate)
     }
     

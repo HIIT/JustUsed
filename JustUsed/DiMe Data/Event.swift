@@ -33,24 +33,24 @@ class Event: DiMeBase {
         super.init()
         
         // Make creation date
-        theDictionary["start"] = JustUsedConstants.diMeDateFormatter.stringFromDate(NSDate())
-        if let hostname = NSHost.currentHost().name {
-            theDictionary["origin"] = hostname
+        theDictionary["start"] = JustUsedConstants.diMeDateFormatter.string(from: Date())
+        if let hostname = Host.current().name {
+            theDictionary["origin"] = hostname as AnyObject
         }
     
         // set dime-required fields (can be overwritten by subclasses)
-        theDictionary["actor"] = "JustUsed"
-        theDictionary["@type"] = "Event"
-        theDictionary["type"] = "http://www.hiit.fi/ontologies/dime/#Event"
+        theDictionary["actor"] = "JustUsed" as AnyObject
+        theDictionary["@type"] = "Event" as AnyObject
+        theDictionary["type"] = "http://www.hiit.fi/ontologies/dime/#Event" as AnyObject
     }
     
     /// Set an end date for this item (otherwise, won't be submitted)
-    func setEnd(endDate: NSDate) {
-        theDictionary["end"] = JustUsedConstants.diMeDateFormatter.stringFromDate(endDate)
+    func setEnd(_ endDate: Date) {
+        theDictionary["end"] = JustUsedConstants.diMeDateFormatter.string(from: endDate)
     }
     
     /// Set a start date for this item (updates old value)
-    func setStart(endDate: NSDate) {
-        theDictionary["start"] = JustUsedConstants.diMeDateFormatter.stringFromDate(endDate)
+    func setStart(_ endDate: Date) {
+        theDictionary["start"] = JustUsedConstants.diMeDateFormatter.string(from: endDate)
     }
 }

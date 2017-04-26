@@ -29,13 +29,13 @@ import Foundation
 class RecentPlistTracker: RecentDocumentsTracker {
     
     /// Convenience file manager
-    private var fm = NSFileManager.defaultManager()
+    fileprivate var fm = FileManager.default
     
     /// Plists' last modification date is stored in this dictionary
-    private var allPlists = [NSURL: NSDate]()
+    fileprivate var allPlists = [URL: Date]()
     
     /// Files are tracked every this amount of seconds
-    private let kPlistCheckTime = 5.0
+    fileprivate let kPlistCheckTime = 5.0
     
     required init() {
         super.init()
@@ -46,18 +46,18 @@ class RecentPlistTracker: RecentDocumentsTracker {
         }
         
         // Start timer
-        let checkTimer = NSTimer(timeInterval: kPlistCheckTime, target: self, selector: #selector(timerHit(_:)), userInfo: nil, repeats: true)
-        NSRunLoop.currentRunLoop().addTimer(checkTimer, forMode: NSRunLoopCommonModes)
+        let checkTimer = Timer(timeInterval: kPlistCheckTime, target: self, selector: #selector(timerHit(_:)), userInfo: nil, repeats: true)
+        RunLoop.current.add(checkTimer, forMode: RunLoopMode.commonModes)
     }
     
     /// Check if any recent document plist has been modified since last time the timer hit
-    @objc private func timerHit(theTimer: NSTimer) {
+    @objc fileprivate func timerHit(_ theTimer: Timer) {
         for tuple in getAllPlists() {
             
             // if previous item exists, check date, otherwise add it
             if let previousModDate = allPlists[tuple.sflUrl] {
                 // check if the just found modification date is more recent than the last found one
-                if tuple.modDate.compare(previousModDate) == NSComparisonResult.OrderedDescending {
+                if tuple.modDate.compare(previousModDate) == ComparisonResult.orderedDescending {
                     allPlists[tuple.sflUrl] = tuple.modDate
                     if let newItem = fetchMostRecentDoc(fromFile: tuple.sflUrl, date: tuple.modDate) {
                         for upDel in recentDocumentUpdateDelegates {
@@ -81,39 +81,42 @@ class RecentPlistTracker: RecentDocumentsTracker {
     /// - parameter fromFile: The path of the file on disk
     /// - parameter date: The date on which the recend document was added
     /// - returns: A spotlight hist item representing the most recent opened document in the sfl
-    private func fetchMostRecentDoc(fromFile filePath: NSURL, date: NSDate) -> RecentDocItem? {
+    fileprivate func fetchMostRecentDoc(fromFile filePath: URL, date: Date) -> RecentDocItem? {
         
-        guard let sfl = NSDictionary(contentsOfURL: filePath),
-                  recents = sfl["RecentDocuments"],
-                  objects = recents["CustomListItems"],
-                  mostrecentpossiblebook = objects[0]["Bookmark"] as? NSData,
-                  abookdict = NSURL.resourceValuesForKeys([NSURLPathKey], fromBookmarkData: mostrecentpossiblebook)
+        guard let sfl = NSDictionary(contentsOf: filePath),
+                  let recents = sfl["RecentDocuments"] as? [String: Any],
+                  let objects = recents["CustomListItems"] as? [[String: Any]],
+                  let mostrecentpossiblebook = objects[0]["Bookmark"] as? Data,
+                  let abookdict = URL.resourceValues(forKeys: [URLResourceKey.pathKey], fromBookmarkData: mostrecentpossiblebook)
                   else {
             return nil
         }
-        let path = abookdict[NSURLPathKey]! as! String
-        let docUrl = NSURL(fileURLWithPath: path)
-        let rangeOfLSSharedFileList = filePath.lastPathComponent!.rangeOfString(".LSSharedFileList")
-        let docSource = filePath.lastPathComponent!.substringToIndex(rangeOfLSSharedFileList!.startIndex)
+        guard let path = abookdict.path else {
+            AppSingleton.log.error("Failed to find path from file: \(filePath.path)")
+            return nil
+        }
+        let docUrl = URL(fileURLWithPath: path)
+        let rangeOfLSSharedFileList = filePath.lastPathComponent.range(of: ".LSSharedFileList")
+        let docSource = filePath.lastPathComponent.substring(to: rangeOfLSSharedFileList!.lowerBound)
         let location = LocationSingleton.getCurrentLocation()
-        return RecentDocItem(lastAccessDate: date, path: docUrl.path!, location: location, mime: docUrl.getMime()!, source: docSource)
+        return RecentDocItem(lastAccessDate: date, path: docUrl.path, location: location, mime: docUrl.getMime()!, source: docSource)
     }
     
     
     /// Returns all plist files related to recents documents and their last modification date in a tuple
-    private func getAllPlists() -> [(sflUrl: NSURL, modDate: NSDate)] {
-        var retVal = [(sflUrl: NSURL, modDate: NSDate)]()
+    fileprivate func getAllPlists() -> [(sflUrl: URL, modDate: Date)] {
+        var retVal = [(sflUrl: URL, modDate: Date)]()
         
-        let preferencesDir = NSURL(fileURLWithPath: NSHomeDirectory()).URLByAppendingPathComponent("Library/Preferences")
+        let preferencesDir = URL(fileURLWithPath: NSHomeDirectory()).appendingPathComponent("Library/Preferences")
         do {
-            let allPrefs = try fm.contentsOfDirectoryAtURL(preferencesDir, includingPropertiesForKeys: nil, options: NSDirectoryEnumerationOptions())
-            let sfls = allPrefs.filter({$0.lastPathComponent!.rangeOfString("LSSharedFileList.plist") != nil})
+            let allPrefs = try fm.contentsOfDirectory(at: preferencesDir, includingPropertiesForKeys: nil, options: FileManager.DirectoryEnumerationOptions())
+            let sfls = allPrefs.filter({$0.lastPathComponent.range(of: "LSSharedFileList.plist") != nil})
             
             for sfl in sfls {
                 var inVal: AnyObject?
                 do {
-                    try sfl.getResourceValue(&inVal, forKey: NSURLContentModificationDateKey)
-                    if let fileDate = inVal as? NSDate {
+                    try (sfl as NSURL).getResourceValue(&inVal, forKey: URLResourceKey.contentModificationDateKey)
+                    if let fileDate = inVal as? Date {
                         retVal.append((sfl, fileDate))
                     }
                 } catch let error as NSError {

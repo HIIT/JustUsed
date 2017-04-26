@@ -28,7 +28,7 @@ import CoreLocation
 
 /// Keeps track of the location controller, of which we should have only one instance at a time
 class LocationSingleton {
-    private static let _locationController = LocationController()
+    fileprivate static let _locationController = LocationController()
     
     static func getCurrentLocation() -> Location? {
         return LocationSingleton._locationController.location
@@ -50,7 +50,7 @@ class LocationController: NSObject, CLLocationManagerDelegate {
         
         let authStat = CLLocationManager.authorizationStatus()
         switch authStat {
-        case .Denied, .Restricted:
+        case .denied, .restricted:
             authorised = false
         default:
             authorised = true
@@ -68,8 +68,9 @@ class LocationController: NSObject, CLLocationManagerDelegate {
         
     }
     
-    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [AnyObject]) {
-        if let loc = locations[0] as? CLLocation {
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        if locations.count >= 1 {
+            let loc = locations[0]
             geoMan.getDescription(fromLoc: loc) {
                 describedLocation in
                 self.location = describedLocation

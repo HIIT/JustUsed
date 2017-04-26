@@ -24,29 +24,26 @@
 
 import Foundation
 
-extension URL {
+class CrossRefSession {
+    fileprivate static let urlSession = URLSession(configuration: .default)
     
-    /// Get mime type
-    func getMime() -> String? {
-        var mime: String?
-        let UTI = UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension, self.pathExtension as CFString, nil)
-        let MIMEType = UTTypeCopyPreferredTagWithClass(UTI!.takeRetainedValue(), kUTTagClassMIMEType)
-        var isDir = ObjCBool(false)
-        if let mimet = MIMEType {
-            mime = mimet.takeRetainedValue() as String
-        } else if FileManager.default.fileExists(atPath: self.path, isDirectory: &isDir) {
-            if isDir.boolValue {
-                mime = "application/x-directory"
-            } else {
-                // if the file exists but it's not a directory and has no known mime type
-                var foundEncoding: UInt = 0
-                if let _ = try? NSString(contentsOf: self, usedEncoding: &foundEncoding) {
-                    mime = "text/plain"
-                } else {
-                    mime = "application/octet-stream"
-                }
-            }
+    /// Fetches metedata for a given doi using CrossRef, and calls a callback with the result
+    /// (nil if failed)
+    static func fetch(doi: String, callback: @escaping (JSON?) -> Void) {
+        guard let url = URL(string: "http://api.crossref.org/works/\(doi)") else {
+            AppSingleton.log.error("Error while creating crossref url")
+            callback(nil)
+            return
         }
-        return mime
+        let urlRequest = URLRequest(url: url, timeoutInterval: 10)
+        urlSession.dataTask(with: urlRequest) {
+            data, response, error in
+            if let data = data, error == nil {
+                callback(JSON(data: data))
+            } else {
+                callback(nil)
+                AppSingleton.log.error("Failed to fetch crossref data for \(doi): \(error!)")
+            }
+        }.resume()
     }
 }

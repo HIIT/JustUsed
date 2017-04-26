@@ -22,7 +22,7 @@
 // FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 // OTHER DEALINGS IN THE SOFTWARE.
 
-extension NSDate {
+extension Date {
     
     /// Number of ms since 1/1/1970.
     var unixTime_ms: Int { get {
@@ -31,7 +31,7 @@ extension NSDate {
     }
     
     /// Creates a date from a unix time in microsec
-    convenience init(fromUnixTime_μs μs: Int) {
+    init(fromUnixTime_μs μs: Int) {
         self.init(timeIntervalSince1970: Double(μs) / 1000000)
     }
     
@@ -42,7 +42,7 @@ extension NSDate {
     }
     
     /// Creates a date from a ldap timestamp.
-    convenience init(fromLdapTime lt: Int) {
+    init(fromLdapTime lt: Int) {
         let unixtime_s = Double(lt)/1000000-11644473600
         self.init(timeIntervalSince1970: unixtime_s)
     }
@@ -56,19 +56,19 @@ extension NSDate {
     /// Returns the current time in a short format, e.g. 16:30.45
     /// Use this to pass dates to DiMe
     static func shortTime() -> String {
-        let currentDate = NSDate()
-        let dsf = NSDateFormatter()
+        let currentDate = Date()
+        let dsf = DateFormatter()
         dsf.dateFormat = "HH:mm.ss"
-        return dsf.stringFromDate(currentDate)
+        return dsf.string(from: currentDate)
     }
     
     /// Returns an NSDate that representing this date plus the given offset.
     /// e.g. NSDate().yearOffset(2) represents two years from now.
-    func yearOffset(year: Int) -> NSDate {
-        let calendar = NSCalendar(identifier: NSCalendarIdentifierGregorian)!
-        let addComponents = NSDateComponents()
+    func yearOffset(_ year: Int) -> Date {
+        let calendar = Calendar(identifier: Calendar.Identifier.gregorian)
+        var addComponents = DateComponents()
         addComponents.year = year
-        return calendar.dateByAddingComponents(addComponents, toDate: self, options: .MatchStrictly)!
+        return (calendar as NSCalendar).date(byAdding: addComponents, to: self, options: .matchStrictly)!
     }
     
 }

@@ -36,14 +36,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     // let browserManager = BrowserHistoryManager()
     
     let recentDocTracker: RecentDocumentsTracker = {
-        if AppSingleton.isElCapitan {
+        if AppSingleton.aboveYosemite {
             return SpotlightDocumentTracker()
         } else {
             return RecentPlistTracker()
         }
     }()
     
-    let calendarTracker = CalendarTracker(calendarDelegate: HistoryManager.sharedManager)
+    let calendarTracker = CalendarTracker()
     
     // Data sources to display tables in GUI
     let browHistoryDataSource = BrowserTrackerDataSource()
@@ -52,28 +52,28 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     /// Popover that will be displayed while clicking on menubar button
     let popover = NSPopover() 
     
-    let statusItem = NSStatusBar.systemStatusBar().statusItemWithLength(NSSquareStatusItemLength)
+    let statusItem = NSStatusBar.system().statusItem(withLength: NSSquareStatusItemLength)
 
-    func applicationDidFinishLaunching(aNotification: NSNotification) {
+    func applicationDidFinishLaunching(_ aNotification: Notification) {
         
         // Set default preferences
         var defaultPrefs = [String: AnyObject]()
-        defaultPrefs[JustUsedConstants.prefDiMeServerURL] = "http://localhost:8080/api"
-        defaultPrefs[JustUsedConstants.prefDiMeServerUserName] = "Test1"
-        defaultPrefs[JustUsedConstants.prefDiMeServerPassword] = "123456"
+        defaultPrefs[JustUsedConstants.prefDiMeServerURL] = "http://localhost:8080/api" as AnyObject
+        defaultPrefs[JustUsedConstants.prefDiMeServerUserName] = "Test1" as AnyObject
+        defaultPrefs[JustUsedConstants.prefDiMeServerPassword] = "123456" as AnyObject
         let defaultExcludeDomains = ["localhost", "talkgadget.google.com"]
         let defaultExcludeCalendars: [String] = []
-        defaultPrefs[JustUsedConstants.prefExcludeCalendars] = defaultExcludeCalendars
-        defaultPrefs[JustUsedConstants.prefExcludeDomains] = defaultExcludeDomains
-        defaultPrefs[JustUsedConstants.prefSendPlainTexts] = 1
-        defaultPrefs[JustUsedConstants.prefSendSafariHistory] = 0
-        NSUserDefaults.standardUserDefaults().registerDefaults(defaultPrefs)
-        NSUserDefaults.standardUserDefaults().synchronize()
+        defaultPrefs[JustUsedConstants.prefExcludeCalendars] = defaultExcludeCalendars as AnyObject
+        defaultPrefs[JustUsedConstants.prefExcludeDomains] = defaultExcludeDomains as AnyObject
+        defaultPrefs[JustUsedConstants.prefSendPlainTexts] = 1 as AnyObject
+        defaultPrefs[JustUsedConstants.prefSendSafariHistory] = 0 as AnyObject
+        UserDefaults.standard.register(defaults: defaultPrefs)
+        UserDefaults.standard.synchronize()
         
         // Starts dime
-        HistoryManager.sharedManager.dimeConnect()
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(diMeConnectionChanged(_:)), name: JustUsedConstants.diMeConnectionNotification, object: HistoryManager.sharedManager)
+        NotificationCenter.default.addObserver(self, selector: #selector(diMeConnectionChanged(_:)), name: JustUsedConstants.diMeConnectionNotification, object: nil)
         
+        DiMeSession.dimeConnect()
         if let _ = LocationSingleton.getCurrentLocation() {
             // just fetch nothing to initialise location
         }
@@ -82,10 +82,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             button.action = #selector(togglePopover(_:))
         }
         let storyboard = NSStoryboard(name: "Main", bundle: nil)
-        popover.behavior = NSPopoverBehavior.Transient
+        popover.behavior = NSPopoverBehavior.transient
         
         // View controller and its delegation
-        self.viewController = (storyboard.instantiateControllerWithIdentifier("View Controller") as! ViewController)
+        self.viewController = (storyboard.instantiateController(withIdentifier: "View Controller") as! ViewController)
         viewController!.setSources(spoHistoryDataSource, browserSource: browHistoryDataSource)
         popover.contentViewController = self.viewController!
         recentDocTracker.addRecentDocumentUpdateDelegate(self.viewController!)
@@ -107,26 +107,26 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     /// Updates itself when connection is lost / resumed
-    @objc private func diMeConnectionChanged(notification: NSNotification?) {
-        statusItem.button!.appearsDisabled = !HistoryManager.sharedManager.isDiMeAvailable()
+    @objc fileprivate func diMeConnectionChanged(_ notification: Notification?) {
+        statusItem.button!.appearsDisabled = !DiMeSession.dimeAvailable
     }
 
-    func applicationWillTerminate(aNotification: NSNotification) {
-        NSNotificationCenter.defaultCenter().removeObserver(self, name: JustUsedConstants.diMeConnectionNotification, object: HistoryManager.sharedManager)
+    func applicationWillTerminate(_ aNotification: Notification) {
+        NotificationCenter.default.removeObserver(self, name: JustUsedConstants.diMeConnectionNotification, object: HistoryManager.sharedManager)
     }
 
-    func showPopover(sender: AnyObject?) {
+    func showPopover(_ sender: AnyObject?) {
         if let button = statusItem.button {
-            popover.showRelativeToRect(button.bounds, ofView: button, preferredEdge: NSRectEdge.MinY)
+            popover.show(relativeTo: button.bounds, of: button, preferredEdge: NSRectEdge.minY)
         }
     }
     
-    func closePopover(sender: AnyObject?) {
+    func closePopover(_ sender: AnyObject?) {
         popover.performClose(sender)
     }
     
-    func togglePopover(sender: AnyObject?) {
-        if popover.shown {
+    func togglePopover(_ sender: AnyObject?) {
+        if popover.isShown {
             closePopover(sender)
         } else {
             showPopover(sender)
