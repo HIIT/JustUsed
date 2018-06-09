@@ -44,18 +44,18 @@ class DiMePreferencesViewController: NSViewController {
         calendarExcludeTable.dataSource = calendarExcludeDelegate
         calendarExcludeTable.delegate = calendarExcludeDelegate
         
-        let options: [String: AnyObject] = ["NSContinuouslyUpdatesValue": true as AnyObject]
+        let options: [NSBindingOption: Any] = [.continuouslyUpdatesValue: true]
         
-        urlField.bind("value", to: NSUserDefaultsController.shared(), withKeyPath: "values." + JustUsedConstants.prefDiMeServerURL, options: options)
+        urlField.bind(NSBindingName(rawValue: "value"), to: NSUserDefaultsController.shared, withKeyPath: "values." + JustUsedConstants.prefDiMeServerURL, options: options)
         
-        usernameField.bind("value", to: NSUserDefaultsController.shared(), withKeyPath: "values." + JustUsedConstants.prefDiMeServerUserName, options: options)
+        usernameField.bind(NSBindingName(rawValue: "value"), to: NSUserDefaultsController.shared, withKeyPath: "values." + JustUsedConstants.prefDiMeServerUserName, options: options)
         
-        passwordField.bind("value", to: NSUserDefaultsController.shared(), withKeyPath: "values." + JustUsedConstants.prefDiMeServerPassword, options: options)
+        passwordField.bind(NSBindingName(rawValue: "value"), to: NSUserDefaultsController.shared, withKeyPath: "values." + JustUsedConstants.prefDiMeServerPassword, options: options)
         
         // the following will set
         // (PeyeConstants.prefSendEventOnFocusSwitch)
         // to optional int 0 when off and nonzero (1) when on
-        sendPlainTextCell.bind("value", to: NSUserDefaultsController.shared(), withKeyPath: "values." + JustUsedConstants.prefSendPlainTexts, options: options)
+        sendPlainTextCell.bind(NSBindingName(rawValue: "value"), to: NSUserDefaultsController.shared, withKeyPath: "values." + JustUsedConstants.prefSendPlainTexts, options: options)
         
         // similar set here
         // Browser history disabled in favour of extension
@@ -78,7 +78,7 @@ class DiMePreferencesViewController: NSViewController {
     
     @IBAction func addButtonPress(_ sender: NSButton) {
         let newVal = newDomainField.stringValue.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
-        if newVal.characters.count > 0 {
+        if newVal.count > 0 {
             let cont = userDefaultsAC.content as! [String]
             if cont.index(of: newVal) == nil {
                 userDefaultsAC.addObject(newVal)
@@ -95,9 +95,9 @@ class DiMePreferencesViewController: NSViewController {
         myAl.beginSheetModal(for: self.view.window!, completionHandler: {
             response in
             
-            if response == NSAlertFirstButtonReturn {
+            if response == NSApplication.ModalResponse.alertFirstButtonReturn {
                 DispatchQueue.global(qos: DispatchQoS.QoSClass.background).async {
-                    let appDel = NSApplication.shared().delegate! as! AppDelegate
+                    let appDel = NSApplication.shared.delegate! as! AppDelegate
                     appDel.calendarTracker.submitEvents(dataMine: true)
                 }
             }
@@ -109,7 +109,7 @@ class DiMePreferencesViewController: NSViewController {
 
 class CalendarExcludeDelegate: NSObject, NSTableViewDataSource, NSTableViewDelegate {
     let calendarTracker: CalendarTracker = {
-        let appDel = NSApplication.shared().delegate! as! AppDelegate
+        let appDel = NSApplication.shared.delegate! as! AppDelegate
         return appDel.calendarTracker
     }()
     
@@ -118,7 +118,7 @@ class CalendarExcludeDelegate: NSObject, NSTableViewDataSource, NSTableViewDeleg
     }
     
     @objc func tableView(_ tableView: NSTableView, objectValueFor tableColumn: NSTableColumn?, row: Int) -> Any? {
-        if tableColumn!.identifier == "calExclTableCheck" {
+        if tableColumn!.identifier.rawValue == "calExclTableCheck" {
             let cal = calendarTracker.calendarNames()![row]
             return calendarTracker.getExcludeCalendars()![cal]
         } else {
@@ -127,7 +127,7 @@ class CalendarExcludeDelegate: NSObject, NSTableViewDataSource, NSTableViewDeleg
     }
     
     @objc func tableView(_ tableView: NSTableView, setObjectValue object: Any?, for tableColumn: NSTableColumn?, row: Int) {
-        if tableColumn!.identifier == "calExclTableCheck" {
+        if tableColumn!.identifier.rawValue == "calExclTableCheck" {
             let exclude = object! as! Bool
             _ = calendarTracker.setExcludeValue(exclude: exclude, calendar: calendarTracker.calendarNames()![row])
             tableView.reloadData()

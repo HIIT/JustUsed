@@ -52,7 +52,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     /// Popover that will be displayed while clicking on menubar button
     let popover = NSPopover() 
     
-    let statusItem = NSStatusBar.system().statusItem(withLength: NSSquareStatusItemLength)
+    let statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.squareLength)
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         
@@ -78,14 +78,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             // just fetch nothing to initialise location
         }
         if let button = statusItem.button {
-            button.image = NSImage(named: JustUsedConstants.kMenuImageName)
+            button.image = NSImage(named: NSImage.Name(rawValue: JustUsedConstants.kMenuImageName))
             button.action = #selector(togglePopover(_:))
         }
-        let storyboard = NSStoryboard(name: "Main", bundle: nil)
-        popover.behavior = NSPopoverBehavior.transient
+        let storyboard = NSStoryboard(name: NSStoryboard.Name(rawValue: "Main"), bundle: nil)
+        popover.behavior = NSPopover.Behavior.transient
         
         // View controller and its delegation
-        self.viewController = (storyboard.instantiateController(withIdentifier: "View Controller") as! ViewController)
+        self.viewController = (storyboard.instantiateController(withIdentifier: NSStoryboard.SceneIdentifier(rawValue: "View Controller")) as! ViewController)
         viewController!.setSources(spoHistoryDataSource, browserSource: browHistoryDataSource)
         popover.contentViewController = self.viewController!
         recentDocTracker.addRecentDocumentUpdateDelegate(self.viewController!)
@@ -108,7 +108,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     /// Updates itself when connection is lost / resumed
     @objc fileprivate func diMeConnectionChanged(_ notification: Notification?) {
-        statusItem.button!.appearsDisabled = !DiMeSession.dimeAvailable
+        DispatchQueue.main.async {
+            self.statusItem.button!.appearsDisabled = !DiMeSession.dimeAvailable
+        }
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {
@@ -125,7 +127,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         popover.performClose(sender)
     }
     
-    func togglePopover(_ sender: AnyObject?) {
+    @objc func togglePopover(_ sender: AnyObject?) {
         if popover.isShown {
             closePopover(sender)
         } else {

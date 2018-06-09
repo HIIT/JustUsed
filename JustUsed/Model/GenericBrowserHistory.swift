@@ -120,7 +120,7 @@ extension BrowserHistoryFetcher {
             do {
                 try (fileUrl as NSURL).getResourceValue(&inVal, forKey: URLResourceKey.contentModificationDateKey)
             } catch {
-                AppSingleton.log.error("Something went wrong while reading db file '\(fileUrl.path)': \(error)")
+                Swift.print("Something went wrong while reading db file '\(fileUrl.path)': \(error)")
             }
             if let fileDate = inVal as? Date {
                 dates.append(fileDate)
@@ -145,7 +145,7 @@ extension BrowserHistoryFetcher {
             try fileManager.createDirectory(at: tempURL, withIntermediateDirectories: true, attributes: nil)
             //AppSingleton.log.debug("directory created succesfully")
         } catch {
-            AppSingleton.log.error("Error while creating temp folder at \(tempURL.path): \(error)")
+            Swift.print("Error while creating temp folder at \(tempURL.path): \(error)")
             return nil
         }
         
@@ -161,7 +161,7 @@ extension BrowserHistoryFetcher {
                 do {
                     try fileManager.removeItem(at: tempDataFileURL)
                 } catch {
-                    AppSingleton.log.error("Error while removing temp file \(tempURL.path): \(error)")
+                    Swift.print("Error while removing temp file \(tempURL.path): \(error)")
                     return nil
                 }
             }
@@ -172,7 +172,7 @@ extension BrowserHistoryFetcher {
                     try fileManager.copyItem(at: dbPathURL, to: tempDataFileURL)
                     //AppSingleton.log.debug("file created")
                 } catch {
-                    AppSingleton.log.error("Error while copying file \(dbPathURL.path): \(error)")
+                    Swift.print("Error while copying file \(dbPathURL.path): \(error)")
                 }
             }
         }
@@ -205,7 +205,7 @@ extension BrowserHistoryFetcher {
                     try AppSingleton.fileManager.removeItem(atPath: filePath)
                     //AppSingleton.log.debug("succesfully removed")
                 } catch {
-                    AppSingleton.log.error("Something went wrong while removing old database \(filePath): \(error)")
+                    Swift.print("Something went wrong while removing old database \(filePath): \(error)")
                 }
             }
             

@@ -92,12 +92,12 @@ class RecentPlistTracker: RecentDocumentsTracker {
             return nil
         }
         guard let path = abookdict.path else {
-            AppSingleton.log.error("Failed to find path from file: \(filePath.path)")
+            Swift.print("Failed to find path from file: \(filePath.path)")
             return nil
         }
         let docUrl = URL(fileURLWithPath: path)
         let rangeOfLSSharedFileList = filePath.lastPathComponent.range(of: ".LSSharedFileList")
-        let docSource = filePath.lastPathComponent.substring(to: rangeOfLSSharedFileList!.lowerBound)
+        let docSource = String(filePath.lastPathComponent[..<rangeOfLSSharedFileList!.lowerBound])
         let location = LocationSingleton.getCurrentLocation()
         return RecentDocItem(lastAccessDate: date, path: docUrl.path, location: location, mime: docUrl.getMime()!, source: docSource)
     }
@@ -120,12 +120,12 @@ class RecentPlistTracker: RecentDocumentsTracker {
                         retVal.append((sfl, fileDate))
                     }
                 } catch let error as NSError {
-                      AppSingleton.log.error("Error while reading modification date: \(error)")
+                      Swift.print("Error while reading modification date: \(error)")
                 }
                 
             }
         } catch let error {
-            AppSingleton.log.error("Error while reading preferences: \(error)")
+            Swift.print("Error while reading preferences: \(error)")
         }
         
         return retVal

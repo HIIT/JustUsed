@@ -96,7 +96,7 @@ class DiMeSession {
     static func fetch_sync(urlString: String) -> (json: JSON?, error: Error?) {
         
         guard !Thread.isMainThread else {
-            AppSingleton.log.error("Called from main thread, exiting")
+            Swift.print("Called from main thread, exiting")
             return (nil, RESTError.waitOnMain)
         }
         
@@ -121,7 +121,7 @@ class DiMeSession {
         }.resume()
         
         if dGroup.wait(timeout: DispatchTime.now() + 10.0) == .timedOut {
-            AppSingleton.log.error("Synchronous request fetch timeout")
+            Swift.print("Synchronous request fetch timeout")
         }
         
         return retVal
@@ -143,7 +143,7 @@ class DiMeSession {
             DiMeSession.sharedSession.dataTask(with: urlRequest) {
                 data, _, error in
                 if let error = error {
-                    AppSingleton.log.error("Error while uploading json: \(error)")
+                    Swift.print("Error while uploading json: \(error)")
                     callback(nil, error)
                 } else if let data = data {
                     callback(JSON(data: data), nil)
@@ -152,7 +152,7 @@ class DiMeSession {
                 }
             }.resume()
         } catch {
-            AppSingleton.log.error("Failed to convert to json: \(error)")
+            Swift.print("Failed to convert to json: \(error)")
         }
     }
     
@@ -162,7 +162,7 @@ class DiMeSession {
     @discardableResult
     static func delete_sync(urlString: String) -> Error? {
         guard !Thread.isMainThread else {
-            AppSingleton.log.error("Called from main thread, exiting")
+            Swift.print("Called from main thread, exiting")
             return RESTError.waitOnMain
         }
 
@@ -188,14 +188,14 @@ class DiMeSession {
                         returnedError = RESTError.dimeError("Code \(httpResponse.statusCode)")
                     }
                 } else {
-                    AppSingleton.log.error("Failed to convert url response to http url response")
+                    Swift.print("Failed to convert url response to http url response")
                 }
             }
             dGroup.leave()
         }.resume()
         
         if dGroup.wait(timeout: DispatchTime.now() + 10.0) == .timedOut {
-            AppSingleton.log.error("Synchronous request fetch timeout")
+            Swift.print("Synchronous request fetch timeout")
         }
         
         return returnedError
@@ -216,13 +216,13 @@ class DiMeSession {
                 var returnedError: Error? = nil
                 // connection failed
                 if let error = error {
-                    AppSingleton.log.error("Error while connecting to (pinging) DiMe. Error message:\n\(error)")
+                    Swift.print("Error while connecting to (pinging) DiMe. Error message:\n\(error)")
                     returnedError = error
                 } else if let jsonError = json?["error"].string {
-                   AppSingleton.log.error("DiMe Connection error: \(jsonError)")
+                   Swift.print("DiMe Connection error: \(jsonError)")
                     returnedError = RESTError.dimeError(jsonError)
                 } else {
-                    AppSingleton.log.error("Error while connecting to (pinging) DiMe. No error returned.")
+                    Swift.print("Error while connecting to (pinging) DiMe. No error returned.")
                 }
                 callback?(false, returnedError)
                 dimeAvailable = false

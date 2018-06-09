@@ -53,7 +53,7 @@ class HistoryManager: NSObject {
     }
     
     /// Callback for connection timer
-    func connectionTimerCheck(_ aTimer: Timer) {
+    @objc func connectionTimerCheck(_ aTimer: Timer) {
         if !HistoryManager.forceDisconnect {
             DiMeSession.dimeConnect()
         }

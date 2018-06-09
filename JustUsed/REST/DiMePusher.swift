@@ -64,9 +64,9 @@ class DiMePusher {
                 json, _ in
                 if let json = json {
                     if let error = json["error"].string {
-                        AppSingleton.log.error("DiMe reply to submission contains error:\n\(error)")
+                        Swift.print("DiMe reply to submission contains error:\n\(error)")
                         if let message = json["message"].string {
-                            AppSingleton.log.error("DiMe's error message:\n\(message)")
+                            Swift.print("DiMe's error message:\n\(message)")
                         }
                         callback?(false, nil)
                     } else {
@@ -76,7 +76,7 @@ class DiMePusher {
                 }
             }
         } catch {
-            AppSingleton.log.error("Error while serializing json - no data sent:\n\(error)")
+            Swift.print("Error while serializing json - no data sent:\n\(error)")
             callback?(false, nil)
         }
             

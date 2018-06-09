@@ -59,11 +59,11 @@ class DocumentInformationElement: DiMeBase {
         // attempt to fetch plain text from url
         if let url = URL(string: histItem.url), let urlData = try? Data(contentsOf: url) {
             do {
-                let atString = try NSAttributedString(data: urlData, options: [NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType,  NSCharacterEncodingDocumentAttribute: String.Encoding.utf8.rawValue], documentAttributes: nil)
+                let atString = try NSAttributedString(data: urlData, options: [.documentType: NSAttributedString.DocumentType.html,  .characterEncoding: String.Encoding.utf8.rawValue], documentAttributes: nil)
                 theDictionary["plainTextContent"] = atString.string
                 theDictionary["contentHash"] = atString.string.sha1()
             } catch {
-                AppSingleton.log.warning("Failed to convert url contents to string: \(error)")
+                Swift.print("Failed to convert url contents to string: \(error)")
             }
         }
         
@@ -88,7 +88,7 @@ class DocumentInformationElement: DiMeBase {
                 theDictionary["plainTextContent"] = plainTextString as AnyObject
             } catch (let exception) {
                 id = histItem.path.sha1()
-                AppSingleton.log.error("Error while fetching plain text from \(histItem.path): \(exception)")
+                Swift.print("Error while fetching plain text from \(histItem.path): \(exception)")
             }
         } else if mt == "application/pdf" {
             // attempt to fetch plain text from pdf
@@ -134,7 +134,7 @@ class DocumentInformationElement: DiMeBase {
                 theDictionary["booktitle"] = subj as AnyObject
             }
             if let auths = json["message"]["author"].array {
-                theDictionary["authors"] = auths.flatMap({Person(fromCrossRef: $0)?.getDict()})
+                theDictionary["authors"] = auths.compactMap({Person(fromCrossRef: $0)?.getDict()})
             }
             if let doi = json["message"]["DOI"].string {
                 theDictionary["doi"] = doi as AnyObject

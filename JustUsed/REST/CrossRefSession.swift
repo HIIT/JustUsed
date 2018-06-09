@@ -31,7 +31,7 @@ class CrossRefSession {
     /// (nil if failed)
     static func fetch(doi: String, callback: @escaping (JSON?) -> Void) {
         guard let url = URL(string: "http://api.crossref.org/works/\(doi)") else {
-            AppSingleton.log.error("Error while creating crossref url")
+            Swift.print("Error while creating crossref url")
             callback(nil)
             return
         }
@@ -42,7 +42,7 @@ class CrossRefSession {
                 callback(JSON(data: data))
             } else {
                 callback(nil)
-                AppSingleton.log.error("Failed to fetch crossref data for \(doi): \(error!)")
+                Swift.print("Failed to fetch crossref data for \(doi): \(error!)")
             }
         }.resume()
     }

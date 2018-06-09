@@ -31,7 +31,7 @@ class SpotlightDocumentTracker: RecentDocumentsTracker {
     /// Won't re-add a last used item if it is already used within the last x seconds
     let kMinSeconds = JustUsedConstants.kSpotlightMinSeconds
     
-    dynamic var query: NSMetadataQuery?
+    @objc dynamic var query: NSMetadataQuery?
     
     /// Stores all recent documents found. Items are stored in order, so item 0 in this list correponds to the first item found after starting the application
     fileprivate var allItems = [RecentDocItem]()

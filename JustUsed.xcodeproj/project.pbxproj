@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		A90E8A1F1EB0CB52009A860E /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = A90E8A1E1EB0CB52009A860E /* SwiftyJSON.swift */; };
-		A90E8A3F1EB0CDA1009A860E /* XCGLogger.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A90E8A321EB0CD41009A860E /* XCGLogger.framework */; };
 		A90E8A4F1EB0DBCB009A860E /* CrossRefSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = A90E8A4B1EB0DBCB009A860E /* CrossRefSession.swift */; };
 		A90E8A511EB0DBCB009A860E /* DiMePusher.swift in Sources */ = {isa = PBXBuildFile; fileRef = A90E8A4D1EB0DBCB009A860E /* DiMePusher.swift */; };
 		A90E8A521EB0DBCB009A860E /* DiMeSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = A90E8A4E1EB0DBCB009A860E /* DiMeSession.swift */; };
@@ -52,62 +51,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		A90E8A2F1EB0CD41009A860E /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = A90E8A241EB0CD41009A860E /* XCGLogger.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 55E3EE4519D76F280068C3A7;
-			remoteInfo = "XCGLogger (iOS)";
-		};
-		A90E8A311EB0CD41009A860E /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = A90E8A241EB0CD41009A860E /* XCGLogger.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 554DF41719D76FE7005708BE;
-			remoteInfo = "XCGLogger (OS X)";
-		};
-		A90E8A331EB0CD41009A860E /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = A90E8A241EB0CD41009A860E /* XCGLogger.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 70CB94201B99E728007802FF;
-			remoteInfo = "XCGLogger (watchOS)";
-		};
-		A90E8A351EB0CD41009A860E /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = A90E8A241EB0CD41009A860E /* XCGLogger.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 5515A3DF1BA119FA0047BA31;
-			remoteInfo = "XCGLogger (tvOS)";
-		};
-		A90E8A371EB0CD41009A860E /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = A90E8A241EB0CD41009A860E /* XCGLogger.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 55E3EE5019D76F280068C3A7;
-			remoteInfo = XCGLoggerTests_iOS;
-		};
-		A90E8A391EB0CD41009A860E /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = A90E8A241EB0CD41009A860E /* XCGLogger.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 55BB1F011B79DC7500709779;
-			remoteInfo = XCGLoggerTests_OSX;
-		};
-		A90E8A3B1EB0CD41009A860E /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = A90E8A241EB0CD41009A860E /* XCGLogger.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 558EEB851D6BAC61006A9C7A;
-			remoteInfo = XCGLoggerTests_watchOS;
-		};
-		A90E8A3D1EB0CD41009A860E /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = A90E8A241EB0CD41009A860E /* XCGLogger.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 558EEB921D6BAC66006A9C7A;
-			remoteInfo = XCGLoggerTests_tvOS;
-		};
 		A9438DE21B7A3F0400F1A54B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = A9438DC71B7A3F0300F1A54B /* Project object */;
@@ -132,7 +75,6 @@
 
 /* Begin PBXFileReference section */
 		A90E8A1E1EB0CB52009A860E /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SwiftyJSON.swift; path = SwiftyJSON/Source/SwiftyJSON.swift; sourceTree = SOURCE_ROOT; };
-		A90E8A241EB0CD41009A860E /* XCGLogger.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = XCGLogger.xcodeproj; path = XCGLogger/Sources/XCGLogger.xcodeproj; sourceTree = SOURCE_ROOT; };
 		A90E8A4B1EB0DBCB009A860E /* CrossRefSession.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CrossRefSession.swift; sourceTree = "<group>"; };
 		A90E8A4D1EB0DBCB009A860E /* DiMePusher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiMePusher.swift; sourceTree = "<group>"; };
 		A90E8A4E1EB0DBCB009A860E /* DiMeSession.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiMeSession.swift; sourceTree = "<group>"; };
@@ -191,7 +133,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A90E8A3F1EB0CDA1009A860E /* XCGLogger.framework in Frameworks */,
 				A9D4A2D51B7B9B3400EC1D68 /* libsqlite3.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -206,21 +147,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		A90E8A251EB0CD41009A860E /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				A90E8A301EB0CD41009A860E /* XCGLogger.framework */,
-				A90E8A321EB0CD41009A860E /* XCGLogger.framework */,
-				A90E8A341EB0CD41009A860E /* XCGLogger.framework */,
-				A90E8A361EB0CD41009A860E /* XCGLogger.framework */,
-				A90E8A381EB0CD41009A860E /* XCGLoggerTests_iOS.xctest */,
-				A90E8A3A1EB0CD41009A860E /* XCGLoggerTests (OS X).xctest */,
-				A90E8A3C1EB0CD41009A860E /* XCGLoggerTests_watchOS.xctest */,
-				A90E8A3E1EB0CD41009A860E /* XCGLoggerTests_tvOS.xctest */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		A90E8A4A1EB0DBA4009A860E /* REST */ = {
 			isa = PBXGroup;
 			children = (
@@ -253,7 +179,6 @@
 		A92574521BCF8EC3004866B4 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
-				A90E8A241EB0CD41009A860E /* XCGLogger.xcodeproj */,
 				A92574691BCF9190004866B4 /* fmdb */,
 				A9D4A2D41B7B9B3400EC1D68 /* libsqlite3.dylib */,
 				A90E8A1E1EB0CB52009A860E /* SwiftyJSON.swift */,
@@ -436,17 +361,17 @@
 			attributes = {
 				LastSwiftMigration = 0700;
 				LastSwiftUpdateCheck = 0700;
-				LastUpgradeCheck = 0830;
+				LastUpgradeCheck = 0940;
 				ORGANIZATIONNAME = HIIT;
 				TargetAttributes = {
 					A9438DCE1B7A3F0400F1A54B = {
 						CreatedOnToolsVersion = 6.4;
 						DevelopmentTeam = JYV3R5X7JQ;
-						LastSwiftMigration = 0830;
+						LastSwiftMigration = 0940;
 					};
 					A9438DE01B7A3F0400F1A54B = {
 						CreatedOnToolsVersion = 6.4;
-						LastSwiftMigration = 0830;
+						LastSwiftMigration = 0940;
 						TestTargetID = A9438DCE1B7A3F0400F1A54B;
 					};
 				};
@@ -462,12 +387,6 @@
 			mainGroup = A9438DC61B7A3F0300F1A54B;
 			productRefGroup = A9438DD01B7A3F0400F1A54B /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = A90E8A251EB0CD41009A860E /* Products */;
-					ProjectRef = A90E8A241EB0CD41009A860E /* XCGLogger.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				A9438DCE1B7A3F0400F1A54B /* JustUsed */,
@@ -475,65 +394,6 @@
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		A90E8A301EB0CD41009A860E /* XCGLogger.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = XCGLogger.framework;
-			remoteRef = A90E8A2F1EB0CD41009A860E /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		A90E8A321EB0CD41009A860E /* XCGLogger.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = XCGLogger.framework;
-			remoteRef = A90E8A311EB0CD41009A860E /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		A90E8A341EB0CD41009A860E /* XCGLogger.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = XCGLogger.framework;
-			remoteRef = A90E8A331EB0CD41009A860E /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		A90E8A361EB0CD41009A860E /* XCGLogger.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = XCGLogger.framework;
-			remoteRef = A90E8A351EB0CD41009A860E /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		A90E8A381EB0CD41009A860E /* XCGLoggerTests_iOS.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = XCGLoggerTests_iOS.xctest;
-			remoteRef = A90E8A371EB0CD41009A860E /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		A90E8A3A1EB0CD41009A860E /* XCGLoggerTests (OS X).xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = "XCGLoggerTests (OS X).xctest";
-			remoteRef = A90E8A391EB0CD41009A860E /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		A90E8A3C1EB0CD41009A860E /* XCGLoggerTests_watchOS.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = XCGLoggerTests_watchOS.xctest;
-			remoteRef = A90E8A3B1EB0CD41009A860E /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		A90E8A3E1EB0CD41009A860E /* XCGLoggerTests_tvOS.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = XCGLoggerTests_tvOS.xctest;
-			remoteRef = A90E8A3D1EB0CD41009A860E /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		A9438DCD1B7A3F0400F1A54B /* Resources */ = {
@@ -638,14 +498,22 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -685,14 +553,22 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -732,7 +608,8 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "JustUsed/Utils/JustUsed-Bridging-Header.h";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -752,7 +629,8 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "JustUsed/Utils/JustUsed-Bridging-Header.h";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};
@@ -773,7 +651,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "hiit.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
+				SWIFT_VERSION = 4.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/JustUsed.app/Contents/MacOS/JustUsed";
 			};
 			name = Debug;
@@ -791,7 +670,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "hiit.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
+				SWIFT_VERSION = 4.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/JustUsed.app/Contents/MacOS/JustUsed";
 			};
 			name = Release;

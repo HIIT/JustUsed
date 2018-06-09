@@ -91,7 +91,7 @@ class CalendarEvent: Event {
                                     part.email = (contacts[0].emailAddresses[0].value as String)
                                 }
                             } catch {
-                                AppSingleton.log.error("Error while fetching an individual contact for \(self.name):\n\(error)")
+                                Swift.print("Error while fetching an individual contact for \(self.name):\n\(error)")
                             }
                         }
                     }

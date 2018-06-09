@@ -89,13 +89,13 @@ class ViewController: NSViewController, RecentDocumentUpdateDelegate, BrowserHis
     /// Checks dime status and updates view accordingly
     fileprivate func updateDiMeStatus() {
         if DiMeSession.dimeAvailable {
-            statusImage.image = NSImage(named: "NSStatusAvailable")
+            statusImage.image = NSImage(named: NSImage.Name(rawValue: "NSStatusAvailable"))
             statusButton.tag = kTagDisconnect
             statusButton.title = "Disconnect"
             statusLabel.stringValue = "Connected"
         } else {
             statusLabel.stringValue = "Disconnected"
-            statusImage.image = NSImage(named: "NSStatusUnavailable")
+            statusImage.image = NSImage(named: NSImage.Name(rawValue: "NSStatusUnavailable"))
             statusButton.tag = kTagConnect
             statusButton.title = "Connect"
         }
@@ -116,7 +116,7 @@ class ViewController: NSViewController, RecentDocumentUpdateDelegate, BrowserHis
     }
     
     @IBAction func quitButtonPress(_ sender: NSButton) {
-        let delegate = NSApplication.shared().delegate! as! AppDelegate
+        let delegate = NSApplication.shared.delegate! as! AppDelegate
         delegate.quit()
     }
 }
@@ -141,24 +141,24 @@ class BrowserTrackerDataSource: NSObject, NSTableViewDataSource  {
     
     
     func tableView(_ tableView: NSTableView, objectValueFor tableColumn: NSTableColumn?, row: Int) -> Any? {
-        if tableColumn!.identifier == JustUsedConstants.kBHistoryDate {
+        if tableColumn!.identifier.rawValue == JustUsedConstants.kBHistoryDate {
             let date = allHistory[row].date
             return date.description(with: Locale.current)
-        } else if tableColumn!.identifier == JustUsedConstants.kBHistoryBrowser {
+        } else if tableColumn!.identifier.rawValue == JustUsedConstants.kBHistoryBrowser {
             return allHistory[row].browser.rawValue
-        } else if tableColumn!.identifier == JustUsedConstants.kBHistoryTitle {
+        } else if tableColumn!.identifier.rawValue == JustUsedConstants.kBHistoryTitle {
             if let title = allHistory[row].title {
                 return title
             } else {
                 return ""
             }
-        } else if tableColumn!.identifier == JustUsedConstants.kLocTitle {
+        } else if tableColumn!.identifier.rawValue == JustUsedConstants.kLocTitle {
             if let locString = allHistory[row].location?.descriptionLine {
                 return locString
             } else {
                 return JustUsedConstants.kUnkownLocationString
             }
-        } else if tableColumn!.identifier == JustUsedConstants.kBHistoryExcluded {
+        } else if tableColumn!.identifier.rawValue == JustUsedConstants.kBHistoryExcluded {
             return allHistory[row].excludedFromDiMe ? "Yes" : "No"
         } else {
             return allHistory[row].url
@@ -194,15 +194,15 @@ class RecentDocDataSource: NSObject, NSTableViewDataSource {
     }
     
     func tableView(_ tableView: NSTableView, objectValueFor tableColumn: NSTableColumn?, row: Int) -> Any? {
-        if tableColumn!.identifier == JustUsedConstants.kLastUsedDateTitle {
+        if tableColumn!.identifier.rawValue == JustUsedConstants.kLastUsedDateTitle {
             return lutimes[row]
-        } else if tableColumn!.identifier == JustUsedConstants.kPathTitle {
+        } else if tableColumn!.identifier.rawValue == JustUsedConstants.kPathTitle {
             return lupaths[row]
-        } else if tableColumn!.identifier == JustUsedConstants.kSourceTitle {
+        } else if tableColumn!.identifier.rawValue == JustUsedConstants.kSourceTitle {
             return sources[row]
-        } else if tableColumn!.identifier == JustUsedConstants.kLocTitle {
+        } else if tableColumn!.identifier.rawValue == JustUsedConstants.kLocTitle {
             return locations[row]
-        } else if tableColumn!.identifier == JustUsedConstants.kMimeType {
+        } else if tableColumn!.identifier.rawValue == JustUsedConstants.kMimeType {
             return mimes[row]
         } else {
             return nil

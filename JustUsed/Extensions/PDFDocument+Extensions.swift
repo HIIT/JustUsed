@@ -86,7 +86,7 @@ extension PDFDocument {
         trimmedText = trimmedText!.trimmingCharacters(in: CharacterSet.whitespaces) // get trimmed version of all text
         trimmedText = trimmedText!.trimmingCharacters(in: CharacterSet.newlines) // trim newlines
         trimmedText = trimmedText!.trimmingCharacters(in: CharacterSet.whitespaces) // trim again
-        if trimmedText!.characters.count > 5 {  // we assume the document does contain useful text if there are more than 5 characters remaining
+        if trimmedText!.count > 5 {  // we assume the document does contain useful text if there are more than 5 characters remaining
             return trimmedText
         } else {
             return nil
@@ -96,7 +96,7 @@ extension PDFDocument {
     /// Gets the title from the document metadata, returns nil if not present
     func getTitle() -> String? {
         let docAttrib = documentAttributes
-        if let title: String = docAttrib![PDFDocumentTitleAttribute] as? String , title.trimmed().characters.count > 0 {
+        if let title: String = docAttrib![PDFDocumentAttribute.titleAttribute] as? String , title.trimmed().count > 0 {
             return title.trimmed()
         } else {
             return nil
@@ -106,7 +106,7 @@ extension PDFDocument {
     /// Gets the author(s) from the document metadata, returns nil if not present
     func getAuthor() -> String? {
         let docAttrib = documentAttributes
-        if let author: Any = docAttrib![PDFDocumentAuthorAttribute] {
+        if let author: Any = docAttrib![PDFDocumentAttribute.authorAttribute] {
             return (author as! String)
         } else {
             return nil
@@ -116,7 +116,7 @@ extension PDFDocument {
     /// Gets the subject from the document metadata, returns nil if not present
     func getSubject() -> String? {
         let docAttrib = documentAttributes
-        if let subject: Any = docAttrib![PDFDocumentSubjectAttribute] {
+        if let subject: Any = docAttrib![PDFDocumentAttribute.subjectAttribute] {
             return (subject as! String)
         } else {
             return nil
@@ -126,7 +126,7 @@ extension PDFDocument {
     /// Gets the keywods from the document metadata, returns nil if not present
     func getKeywords() -> String? {
         let docAttrib = documentAttributes
-        if let keywords: Any = docAttrib![PDFDocumentKeywordsAttribute] {
+        if let keywords: Any = docAttrib![PDFDocumentAttribute.keywordsAttribute] {
             // some times keywords are in an array
             // other times keywords are all contained in the first element of the array as a string
             // other times they are a string
@@ -162,7 +162,7 @@ extension PDFDocument {
     func autoCrossref() -> JSON? {
         
         guard !Thread.isMainThread else {
-            AppSingleton.log.error("Attempted to call on the main thread, aborting")
+            Swift.print("Attempted to call on the main thread, aborting")
             return nil
         }
         
@@ -178,8 +178,8 @@ extension PDFDocument {
             let range = pageString.range(of: doiS, options: NSString.CompareOptions.caseInsensitive, range: nil, locale: nil)
             
             if let upperBound = range?.upperBound {
-                let s = pageString.substring(from: upperBound).trimmed()
-                if let doiChunk = s.firstChunk() , doiChunk.characters.count >= 5 {
+                let s = String(pageString[upperBound...]).trimmed()
+                if let doiChunk = s.firstChunk() , doiChunk.count >= 5 {
                     _doi = doiChunk
                     break
                 }
@@ -217,7 +217,7 @@ extension PDFDocument {
         // wait five seconds
         let waitTime = DispatchTime.now() + 5.0
         if sema.wait(timeout: waitTime) == .timedOut {
-            AppSingleton.log.warning("Crossref request timed out")
+            Swift.print("Crossref request timed out")
         }
         
         return foundJson
@@ -232,10 +232,10 @@ extension PDFDocument {
 
         var textInfo = [(size: CGFloat, range: NSRange)]()
 
-        astring!.enumerateAttribute(NSFontAttributeName, in: fullRange, options: NSAttributedString.EnumerationOptions()) {
+        astring!.enumerateAttribute(NSAttributedStringKey.font, in: fullRange, options: NSAttributedString.EnumerationOptions()) {
             obj, range, stop in
             if let font = obj as? NSFont {
-                textInfo.append(size: font.pointSize, range: range)
+                textInfo.append((size: font.pointSize, range: range))
             }
         }
 
@@ -252,25 +252,25 @@ extension PDFDocument {
     
     func setTitle(_ newTitle: String) {
         var docAttrib = documentAttributes
-        docAttrib![PDFDocumentTitleAttribute] = newTitle
+        docAttrib![PDFDocumentAttribute.titleAttribute] = newTitle
         documentAttributes = docAttrib
     }
     
     func setSubject(_ newSubject: String) {
         var docAttrib = documentAttributes
-        docAttrib![PDFDocumentSubjectAttribute] = newSubject
+        docAttrib![PDFDocumentAttribute.subjectAttribute] = newSubject
         documentAttributes = docAttrib
     }
     
     func setAuthor(_ newAuthor: String) {
         var docAttrib = documentAttributes
-        docAttrib![PDFDocumentAuthorAttribute] = newAuthor
+        docAttrib![PDFDocumentAttribute.authorAttribute] = newAuthor
         documentAttributes = docAttrib
     }
     
     func setKeywords(_ newKeywords: String) {
         var docAttrib = documentAttributes
-        docAttrib![PDFDocumentKeywordsAttribute] = newKeywords
+        docAttrib![PDFDocumentAttribute.keywordsAttribute] = newKeywords
         documentAttributes = docAttrib
     }
     
@@ -280,7 +280,7 @@ extension PDFDocument {
      */
     public func getPage(atIndex index: Int) -> PDFPage? {
         if index < 0 || index >= self.pageCount {
-            AppSingleton.log.warning("Attempted to retrieve a page at index \(index), while the document has \(self.pageCount) pages.")
+            Swift.print("Attempted to retrieve a page at index \(index), while the document has \(self.pageCount) pages.")
             return nil
         } else {
             return self.page(at: index)

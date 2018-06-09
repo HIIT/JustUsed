@@ -102,7 +102,7 @@ class Person: DiMeBase {
         guard let fnamesS = json["given"].string, let lname = json["family"].string,
               var fnames = fnamesS.split(" ")
               , fnames.count >= 1 else {
-                AppSingleton.log.warning("Couldn't parse author with dictionary: \(json)")
+                Swift.print("Couldn't parse author with dictionary: \(json)")
                 return nil
         }
         self.firstName = fnames.remove(at: 0)

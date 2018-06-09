@@ -64,7 +64,7 @@ open class CalendarTracker {
                 }
             }
             if let err = error {
-                AppSingleton.log.error("Error while asking permission to access calendars:\n\(err)")
+                Swift.print("Error while asking permission to access calendars:\n\(err)")
             }
         }
     }

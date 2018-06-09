@@ -25,7 +25,7 @@
 import Foundation
 import Cocoa
 import Contacts
-import XCGLogger
+import os.log
 
 class AppSingleton {
     /// Returns true if OS X version is greater than 10.10
@@ -38,32 +38,10 @@ class AppSingleton {
     /// el capitan and above).
     static fileprivate(set) var contactStore: AnyObject? = AppSingleton.initiateContactsRequest()
     
-    static let log = AppSingleton.createLog()
     static fileprivate(set) var logsURL: URL?
     
     /// Ref to filemanager for convenience
     static let fileManager = FileManager.default
-    
-    static func createLog() -> XCGLogger {
-        let dateFormat = "Y'-'MM'-'d'T'HH':'mm':'ssZ"  // date format for string appended to log
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = dateFormat
-        let appString = dateFormatter.string(from: Date())
-        
-        var firstLine: String = "Log directory succesfully created / present"
-        let tempURL = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(Bundle.main.bundleIdentifier!)
-        do {
-            try FileManager.default.createDirectory(at: tempURL, withIntermediateDirectories: true, attributes: nil)
-        } catch {
-            firstLine = "Error creating log directory: \(error)"
-        }
-        AppSingleton.logsURL = tempURL
-        let logFilePath = tempURL.appendingPathComponent("XCGLog_\(appString).log")
-        let newLog = XCGLogger.default
-        newLog.setup(level: .debug, showThreadName: true, showLevel: true, showFileNames: true, showLineNumbers: true, writeToFile: logFilePath, fileLevel: .debug)
-        newLog.debug(firstLine)
-        return newLog
-    }
     
     /// Returns true if we are on el capitan (or another supported platform)
     /// and we can access the user's contacts
@@ -73,7 +51,7 @@ class AppSingleton {
             store.requestAccess(for: .contacts) {
                 granted, error in
                 if let err = error {
-                    AppSingleton.log.error("Error while accessing contact store:\n\(err)")
+                    Swift.print("Error while accessing contact store:\n\(err)")
                 }
             }
             return store

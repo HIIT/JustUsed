@@ -134,7 +134,7 @@ class FirefoxHistoryFetcher: BrowserHistoryFetcher {
                     }
                 }
             } catch {
-                AppSingleton.log.error("Failed to fetch information for \(elURL.path)")
+                Swift.print("Failed to fetch information for \(elURL.path)")
             }
         }
         return newestURL
