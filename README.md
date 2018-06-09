@@ -47,15 +47,7 @@ Safari keeps history in SQLite database files in ```~/Library/Safari/History.db*
 
 Chrome and Firefox are also tracked in a similar way.
 
-# Additional software
-
-## Git submodules
-
-The following GitHub projects are linked as git submodules.
-
-[Alamofire version 3.3.0](https://github.com/Alamofire/Alamofire/releases/tag/3.3.0) - For easier DiMe API calls. The correct version should be already checked out as a submodule. `git status` in the Alamofire subfolder should return `HEAD detached at 268a22b`. (In case the Alamofire submodule was not cloned, do `git submodule init` followed by `git submodule update` in the JustUsed folder).
-
-## Embedded
+## Embedded sources
 
 The following GitHub projects are incorporated into JustUsed (no additional download needed). Both were released under the MIT license.
 
