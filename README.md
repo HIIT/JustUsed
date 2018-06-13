@@ -1,5 +1,20 @@
 # JustUsed
 
+<p align="center">
+  <a href="https://swift.org" target="_blank">
+    <img src="https://img.shields.io/badge/swift-4.1-brightgreen.svg" alt="Swift 4.1">
+  </a>
+  <a href="https://travis-ci.org/MarcoFiletti/JustUsed" target="_blank">
+    <img src="https://travis-ci.org/MarcoFiletti/JustUsed.svg" alt="Build status">
+  </a>
+  <a href="https://developer.apple.com/swift/" target="_blank">
+    <img src="https://img.shields.io/badge/Platform-macOS-lightgray.svg" alt="For macOS">
+  </a>
+  <a href="LICENSE">
+    <img src="https://img.shields.io/badge/license-MIT-brightgreen.svg" alt="MIT License">
+  </a>
+</p>
+
 JustUsed is the codename for DiMe's Mac Desktop Tracker. DiMe (DigitalMe) (part of the [Re:Know project](http://www.reknow.fi)), is a platform aimed at collecting user data, for the user, under full control of the user. More information, including DiMe's source code, can be found here: http://hiit.github.io/dime-server/.
 
 ## Tracking
