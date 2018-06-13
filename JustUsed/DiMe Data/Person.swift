@@ -27,6 +27,10 @@ import Foundation
 /// A person is represented by this struct (not a class)
 class Person: DiMeBase {
     
+    override var hashValue: Int { get {
+        return firstName.hashValue ^ lastName.hashValue ^ (email ?? "N/A").hashValue
+    } }
+    
     var firstName: String = "N/A"
     var lastName: String = "N/A"
     var middleNames: [String] = [String]()

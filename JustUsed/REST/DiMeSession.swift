@@ -81,7 +81,7 @@ class DiMeSession {
         DiMeSession.sharedSession.dataTask(with: url) {
             data, response, error in
             if let data = data, error == nil {
-                callback(JSON(data: data), nil)
+                callback(try? JSON(data: data), nil)
             } else if let error = error {
                 callback(nil, error)
             } else {
@@ -111,7 +111,7 @@ class DiMeSession {
         DiMeSession.sharedSession.dataTask(with: url) {
             data, response, error in
             if let data = data, error == nil {
-                retVal = (JSON(data: data), nil)
+                retVal = (try? JSON(data: data), nil)
             } else if let error = error {
                 retVal = (nil, error)
             } else {
@@ -146,7 +146,7 @@ class DiMeSession {
                     Swift.print("Error while uploading json: \(error)")
                     callback(nil, error)
                 } else if let data = data {
-                    callback(JSON(data: data), nil)
+                    callback(try? JSON(data: data), nil)
                 } else {
                     callback(nil, nil)
                 }

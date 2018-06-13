@@ -50,7 +50,7 @@ class CalendarEvent: Event {
             outH ^= not.hashValue
         }
         for p in participants {
-            outH ^= p.hash
+            outH ^= p.hashValue
         }
         return outH
     } }
